@@ -17,8 +17,7 @@ import verifyForgotOtp from "./controller/verifyForgotOtp.js";
 import resetPassword from "./controller/resetPassword.js";
 import resendOtp from "./controller/resendOtp.js";
 const app = express()
-// const PORT = process.env.PORT || 3000
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 3000
 
 app.use(cors({
     origin: "http://localhost:5173",
