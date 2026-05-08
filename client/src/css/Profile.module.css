@@ -1,0 +1,332 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+.dropdownWrapper {
+    font-family: 'Sora', sans-serif;
+    position: relative;
+    display: inline-block;
+    
+}
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    /* modern dark overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: overlayFade 0.2s ease-out;
+}
+.Link{
+    text-decoration: none;
+}
+
+/* ── Trigger Button ── */
+.triggerBtn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 14px 7px 7px;
+    background: #fff;
+    /* border: 1.5px solid #e8e3ff; */
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    /* box-shadow: 0 2px 8px rgba(99, 85, 255, 0.08); */
+}
+
+/* .triggerBtn:hover {
+    border-color: #b09fff;
+    border-color: #52e9d8;
+    box-shadow: 0 4px 16px rgba(99, 85, 255, 0.15);
+    box-shadow: 0 4px 16px rgba(130, 252, 238, 0.35);
+} */
+
+.triggerAvatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    /* background: linear-gradient(135deg, #f472b6, #e879f9); */
+    background: linear-gradient(135deg, #14b8a6, #06b6d4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.triggerName {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e1b4b;
+}
+
+.triggerChevron {
+    color: #9ca3af;
+    transition: transform 0.25s ease;
+    display: flex;
+}
+
+.triggerChevron.open {
+    transform: rotate(180deg);
+}
+
+/* ── Dropdown Card ── */
+.dropdownCard {
+    position: absolute;
+    top: calc(80% + 5px);
+    right: 40px;
+    width: 300px;
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid #ede9fe;
+    box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.03),
+        0 12px 40px rgba(99, 85, 255, 0.12),
+        0 0 0 0.5px rgba(139, 92, 246, 0.08);
+    overflow: hidden;
+    animation: dropIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: top right;
+    z-index: 100;
+}
+
+@keyframes dropIn {
+    from {
+        opacity: 0;
+        transform: scale(0.94) translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* ── Profile Header ── */
+.profileHeader {
+    padding: 20px 20px 16px;
+    /* background: linear-gradient(135deg, #faf5ff 0%, #ede9fe 100%); */
+    background-color: #f0f9f7;
+    border-bottom: 1px solid #ede9fe;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.profileAvatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    /* background: linear-gradient(135deg, #f472b6, #e879f9); */
+    background: linear-gradient(135deg, #14b8a6, #06b6d4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+    /* box-shadow: 0 4px 12px rgba(244, 114, 182, 0.4); */
+    box-shadow: 0 4px 12px rgba(20, 184, 166, 0.35);
+    position: relative;
+}
+
+.onlineDot {
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #22c55e;
+    border: 2px solid #fff;
+}
+
+.profileInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.profileName {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e1b4b;
+    letter-spacing: -0.3px;
+}
+
+.profileEmail {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #7c6fcd;
+    margin-top: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.profileBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #fff;
+    border: 1px solid #e9d5ff;
+    color: #7c3aed;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    margin-top: 6px;
+    letter-spacing: 0.3px;
+}
+
+/* ── Menu Section ── */
+.menuSection {
+    padding: 8px;
+}
+
+.menuDivider {
+    height: 1px;
+    background: #f3f0ff;
+    margin: 4px 8px;
+}
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    font-family: 'Sora', sans-serif;
+}
+
+.menuItem:hover {
+    background: #f5f3ff;
+}
+
+.menuItem:hover .menuIconWrap {
+    transform: scale(1.08);
+}
+
+.menuItem:hover .menuLabel {
+    color: #4f46e5;
+}
+
+.menuIconWrap {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.15s ease;
+}
+
+.iconPurple {
+    background: #f0ebff;
+}
+
+.iconBlue {
+    background: #eff6ff;
+}
+
+.iconGreen {
+    background: #f0fdf4;
+}
+
+.iconRose {
+    background: #fff1f2;
+}
+
+.iconAmber {
+    background: #fffbeb;
+}
+
+.menuText {
+    flex: 1;
+}
+
+.menuLabel {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e1b4b;
+    transition: color 0.15s;
+    
+}
+
+.menuSub {
+    font-size: 11px;
+    color: #9ca3af;
+    margin-top: 1px;
+}
+
+.menuArrow {
+    color: #d1d5db;
+    transition: transform 0.15s, color 0.15s;
+}
+
+.menuItem:hover .menuArrow {
+    color: #a78bfa;
+    transform: translateX(2px);
+}
+
+/* Sign out row */
+.menuItem.signout:hover {
+    background: #fff1f2;
+}
+
+.menuItem.signout:hover .menuLabel {
+    color: #ef4444;
+}
+
+.menuItem.signout:hover .menuArrow {
+    color: #fca5a5;
+}
+
+/* ── Footer ── */
+.dropdownFooter {
+    padding: 12px 20px;
+    background: #fafafa;
+    border-top: 1px solid #f3f0ff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footerBrand {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #9ca3af;
+}
+
+.footerSecure {
+    font-size: 10px;
+    color: #c4b5fd;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Demo wrapper */
+.demoPage {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0effe 0%, #fdf4ff 100%);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 24px 32px;
+    font-family: 'Sora', sans-serif;
+}

@@ -1,0 +1,411 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --indigo: #4f46e5;
+    --violet: #7c3aed;
+    --pink: #e879f9;
+    --soft-bg: #f5f3ff;
+    --border: #ede9fe;
+    --text-1: #1e1b4b;
+    --text-2: #6b7280;
+    --text-3: #9ca3af;
+    --white: #ffffff;
+    --success: #22c55e;
+    --error: #ef4444;
+    --radius-xl: 24px;
+    --radius-lg: 16px;
+    --radius-md: 12px;
+    --text-1: #1e1b4b;
+    --text-2: #6b7280;
+    --text-3: #9ca3af;
+    --white: #ffffff;
+    --success: #22c55e;
+    --error: #ef4444;
+    --warning: #f59e0b;
+    --rx: 22px;
+    --rm: 12px;
+}
+
+/* ************************************* SIGN UP CODE ********************************** */
+.modalOverlay {
+    font-family: 'Sora', sans-serif;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    /* modern dark overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Modal Box - modern card UI */
+.modalBox {
+    background: #ffffff;
+    padding: 32px 40px;
+    border-radius: 16px;
+    max-width: 500px;
+    width: 100%;
+    position: relative;
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.08),
+        0 20px 50px rgba(0, 0, 0, 0.12);
+    /* ⭐ smooth entrance */
+    animation: popIn 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
+    /* 🔥 GPU boost */
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96) translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.cardHeader {
+    padding: 20px 32px 16px;
+    text-align: center;
+}
+
+/* Close button */
+.closeBtn {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    border: none;
+    background: #f1f5f9;
+    color: #64748b;
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.closeBtn:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.headerIconWrap {
+    width: 62px;
+    height: 62px;
+    border-radius: 18px;
+    background:linear-gradient(135deg, #e0f2fe, #ccfbf1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    box-shadow: 0 4px 18px rgba(14, 165, 233, 0.18);
+    position: relative;
+}
+
+.iconPulse {
+    position: absolute;
+    inset: -6px;
+    border-radius: 24px;
+    border: 2px solid rgba(14, 165, 233, 0.18);
+    animation: pulse 2.2s ease infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.07);
+        opacity: 0.45;
+    }
+}
+
+.closeBtn {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.headerTitle {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-1);
+    letter-spacing: -0.5px;
+}
+
+.headerTitle span {
+    background: linear-gradient(135deg, #14b8a6, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.headerSub {
+    font-size: 13px;
+    color: var(--text-3);
+    margin-top: 8px;
+    line-height: 1.65;
+    font-weight: 500;
+}
+
+/* ── Body ── */
+
+.cardBody {
+    padding: 16px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.fieldGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.fieldLabel {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-2);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.inputWrap {
+    position: relative;
+}
+
+.inputIcon {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-3);
+    pointer-events: none;
+    display: flex;
+    transition: color 0.18s;
+}
+
+.inputWrap:focus-within .inputIcon {
+    color: #14b8a6;
+}
+
+.fieldInput {
+    width: 100%;
+    padding: 12px 14px 12px 40px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--rm);
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    color: var(--text-1);
+    background: #fafafe;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.fieldInput::placeholder {
+    color: #d1d5db;
+}
+
+.fieldInput:focus {
+    border-color: #14b8a6;
+    background: var(--white);
+    box-shadow: 0 0 3px rgba(20, 184, 166, 0.35);
+}
+
+.fieldInput.hasError {
+    border-color: var(--error);
+}
+
+.fieldInput.hasError:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.fieldInput.hasSuccess {
+    border-color: var(--success);
+}
+
+.fieldError {
+    font-size: 11px;
+    color: var(--error);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* ── Footer ── */
+
+.cardFooter {
+    padding: 4px 32px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.primaryBtn {
+    width: 100%;
+    padding: 14px;
+    border-radius: var(--rm);
+    background: linear-gradient(135deg, #14b8a6, #06b6d4);
+    color: var(--white);
+    border: none;
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 6px 20px rgba(20, 184, 166, 0.35);
+    letter-spacing: -0.2px;
+}
+
+.primaryBtn:hover:not(:disabled) {
+    opacity: 0.91;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 28px rgba(20, 184, 166, 0.35);
+}
+
+.primaryBtn:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.primaryBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.ghostBtn {
+    width: 100%;
+    padding: 12px;
+    border-radius: var(--rm);
+    background-color: #f0f9f7;
+    border: 1.5px solid var(--border);
+    color: var(--text-2);
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.ghostBtn:hover {
+    /* background: #ede9fe; */
+    background-color: #e5f8f5;
+    border-color: #14b8a6;
+    color: #14b8a6;
+}
+
+.spinner {
+    width: 17px;
+    height: 17px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    flex-shrink: 0;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+@media (max-width: 430px) {
+
+  /* Overlay */
+  .modalOverlay {
+    padding: 25px;
+    align-items: center; 
+  }
+
+  /* Modal box full width */
+  .modalBox {
+    /* max-width: 100%; */
+    /* width: 100%; */
+    padding: 18px;
+    animation: popIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Header */
+  .cardHeader {
+    padding: 16px 12px;
+  }
+
+  .headerIconWrap {
+    width: 52px;
+    height: 52px;
+  }
+
+  .headerTitle {
+    font-size: 18px;
+  }
+
+  .headerSub {
+    font-size: 12px;
+  }
+
+  /* Body */
+  .cardBody {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .fieldLabel {
+    font-size: 10px;
+  }
+
+  .fieldInput {
+    font-size: 12px;
+    padding: 11px 12px 11px 38px;
+  }
+
+  /* Footer */
+  .cardFooter {
+    padding: 10px 12px 16px;
+    gap: 8px;
+  }
+
+  .primaryBtn,
+  .ghostBtn {
+    font-size: 13px;
+    padding: 12px;
+  }
+
+  /* Close button fix */
+  .closeBtn {
+    top: 10px;
+    right: 10px;
+    font-size: 14px;
+  }
+}
