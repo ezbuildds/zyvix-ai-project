@@ -1,5 +1,7 @@
+
 import nodemailer from "nodemailer"
 import "dotenv/config"
+import article from "./services/aiService/article.js";
 export default async function verificationEmail(otp, email) {
     try {
         const transpoter = nodemailer.createTransport({
