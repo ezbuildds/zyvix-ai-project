@@ -5,12 +5,10 @@ import morgan from "morgan";
 import "dotenv/config"
 import dbConnection from "./config/database.js";
 import signup from "./controller/signUp.js";
-import verifyOtp from "./controller/verifySignupOtp.js";
 import profile from "./controller/profile.js";
 import authMiddleware from "./middlewares/authMiddleware.js";
 import login from "./controller/login.js";
 import logout from "./controller/logout.js";
-import forgot from "./controller/forgotPassword.js";
 import verifySignupOtp from "./controller/verifySignupOtp.js";
 import forgotPassword from "./controller/forgotPassword.js";
 import verifyForgotOtp from "./controller/verifyForgotOtp.js";
@@ -32,12 +30,6 @@ app.get("/", async (req, res) => {
     const data = await db.collection("users").find().toArray()
     res.send(data)
 })
-// app.post("/api/users/signup", signup)
-// app.post("/api/users/verify-otp", verifyOtp)
-// app.post("/api/users/login", login)
-// app.post("/api/users/logout", logout)
-// app.post("/api/users/forgot", forgot)
-// app.get("/api/users/profile", authMiddleware, profile)
 app.post("/api/auth/signup", signup)
 app.post("/api/auth/signup/verify-otp", verifySignupOtp)
 app.post("/api/auth/signup/resend-otp", resendOtp)
