@@ -44,6 +44,7 @@ app.post("/api/auth/password/reset", resetPassword)
 
 app.get("/api/users/profile", authMiddleware, profile)
 
+// #Services Api
 app.post("/api/generate-article", article)
 
 app.listen(PORT, () => {

@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styles from "../../css/Article.module.css";
 import Sidebar from "./Sidebar";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 import { LogoIcon } from "../Profile/Icons/Icon";
 const lengths = [
     { label: "Short (500-800 words)", value: "short", prompt: "Write a short article of around 500-800 words" },
@@ -39,8 +41,11 @@ export default function Article() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [copied, setCopied] = useState(false);
+    const articleRef = useRef(null);
 
+    const BASE_URL = import.meta.env.VITE_BASE_URL
     const wordCount = article ? article.split(/\s+/).filter(Boolean).length : 0;
+
 
     const generate = async () => {
         if (!topic.trim()) return;
@@ -49,28 +54,21 @@ export default function Article() {
         setArticle("");
 
         const selectedLength = lengths.find(l => l.value === length);
-
+        const wordCountMap = { short: 650, medium: 1000, long: 1400 };
         try {
-            const res = await fetch("https://api.anthropic.com/v1/messages", {
+            const res = await fetch(`${BASE_URL}/api/generate-article`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
+                credentials: "include",
                 body: JSON.stringify({
-                    model: "claude-sonnet-4-20250514",
-                    max_tokens: 1800,
-                    messages: [{
-                        role: "user",
-                        content: `${selectedLength.prompt} about the following topic in a ${tone} tone. Use proper headings (##), subheadings (###), and well-structured paragraphs. Make it engaging and high quality.
-
-Topic: ${topic}
-
-Return only the article content, no preamble.`
-                    }]
+                    prompt: `${topic}`,
+                    length: wordCountMap[selectedLength.value],
+                    tone: tone,
                 })
             });
-
             const data = await res.json();
-            if (data?.content?.[0]?.text) {
-                setArticle(data.content[0].text);
+            if (data?.success && data?.content) {
+                setArticle(data.content);
             } else {
                 setError("Could not generate article. Please try again.");
             }
@@ -87,12 +85,87 @@ Return only the article content, no preamble.`
         setTimeout(() => setCopied(false), 2000);
     };
 
-    const downloadTxt = () => {
-        const blob = new Blob([article], { type: "text/plain" });
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = `article-${Date.now()}.txt`;
-        a.click();
+    // const downloadTxt = () => {
+    //     const blob = new Blob([article], { type: "text/plain" });
+    //     const a = document.createElement("a");
+    //     a.href = URL.createObjectURL(blob);
+    //     a.download = `article-${Date.now()}.txt`;
+    //     a.click();
+    // };
+
+    const downloadPDF = async () => {
+        if (!article) return;
+        const { default: jsPDF } = await import("jspdf");
+        const pdf = new jsPDF({
+            orientation: "portrait",
+            unit: "mm",
+            format: "a4",
+        });
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const margin = 15;
+        const contentWidth = pageWidth - margin * 2;
+        let y = margin; // current Y position
+        const addText = (text, fontSize, isBold = false, color = [30, 30, 30], lineHeightMul = 1.5) => {
+            pdf.setFontSize(fontSize);
+            pdf.setFont("helvetica", isBold ? "bold" : "normal");
+            pdf.setTextColor(...color);
+            const lines = pdf.splitTextToSize(text, contentWidth);
+            const lineHeight = (fontSize * 0.352778) * lineHeightMul; // pt to mm
+            lines.forEach(line => {
+                if (y + lineHeight > pageHeight - margin) {
+                    pdf.addPage();
+                    y = margin;
+                }
+                pdf.text(line, margin, y);
+                y += lineHeight;
+            });
+            y += lineHeight * 0.4;
+        };
+        const lines = article.split("\n");
+        lines.forEach(line => {
+            const trimmed = line.trim();
+            if (!trimmed) {
+                y += 3;
+                return;
+            }
+            if (trimmed.startsWith("### ")) {
+                y += 2;
+                addText(trimmed.replace("### ", ""), 13, true, [20, 20, 20]);
+            } else if (trimmed.startsWith("## ")) {
+                y += 4;
+                addText(trimmed.replace("## ", ""), 16, true, [10, 10, 10]);
+            } else if (trimmed.startsWith("# ")) {
+                y += 4;
+                addText(trimmed.replace("# ", ""), 20, true, [0, 0, 0]);
+                pdf.setDrawColor(100, 100, 100);
+                pdf.setLineWidth(0.4);
+                pdf.line(margin, y, pageWidth - margin, y);
+                y += 5;
+            } else if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
+                const bulletText = "•  " + trimmed.replace(/^[-*] /, "");
+                addText(bulletText, 11, false, [50, 50, 50]);
+            } else if (trimmed.startsWith("**") && trimmed.endsWith("**")) {
+                addText(trimmed.replace(/\*\*/g, ""), 11, true, [30, 30, 30]);
+            } else {
+                const cleaned = trimmed.replace(/\*\*(.*?)\*\*/g, "$1").replace(/\*(.*?)\*/g, "$1");
+                addText(cleaned, 11, false, [50, 50, 50]);
+            }
+        });
+        const totalPages = pdf.internal.getNumberOfPages();
+        for (let i = 1; i <= totalPages; i++) {
+            pdf.setPage(i);
+            pdf.setFontSize(9);
+            pdf.setTextColor(150, 150, 150);
+            pdf.text(
+                `Page ${i} of ${totalPages}`,
+                pageWidth / 2,
+                pageHeight - 8,
+                { align: "center" }
+            );
+        }
+        const fileName = `article-${topic.slice(0, 30).replace(/\s+/g, "-")}-${Date.now()}.pdf`;
+        pdf.save(fileName);
     };
 
     return (
@@ -102,7 +175,7 @@ Return only the article content, no preamble.`
                 <Sidebar />
                 <div className={styles.awRoot}>
                     <h1 className={styles.awPageTitle}>
-                       <LogoIcon/>
+                        <LogoIcon />
                         AI Article Writer
                     </h1>
 
@@ -203,7 +276,8 @@ Return only the article content, no preamble.`
 
                                         <button
                                             className={styles.actionBtn}
-                                            onClick={downloadTxt}
+                                            // onClick={downloadTxt}
+                                            onClick={downloadPDF}
                                         >
                                             ⬇️ Download
                                         </button>
@@ -226,6 +300,12 @@ Return only the article content, no preamble.`
                                     <div className={styles.shimmer} style={{ height: 14, width: "100%" }} />
                                     <div className={styles.shimmer} style={{ height: 14, width: "80%" }} />
                                     <div className={styles.shimmer} style={{ height: 14, width: "96%" }} />
+                                    <div className={styles.shimmer} style={{ height: 28, width: "60%" }} />
+                                    <div className={styles.shimmer} style={{ height: 14, width: "100%" }} />
+                                    <div className={styles.shimmer} style={{ height: 14, width: "95%" }} />
+                                    <div className={styles.shimmer} style={{ height: 14, width: "88%" }} />
+                                    <div className={styles.shimmer} style={{ height: 14, width: "92%" }} />
+                                    <div className={styles.shimmer} style={{ height: 14, width: "80%" }} />
                                 </div>
                             )}
 
@@ -245,6 +325,7 @@ Return only the article content, no preamble.`
 
                             {article && (
                                 <div
+                                    ref={articleRef}
                                     className={styles.articleBody}
                                     dangerouslySetInnerHTML={{ __html: renderMarkdown(article) }}
                                 />
