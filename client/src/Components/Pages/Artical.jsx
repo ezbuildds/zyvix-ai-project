@@ -43,6 +43,7 @@ export default function Article() {
     const [copied, setCopied] = useState(false);
     const articleRef = useRef(null);
 
+
     const BASE_URL = import.meta.env.VITE_BASE_URL
     const wordCount = article ? article.split(/\s+/).filter(Boolean).length : 0;
 
