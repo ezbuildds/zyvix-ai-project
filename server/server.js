@@ -14,7 +14,7 @@ import forgotPassword from "./controller/forgotPassword.js";
 import verifyForgotOtp from "./controller/verifyForgotOtp.js";
 import resetPassword from "./controller/resetPassword.js";
 import resendOtp from "./controller/resendOtp.js";
-import article from "./services/aiServices/article.js";
+import article from "./services/aiService/article.js";
 const app = express()
 const PORT = process.env.PORT || 3000
 
