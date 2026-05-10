@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { useState, memo,useEffect } from "react";
 import styles from "./signup.module.css";
 import { LogoIcon } from "./Authicon/AuthIcon";
 import { authData } from "../../Context/ContextApi";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import LoginSuccessMessage from "./LoginSuccessMessage";
 import { toast } from "react-toastify";
-export default function Login({ openSignupModel, openLoginModel, openForgotModel }) {
+
+function Login({ openSignupModel, openLoginModel, openForgotModel }) {
     const [form, setForm] = useState({ email: "", password: "" });
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
@@ -15,6 +15,7 @@ export default function Login({ openSignupModel, openLoginModel, openForgotModel
     const [showLoginMessage, setLoginMessage] = useState(false)
     const { setUser } = authData()
 
+    console.log("forgot rerendered"); // test karo
     const BASE_URL = import.meta.env.VITE_BASE_URL;
     const navigate = useNavigate()
     useEffect(() => {
@@ -120,7 +121,7 @@ export default function Login({ openSignupModel, openLoginModel, openForgotModel
                             />
                         </div>
                         {errors.email && (
-                            <span className={styles.fieldError} style={{paddingTop: "0px"}}>⚠ {errors.email}</span>
+                            <span className={styles.fieldError} style={{ paddingTop: "0px" }}>⚠ {errors.email}</span>
                         )}
                     </div>
 
@@ -155,12 +156,12 @@ export default function Login({ openSignupModel, openLoginModel, openForgotModel
                             </button>
                         </div>
                         {errors.password && (
-                            <span className={styles.fieldError} style={{paddingTop: "0px"}}>⚠ {errors.password}</span>
+                            <span className={styles.fieldError} style={{ paddingTop: "0px" }}>⚠ {errors.password}</span>
                         )}
                     </div>
 
                     {/* API error */}
-                    {errors.api && (<span className={styles.fieldError} style={{paddingTop: "0px"}}> ⚠ {errors.api} </span>)}
+                    {errors.api && (<span className={styles.fieldError} style={{ paddingTop: "0px" }}> ⚠ {errors.api} </span>)}
                     <div className={styles.forgotPassword} ><span onClick={() => { openForgotModel(true); openLoginModel(false) }}>Forgot password?</span></div>
                     {/* Submit */}
                     <button
@@ -192,3 +193,4 @@ export default function Login({ openSignupModel, openLoginModel, openForgotModel
         </div>
     );
 }
+export default memo(Login)

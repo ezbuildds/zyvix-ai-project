@@ -79,6 +79,7 @@ export default async function article(req, res) {
         return res.status(200).send({
             success: true,
             content: response.choices[0].message.content,
+            remainingLimit: req.user.remaining
         });
     } catch (error) {
         console.log(error.message);

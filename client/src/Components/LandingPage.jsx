@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import "../App.css"
 import Navbar from "./Navbar/Navbar.jsx";
 import ToolsSection from "./Tools.jsx";
@@ -8,7 +8,6 @@ import Signup from "./Auth/Signup.jsx";
 import Login from "./Auth/Login.jsx";
 import Forgot from "./Auth/Forgot.jsx";
 import { authData } from "../Context/ContextApi.jsx";
-
 
 const brands = [
   { cls: "linkedin", content: <><span style={{ fontWeight: 900, fontSize: 15, background: "#0077b5", color: "#fff", padding: "2px 5px", borderRadius: 3 }}>in</span>LinkedIn</> },
@@ -33,14 +32,21 @@ const brands = [
   },
 ];
 
+// ✅ Component ke bahar - stable reference
+const words = ["AI tools"];
+
 export default function LandingPage() {
   const [openSignupModel, setSignupModel] = useState(false)
   const [showLoginModel, setLoginModel] = useState(false)
   const [showForgotModel, setForgotModel] = useState(false)
   const { user } = authData()
 
+  // ✅ Stable callbacks - har render pe naya reference nahi banega
+  // const handleOpenSignup = useCallback((val) => setSignupModel(val), [])
+  // const handleOpenLogin = useCallback((val) => setLoginModel(val), [])
+  // const handleOpenForgot = useCallback((val) => setForgotModel(val), [])
+
   // 🔥 typing animation
-  const words = ["AI tools"];
   const [text, setText] = useState("");
   const [index, setIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -52,13 +58,11 @@ export default function LandingPage() {
     const timer = setTimeout(() => {
       if (!isDeleting) {
         setText(currentWord.substring(0, text.length + 1));
-
         if (text === currentWord) {
           setTimeout(() => setIsDeleting(true), 2000);
         }
       } else {
         setText(currentWord.substring(0, text.length - 1));
-
         if (text === "") {
           setIsDeleting(false);
           setIndex((prev) => (prev + 1) % words.length);
@@ -73,6 +77,7 @@ export default function LandingPage() {
     <>
       <div className="page">
         <div className="bg-gradient" />
+
         <Navbar openSignupModel={setSignupModel}/>
         {openSignupModel && <Signup openSignupModel={setSignupModel} openLoginModel={setLoginModel} />}
         {showLoginModel && <Login openSignupModel={setSignupModel} openLoginModel={setLoginModel} openForgotModel={setForgotModel} />}
@@ -96,6 +101,7 @@ export default function LandingPage() {
             <Link to="/dashboard" className="btn-primary" onClick={(e) => { if (!user) { e.preventDefault(); setLoginModel(true); } }}>Start creating now ✨</Link>
             <Link to="/dashboard" className="btn-secondary">Watch demo</Link>
           </div>
+
           <div className="trust">
             <div className="avatars">
               <div className="avatar">A</div>

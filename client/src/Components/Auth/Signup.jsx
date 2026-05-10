@@ -1,9 +1,10 @@
 
-import { useState } from "react";
+import { useState,memo } from "react";
 import styles from "./signup.module.css";
 import OtpVerification from "./OtpVerification";
 import { GithubIcon, GoogleIcon, LogoIcon } from "./Authicon/AuthIcon";
 import { toast } from "react-toastify";
+
 function getStrength(pwd) {
     if (!pwd) return 0;
     let score = 0;
@@ -14,11 +15,11 @@ function getStrength(pwd) {
     return score;
 }
 const strengthMeta = ["", "weak", "fair", "good", "strong"];
-const strengthLabel = ["", "Weak", "Fair", "Good", "Strong"];
+// const strengthLabel = ["", "Weak", "Fair", "Good", "Strong"];
 
 
 
-export default function Signup({ openSignupModel, openLoginModel }) {
+ function Signup({ openSignupModel, openLoginModel }) {
     const [form, setForm] = useState({ firstName: "", lastName: "", email: "", password: "" });
     const [errors, setErrors] = useState({});
     const [showPwd, setShowPwd] = useState(false);
@@ -212,9 +213,9 @@ export default function Signup({ openSignupModel, openLoginModel }) {
                                                 />
                                             ))}
                                         </div>
-                                        <div className={`${styles.strengthLabel} ${styles[strengthMeta[strength]]}`}>
+                                        {/* <div className={`${styles.strengthLabel} ${styles[strengthMeta[strength]]}`}>
                                             {strengthLabel[strength]}
-                                        </div>
+                                        </div> */}
                                     </>
                                 )}
 
@@ -290,3 +291,4 @@ export default function Signup({ openSignupModel, openLoginModel }) {
         </>
     );
 }
+export default memo(Signup)

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../css/Tool.css"
+import { memo } from "react";
 const tools = [
   {
     icon: "✏️",
@@ -84,9 +85,9 @@ const IconDoc = () => (
 
 const iconComponents = [IconPen, IconHash, IconImage, IconEraser, IconScissors, IconDoc];
 
-export default function ToolsSection() {
+function ToolsSection() {
   const [hovered, setHovered] = useState(null);
-
+ console.log('footer render')
   return (
     <>
       {/* <style>{styles}</style> */}
@@ -120,3 +121,4 @@ export default function ToolsSection() {
     </>
   );
 }
+export default memo(ToolsSection)

@@ -25,7 +25,7 @@ export default async function signup(req, res) {
         const otp = Math.ceil(100000 + Math.random() * 900000).toString()
         const hashedOtp = crypto.createHmac("sha256", process.env.OTPHASH_SECRET_KEY).update(otp).digest("hex")
         const otpExpiry = new Date(Date.now() + 5 * 60 * 1000)
-        const createUser = await db.collection("users").insertOne({ username, email, plan: "free", password: hashPassword, isVerified: false, freeLimit: 10, createAt: new Date() })
+        const createUser = await db.collection("users").insertOne({ username, email, plan: "free", password: hashPassword, isVerified: false, freeLimit: 0, createAt: new Date() })
         const userId = createUser.insertedId
         await db.collection("signupOtps").updateOne({ userId: userId }, { $set: { userId: userId, otp: hashedOtp, expiresAt: otpExpiry, createdAt: new Date() } }, { upsert: true })
 
@@ -43,9 +43,10 @@ export default async function signup(req, res) {
             email
         })
     } catch (error) {
+        console.log("Sign up error :", error.message)
         return res.status(500).send({
             success: false,
-            message: "internal server error"
+            message: "Server error"
         })
 
     }

@@ -1,9 +1,10 @@
 
-import { useState } from "react";
+import { useState,memo } from "react";
 import styles from "./forgot.module.css";
 import OtpVerification from "./OtpVerification";
 import ForgotOtpModel from "./ForgotOtpModel";
-export default function Forgot({ setForgotModel, showProfileForgotModel, closeProfileForgotModel }) {
+
+function Forgot({ setForgotModel, showProfileForgotModel, closeProfileForgotModel }) {
     const [showResetModel, setResetModel] = useState(false)
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
@@ -139,3 +140,4 @@ export default function Forgot({ setForgotModel, showProfileForgotModel, closePr
         </div>
     );
 }
+export default memo(Forgot)

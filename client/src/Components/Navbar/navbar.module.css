@@ -1,0 +1,99 @@
+.navbar {
+  position: fixed;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 150px;
+  width: 100%;
+
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 28px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #14b8a6, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+}
+
+.navBtn {
+  background: linear-gradient(135deg, #14b8a6, #06b6d4);
+  box-shadow: 0 8px 25px rgba(20, 184, 166, 0.35);
+  outline: none;
+  color: #ffffff;
+  border: none;
+  padding: 12px 40px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  /* transition: background 0.2s; */
+  transition: all 0.3s ease-in-out;
+}
+
+.navBtn:hover {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px solid rgb(255, 1, 1); */
+  gap: 30px;
+}
+
+.creditBox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 3px 18px;
+  border-radius: 100px;
+  /* border: 1px solid rgb(209, 209, 209); */
+  /* backdrop-filter: blur(14px); */
+  /* box-shadow:
+        0 4px 20px rgba(0,0,0,0.25),
+        inset 0 1px 1px rgba(255,255,255,0.08); */
+}
+
+.coinIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #FFD700, #ffb300);
+  color: #111;
+  font-size: 20px;
+  box-shadow:
+    0 0 15px rgba(255, 215, 0, 0.45),
+    inset 0 2px 5px rgba(255, 255, 255, 0.5);
+}
+
+.creditContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.creditLabel {
+  font-size: 11px;
+  color: #77777e;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.creditValue {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffb300;
+  /* color: black; */
+}

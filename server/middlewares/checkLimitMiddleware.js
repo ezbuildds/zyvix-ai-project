@@ -2,8 +2,9 @@
 import { ObjectId } from "mongodb";
 import dbConnection from "../config/database.js";
 import { PLAN_LIMITS } from "../services/plan/planLimit.js";
+import jwt from "jsonwebtoken"
 
-export async function checkLimitMiddleware(req, res, next) {
+export default async function checkLimitMiddleware(req, res, next) {
     try {
         const token = req.cookies.token
         if (!token) {
@@ -13,7 +14,7 @@ export async function checkLimitMiddleware(req, res, next) {
         console.log("Limit Middleware :", decodedUser);
         const db = await dbConnection();
         const users = db.collection("users");
-        const user = await users.findOne({ _id: new ObjectId(decodedUser._id) });
+        const user = await users.findOne({ _id: new ObjectId(decodedUser.userId) });
 
         if (!user) {
             return res.status(404).send({ success: false, message: "User not found." });
@@ -36,7 +37,7 @@ export async function checkLimitMiddleware(req, res, next) {
             { $inc: { "freeLimit": 1 } }
         );
 
-        req.user = { ...user, remaining: limit - currentCount - 1 };
+        req.user = { ...user, remaining: limit - currentCount };
         next();
 
     } catch (error) {

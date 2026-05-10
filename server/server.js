@@ -15,6 +15,8 @@ import verifyForgotOtp from "./controller/verifyForgotOtp.js";
 import resetPassword from "./controller/resetPassword.js";
 import resendOtp from "./controller/resendOtp.js";
 import article from "./services/aiService/article.js";
+import checkLimitMiddleware from "./middlewares/checkLimitMiddleware.js";
+
 const app = express()
 const PORT = process.env.PORT || 3000
 
@@ -31,6 +33,7 @@ app.get("/", async (req, res) => {
     const data = await db.collection("users").find().toArray()
     res.send(data)
 })
+
 app.post("/api/auth/signup", signup)
 app.post("/api/auth/signup/verify-otp", verifySignupOtp)
 app.post("/api/auth/signup/resend-otp", resendOtp)
@@ -45,10 +48,13 @@ app.post("/api/auth/password/reset", resetPassword)
 app.get("/api/users/profile", authMiddleware, profile)
 
 // #Services Api
-app.post("/api/generate-article", article)
+app.post("/api/generate-article", checkLimitMiddleware, article)
+// app.post("/api/generate-article",  article)
 
+await dbConnection();
 app.listen(PORT, () => {
-    console.log(`server running on port ${PORT}`)
+    // dbConnection()
+    console.log(`server running on port ${PORT} ✅🎉`)
 })
 
 

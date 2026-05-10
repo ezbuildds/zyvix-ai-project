@@ -50,7 +50,7 @@
   background-size: cover;
 }
 
-.navbar {
+/* .navbar {
   position: fixed;
   z-index: 10;
   display: flex;
@@ -80,7 +80,7 @@
     filter: invert(37%) sepia(79%) saturate(4081%) hue-rotate(349deg) brightness(94%) contrast(91%);
 } */
 
-.nav-btn {
+/* .nav-btn {
   background: linear-gradient(135deg, #14b8a6, #06b6d4);
   box-shadow: 0 8px 25px rgba(20, 184, 166, 0.35);
   outline: none;
@@ -93,13 +93,13 @@
   cursor: pointer;
   text-decoration: none;
   /* transition: background 0.2s; */
-  transition: all 0.3s ease-in-out;
-}
+  /* transition: all 0.3s ease-in-out; */
+/* }
 
 .nav-btn:hover {
   transform: translateY(3px);
   box-shadow: none;
-}
+}   */
 
 .hero {
   position: relative;

@@ -1,19 +1,7 @@
-import { useState } from "react";
-// import "../css/Footer.css"
+import { useState, memo } from "react";
 import styles from "../css/Footer.module.css";
-const LogoIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
-    <path d="M14 2L4 8v12l10 6 10-6V8L14 2z" fill="#4f46e5" opacity="0.15" />
-    <path d="M14 2L4 8v12l10 6 10-6V8L14 2z" stroke="#4f46e5" strokeWidth="1.5" fill="none" />
-    <circle cx="14" cy="14" r="3" fill="#4f46e5" />
-    <line x1="14" y1="2" x2="14" y2="11" stroke="#4f46e5" strokeWidth="1.5" />
-    <line x1="14" y1="17" x2="14" y2="26" stroke="#4f46e5" strokeWidth="1.5" />
-    <line x1="4" y1="8" x2="11" y2="12" stroke="#4f46e5" strokeWidth="1.5" />
-    <line x1="17" y1="16" x2="24" y2="20" stroke="#4f46e5" strokeWidth="1.5" />
-    <line x1="24" y1="8" x2="17" y2="12" stroke="#4f46e5" strokeWidth="1.5" />
-    <line x1="11" y1="16" x2="4" y2="20" stroke="#4f46e5" strokeWidth="1.5" />
-  </svg>
-);
+import { LogoIcon } from "./Auth/Authicon/AuthIcon";
+
 
 const companyLinks = [
   { label: "Home", href: "#" },
@@ -22,7 +10,7 @@ const companyLinks = [
   { label: "Privacy policy", href: "#" },
 ];
 
-export default function Footer() {
+ function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
@@ -97,3 +85,4 @@ export default function Footer() {
     </>
   );
 }
+export default memo(Footer)
