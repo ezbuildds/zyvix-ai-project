@@ -32,9 +32,7 @@ export default function Article() {
     const articleRef = useRef(null);
 
 
-    const { user, setUser } = authData()
-    console.log("Context user :", user);
-
+    const { setUser } = authData()
     const BASE_URL = import.meta.env.VITE_BASE_URL
     const wordCount = article ? article.split(/\s+/).filter(Boolean).length : 0;
 
@@ -59,8 +57,6 @@ export default function Article() {
                 })
             });
             const data = await res.json();
-            console.log(data);
-
             if (data?.success && data?.content) {
                 setArticle(data.content);
                 setUser(prev => ({ ...prev, remainingLimit: data.remainingLimit }))

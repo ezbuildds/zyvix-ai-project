@@ -1,0 +1,155 @@
+/* ── SIDEBAR ── */
+.sidebar {
+    width: 220px;
+    min-width: 280px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ede9fe;
+    padding: 0;
+    position: relative;
+    z-index: 10;
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 24px 20px 20px;
+    font-size: 20px;
+    font-weight: 800;
+    color: #1e1b4b;
+    border-bottom: 1px solid #f3f0ff;
+    background: linear-gradient(135deg, #14b8a6, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-decoration: none;
+}
+
+.sidebar-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 20px 20px;
+    border-bottom: 1px solid #f3f0ff;
+    gap: 10px;
+}
+
+.avatar-lg {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #14b8a6, #06b6d4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.5px;
+}
+
+.profile-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e1b4b;
+}
+
+.sidebar-nav {
+    flex: 1;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow-y: auto;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.18s;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    text-decoration: none;
+}
+
+.nav-item:hover {
+    background: #e2f9f6;
+    color: #14b8a6;
+}
+
+.nav-item.active {
+    background: linear-gradient(135deg, #14b8a6, #06b6d4);
+    color: #fff;
+    box-shadow: 0 8px 25px rgba(20, 184, 166, 0.35);
+}
+
+.nav-item svg {
+    flex-shrink: 0;
+}
+
+.sidebar-bottom {
+    padding: 16px 12px;
+    border-top: 1px solid #f3f0ff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar-sm {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+   background: linear-gradient(135deg, #14b8a6, #06b6d4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.bottom-info {
+    flex: 1;
+}
+
+.bottom-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1e1b4b;
+}
+
+.bottom-plan {
+    font-size: 11px;
+    color: #9ca3af;
+    font-weight: 500;
+}
+
+.logout-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #9ca3af;
+    padding: 4px;
+    border-radius: 6px;
+    transition: color 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.logout-btn:hover {
+    color: #ef4444;
+}

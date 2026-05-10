@@ -52,7 +52,6 @@ app.post("/api/generate-article", checkLimitMiddleware, article)
 
 await dbConnection();
 app.listen(PORT, () => {
-    // dbConnection()
     console.log(`server running on port ${PORT} ✅🎉`)
 })
 

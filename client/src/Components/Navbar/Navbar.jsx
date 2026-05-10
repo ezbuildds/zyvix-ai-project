@@ -8,8 +8,6 @@ import { FaCoins } from "react-icons/fa";
 function Navbar({ openSignupModel }) {
     const [showProfileModel, setProfileModel] = useState(false)
     const { user } = authData()
-    console.log(user);
-
     const freeCredits = user?.remainingLimit 
 
     useEffect(() => {
