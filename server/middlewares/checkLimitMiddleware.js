@@ -11,7 +11,6 @@ export default async function checkLimitMiddleware(req, res, next) {
             return res.status(401).send({ success: false, message: "Unauthorized access" });
         }
         const decodedUser = jwt.verify(token, process.env.SECRET_KEY)
-        console.log("Limit Middleware :", decodedUser);
         const db = await dbConnection();
         const users = db.collection("users");
         const user = await users.findOne({ _id: new ObjectId(decodedUser.userId) });
@@ -21,7 +20,7 @@ export default async function checkLimitMiddleware(req, res, next) {
         }
 
         const limit = PLAN_LIMITS[user.plan] || PLAN_LIMITS.free;
-        const currentCount = user?.freeLimit || 0;
+        const currentCount = user?.usedCredits || 0;
 
         if (currentCount >= limit) {
             return res.status(429).send({
@@ -34,10 +33,10 @@ export default async function checkLimitMiddleware(req, res, next) {
         }
         await users.updateOne(
             { _id: user._id },
-            { $inc: { "freeLimit": 1 } }
+            { $inc: { "usedCredits": 1 } }
         );
-
-        req.user = { ...user, remaining: limit - currentCount };
+        const remaining = Math.max(0, limit - currentCount-1)
+        req.remainingCredits = { remaining: remaining }
         next();
 
     } catch (error) {

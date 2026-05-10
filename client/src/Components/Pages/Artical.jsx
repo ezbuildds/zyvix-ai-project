@@ -4,20 +4,8 @@ import Sidebar from "./Sidebar";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { LogoIcon } from "../Profile/Icons/Icon";
-const lengths = [
-    { label: "Short (500-800 words)", value: "short", prompt: "Write a short article of around 500-800 words" },
-    { label: "Medium (800-1200 words)", value: "medium", prompt: "Write a medium article of around 800-1200 words" },
-    { label: "Long (1200+ words)", value: "long", prompt: "Write a long, comprehensive article of 1200+ words" },
-];
-
-const tones = [
-    { label: "✍️ Professional", value: "professional" },
-    { label: "🎯 Informative", value: "informative" },
-    { label: "😊 Friendly", value: "friendly" },
-    { label: "🔥 Persuasive", value: "persuasive" },
-    { label: "🎓 Academic", value: "academic" },
-    { label: "⚡ Casual", value: "casual" },
-];
+import { lengths, tones } from "../../Data/article";
+import { authData } from "../../Context/ContextApi";
 
 function renderMarkdown(text) {
     return text
@@ -44,6 +32,9 @@ export default function Article() {
     const articleRef = useRef(null);
 
 
+    const { user, setUser } = authData()
+    console.log("Context user :", user);
+
     const BASE_URL = import.meta.env.VITE_BASE_URL
     const wordCount = article ? article.split(/\s+/).filter(Boolean).length : 0;
 
@@ -69,14 +60,15 @@ export default function Article() {
             });
             const data = await res.json();
             console.log(data);
-            
+
             if (data?.success && data?.content) {
                 setArticle(data.content);
+                setUser(prev => ({ ...prev, remainingLimit: data.remainingLimit }))
             } else {
-                setError("Could not generate article. Please try again.");
+                setError(data.message);
             }
         } catch (e) {
-            setError("Network error. Please check your connection and try again.");
+            setError(e.message);
         } finally {
             setLoading(false);
         }

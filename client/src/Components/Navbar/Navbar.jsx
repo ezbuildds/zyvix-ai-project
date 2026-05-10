@@ -8,9 +8,9 @@ import { FaCoins } from "react-icons/fa";
 function Navbar({ openSignupModel }) {
     const [showProfileModel, setProfileModel] = useState(false)
     const { user } = authData()
-    // console.log(user?.remainingLimit);
-// console.log("Navbar rerendered"); // test karo
-    const freeCredits = user?.remainingLimit || 10
+    console.log(user);
+
+    const freeCredits = user?.remainingLimit 
 
     useEffect(() => {
         if (user) {

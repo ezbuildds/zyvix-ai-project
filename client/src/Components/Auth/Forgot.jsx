@@ -1,8 +1,9 @@
 
-import { useState,memo } from "react";
+import { useState, memo } from "react";
 import styles from "./forgot.module.css";
 import OtpVerification from "./OtpVerification";
 import ForgotOtpModel from "./ForgotOtpModel";
+import { BackIcon, ErrorIcon, InputIcon, PulseIcon, SendIcon } from "./Authicon/AuthIcon";
 
 function Forgot({ setForgotModel, showProfileForgotModel, closeProfileForgotModel }) {
     const [showResetModel, setResetModel] = useState(false)
@@ -43,10 +44,7 @@ function Forgot({ setForgotModel, showProfileForgotModel, closeProfileForgotMode
                 <div className={styles.cardHeader}>
                     <div className={styles.headerIconWrap}>
                         <div className={styles.iconPulse} />
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                            <polyline points="22,6 12,13 2,6" />
-                        </svg>
+                        <PulseIcon/>
                     </div>
 
                     {showProfileForgotModel ? <button className={styles.closeBtn} onClick={() => { closeProfileForgotModel(false) }}>✕ </button>
@@ -65,10 +63,7 @@ function Forgot({ setForgotModel, showProfileForgotModel, closeProfileForgotMode
 
                         <div className={styles.inputWrap}>
                             <span className={styles.inputIcon}>
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                                    <polyline points="22,6 12,13 2,6" />
-                                </svg>
+                                <InputIcon/>
                             </span>
 
                             <input
@@ -88,11 +83,7 @@ function Forgot({ setForgotModel, showProfileForgotModel, closeProfileForgotMode
 
                         {error && (
                             <span className={styles.fieldError}>
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                                    <circle cx="12" cy="12" r="10" />
-                                    <line x1="12" y1="8" x2="12" y2="12" />
-                                    <line x1="12" y1="16" x2="12.01" y2="16" />
-                                </svg>
+                                <ErrorIcon/>
                                 {error}
                             </span>
                         )}
@@ -100,15 +91,7 @@ function Forgot({ setForgotModel, showProfileForgotModel, closeProfileForgotMode
 
                     {/* info strip */}
                     <div style={{ display: "flex", alignItems: "center", gap: 10, backgroundColor: "#f0f9f7", border: "1px solid #c8eee7ff", borderRadius: 12, padding: "11px 14px" }}>
-                        <div style={{ width: 28, height: 28, borderRadius: 8, background: "linear-gradient(135deg, #14b8a6, #06b6d4)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round">
-                                <circle cx="12" cy="12" r="10" />
-                                <line x1="12" y1="8" x2="12" y2="12" />
-                                <line x1="12" y1="16" x2="12.01" y2="16" />
-                            </svg>
-                        </div>
-
-                        <div style={{ fontSize: 11, fontWeight: 600, color: "#14b8a6", lineHeight: 1.5 }}>
+                        <div style={{ fontSize: 11, fontWeight: 600, color: "#14b8a6", lineHeight: 1.5,textAlign:"center" }}>
                             A 6-digit verification code will be sent to your email. Code expires in 10 minutes.
                         </div>
                     </div>
@@ -118,25 +101,19 @@ function Forgot({ setForgotModel, showProfileForgotModel, closeProfileForgotMode
                     <button className={styles.primaryBtn} onClick={submit} disabled={loading}>
                         {loading ? (<><div className={styles.spinner} /> Sending code...</>) : (
                             <>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round">
-                                    <line x1="22" y1="2" x2="11" y2="13" />
-                                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
-                                </svg>
+                                <SendIcon/>
                                 Send Reset Code
                             </>
                         )}
                     </button>
 
                     <button className={styles.ghostBtn}>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                            <line x1="19" y1="12" x2="5" y2="12" />
-                            <polyline points="12 19 5 12 12 5" />
-                        </svg>
+                        <BackIcon/>
                         Back to Sign In
                     </button>
                 </div>
             </div>}
-            {showResetModel && <ForgotOtpModel email={email} setForgotModel={setForgotModel} closeProfileForgotModel={closeProfileForgotModel} showProfileForgotModel={showProfileForgotModel}/>}
+            {showResetModel && <ForgotOtpModel email={email} setForgotModel={setForgotModel} closeProfileForgotModel={closeProfileForgotModel} showProfileForgotModel={showProfileForgotModel} />}
         </div>
     );
 }

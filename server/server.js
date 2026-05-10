@@ -49,7 +49,6 @@ app.get("/api/users/profile", authMiddleware, profile)
 
 // #Services Api
 app.post("/api/generate-article", checkLimitMiddleware, article)
-// app.post("/api/generate-article",  article)
 
 await dbConnection();
 app.listen(PORT, () => {

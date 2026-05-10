@@ -76,10 +76,12 @@ export default async function article(req, res) {
             max_tokens: length ? Math.ceil(length * 2) : 2000,
 
         });
+        console.log("middleware remaining:", req.remainingCredits.remaining);
+
         return res.status(200).send({
             success: true,
             content: response.choices[0].message.content,
-            remainingLimit: req.user.remaining
+            remainingLimit: req.remainingCredits.remaining
         });
     } catch (error) {
         console.log(error.message);
