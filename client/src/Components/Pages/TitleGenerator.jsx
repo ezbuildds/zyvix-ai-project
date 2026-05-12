@@ -79,7 +79,7 @@ Rules:
         <>
             {/* <style>{styles}</style> */}
             <div className="db-root">
-                <Sidebar/>
+                <Sidebar />
                 <div className="app-root">
                     {/* ══ MAIN ══ */}
                     <div className="main-area">

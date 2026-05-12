@@ -1,4 +1,4 @@
-import { useState, memo,useEffect } from "react";
+import { useState, memo, useEffect } from "react";
 import styles from "./signup.module.css";
 import { LogoIcon } from "./Authicon/AuthIcon";
 import { authData } from "../../Context/ContextApi";
@@ -15,7 +15,6 @@ function Login({ openSignupModel, openLoginModel, openForgotModel }) {
     const [showLoginMessage, setLoginMessage] = useState(false)
     const { setUser } = authData()
 
-    console.log("forgot rerendered"); // test karo
     const BASE_URL = import.meta.env.VITE_BASE_URL;
     const navigate = useNavigate()
     useEffect(() => {
@@ -29,6 +28,7 @@ function Login({ openSignupModel, openLoginModel, openForgotModel }) {
             return () => clearTimeout(timer);
         }
     }, [showLoginMessage]);
+    console.log(resData);
 
     const validate = () => {
         const e = {};

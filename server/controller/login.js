@@ -2,6 +2,7 @@ import dbConnection from "../config/database.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import "dotenv/config"
+import { PLAN_LIMITS } from "../services/plan/planLimit.js"
 
 export default async function login(req, res) {
     try {
@@ -34,10 +35,13 @@ export default async function login(req, res) {
             sameSite: "strict",
             maxAge: 24 * 60 * 60 * 1000
         })
+        const limit = PLAN_LIMITS[user.plan] || PLAN_LIMITS.free;
+        const currentCount = user?.usedCredits || 0;
+        const remaining = Math.max(0, limit - currentCount)
         return res.status(200).send({
             success: true,
             message: "Login success",
-            data: user
+            data: { ...user, remainingLimit: remaining }
         })
     } catch (error) {
         return res.status(500).send({
