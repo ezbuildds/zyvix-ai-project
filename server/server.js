@@ -16,6 +16,7 @@ import resetPassword from "./controller/resetPassword.js";
 import resendOtp from "./controller/resendOtp.js";
 import article from "./services/aiService/article.js";
 import checkLimitMiddleware from "./middlewares/checkLimitMiddleware.js";
+import dashboard from "./controller/dashboard.js";
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -48,6 +49,7 @@ app.post("/api/auth/password/reset", resetPassword)
 app.get("/api/users/profile", authMiddleware, profile)
 
 // #Services Api
+app.get("/api/dashboard", dashboard)
 app.post("/api/generate-article", checkLimitMiddleware, article)
 
 await dbConnection();

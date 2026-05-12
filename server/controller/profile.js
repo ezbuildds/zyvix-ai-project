@@ -23,7 +23,7 @@ export default async function profile(req, res) {
         return res.status(200).send({
             success: true,
             message: "Profile fetched successfully",
-            data: {...user,remainingLimit: remaining}
+            data: { ...user, remainingLimit: remaining, totalLimit: PLAN_LIMITS[user.plan] }
         })
     } catch (error) {
         console.error(error);

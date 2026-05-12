@@ -54,6 +54,7 @@ export default function Article() {
                     prompt: `${topic}`,
                     length: wordCountMap[selectedLength.value],
                     tone: tone,
+                    title:"article"
                 })
             });
             const data = await res.json();
