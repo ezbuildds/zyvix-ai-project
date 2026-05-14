@@ -62,3 +62,129 @@ export const LogoutIcon = () => (
         <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" /><polyline points="16 17 21 12 16 7" /><line x1="21" y1="12" x2="9" y2="12" />
     </svg>
 );
+export const TotalGenerateIcon = () => (
+    <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path
+            d="M12 3L20 7V17L12 21L4 17V7L12 3Z"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinejoin="round"
+        />
+    </svg>
+);
+export const ArticalIcon = () => (
+    <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path
+            d="M8 6H18M8 12H18M8 18H14"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+        />
+        <path
+            d="M4 6H4.01M4 12H4.01M4 18H4.01"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+        />
+    </svg>
+);
+export const TitleIcon = () => (
+    <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path
+            d="M6 7H18M6 12H14M6 17H10"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+        />
+    </svg>
+);
+export const ImageGenerateIcon = () => (
+    <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <rect
+            x="3"
+            y="5"
+            width="18"
+            height="14"
+            rx="2"
+            stroke="currentColor"
+            strokeWidth="2"
+        />
+        <circle cx="8.5" cy="10.5" r="1.5" fill="currentColor" />
+        <path
+            d="M21 16L16 11L5 19"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinejoin="round"
+        />
+    </svg>
+);
+export const RemoveIcon = () => (
+    <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path
+            d="M4 4H10V10H4V4ZM14 4H20V10H14V4ZM4 14H10V20H4V14Z"
+            stroke="currentColor"
+            strokeWidth="2"
+        />
+        <path
+            d="M14 14L20 20M20 14L14 20"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+        />
+    </svg>
+);
+export const ReviewIcon = () => (
+    <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path
+            d="M7 3H17L21 7V21H7V3Z"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinejoin="round"
+        />
+        <path
+            d="M17 3V7H21"
+            stroke="currentColor"
+            strokeWidth="2"
+        />
+        <path
+            d="M10 12H18M10 16H15"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+        />
+    </svg>
+);
+export const CommunityIcon = () => (
+    <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path
+            d="M16 11C17.6569 11 19 9.65685 19 8C19 6.34315 17.6569 5 16 5C14.3431 5 13 6.34315 13 8C13 9.65685 14.3431 11 16 11Z"
+            stroke="currentColor"
+            strokeWidth="2"
+        />
+        <path
+            d="M8 13C10.2091 13 12 11.2091 12 9C12 6.79086 10.2091 5 8 5C5.79086 5 4 6.79086 4 9C4 11.2091 5.79086 13 8 13Z"
+            stroke="currentColor"
+            strokeWidth="2"
+        />
+        <path
+            d="M2 19C2 16.7909 3.79086 15 6 15H10C12.2091 15 14 16.7909 14 19"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+        />
+        <path
+            d="M14 18C14.5 16.5 15.8 15.5 17.5 15.5H18"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+        />
+    </svg>
+);
+export const CreditIcon = () => (
+    <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path
+            d="M13 2L4 14H11L10 22L20 9H13L13 2Z"
+            fill="currentColor"
+        />
+    </svg>
+);

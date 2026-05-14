@@ -25,6 +25,7 @@ export default function ContextProvider({ children }) {
             setLoading(false)
         }
     }
+    console.log("context data :", user);
 
     return (
         <>

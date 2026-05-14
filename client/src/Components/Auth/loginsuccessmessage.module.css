@@ -52,7 +52,7 @@
 .signupCard {
     width: 460px;
     max-width: 100%;
-    background: rgb(241, 241, 241);
+    background: rgb(255, 255, 255);
     /* backdrop-filter: blur(20px); */
     border-radius: var(--radius-xl);
     border: 1px solid var(--border);
@@ -570,11 +570,18 @@
     border: 1px solid var(--border);
 }
 
-@media (max-width: 500px) {
-    .pageShell {
-        padding: 16px;
+@media (max-width: 480px) {
+     /* ── Card ── */
+    .signupCard {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px;
+        border-radius: 16px;
     }
 
+    .pageShell {
+        padding: 0px;
+    }
     .cardHeader,
     .cardForm,
     .cardFooter,

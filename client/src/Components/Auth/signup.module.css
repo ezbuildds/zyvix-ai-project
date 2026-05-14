@@ -37,6 +37,7 @@
     align-items: center;
     z-index: 1000;
     animation: overlayFade 0.2s ease-out;
+
 }
 
 /* Modal Box - modern card UI */
@@ -639,9 +640,28 @@
     border: 1px solid var(--border);
 }
 
-@media (max-width: 500px) {
+@media (max-width: 480px) {
+    .modalOverlay {
+        padding: 0px 10px;
+
+    }
+
+    /* ── Card ── */
+    .signupCard {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px;
+        border-radius: 16px;
+    }
+
     .pageShell {
-        padding: 16px;
+        padding: 0px;
+    }
+
+    /* Submit button */
+    .submitBtn {
+        font-size: 12px;
+        margin-top: 10px;
     }
 
     .cardHeader,
@@ -650,8 +670,8 @@
     .bottomBar,
     .socialRow,
     .divider {
-        padding-left: 20px;
-        padding-right: 20px;
+        padding: 0px;
+        padding-bottom: 5px;
     }
 
     .bottomBar {
@@ -664,7 +684,44 @@
     }
 
     .headerTitle {
-        font-size: 22px;
+        font-size: 20px;
+    }
+
+    /* ── Form ── */
+    .cardForm {
+        padding: 0 25px;
+    }
+
+    .fieldLabel {
+        font-size: 10px;
+    }
+
+    .forgotPassword {
+        font-size: 9px;
+    }
+
+    .fieldInput {
+        font-size: 16px;
+    }
+
+    .fieldInput::placeholder {
+        font-size: 12px;
+    }
+
+    .eyeBtn:hover {
+        color: var(--indigo);
+    }
+
+    .fieldError {
+        font-size: 12px;
+        padding-top: 0px;
+    }
+
+    /* Name row */
+    .nameRow {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
     }
 }
 

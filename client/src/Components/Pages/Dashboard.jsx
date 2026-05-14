@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "../../css/Dashboard.module.css";
 import Sidebar from "./Sidebar";
 import { authData } from "../../Context/ContextApi";
-import { BoltSmIcon } from "./icon/Icon";
+import { ArticalIcon, BoltSmIcon, CommunityIcon, CreditIcon, ImageGenerateIcon, RemoveIcon, ReviewIcon, TitleIcon, TotalGenerateIcon } from "./icon/Icon";
 
 function formatDate(dateStr) {
     const d = new Date(dateStr);
@@ -35,10 +35,10 @@ export default function ContentDashboard() {
     const [filter, setFilter] = useState("all");
     const [expanded, setExpanded] = useState(null);
     const [historyData, setHistory] = useState([]);
+    const [hamburger, sethamburger] = useState(false)
     const { user } = authData();
 
     const BASE_URL = import.meta.env.VITE_BASE_URL;
-
     useEffect(() => {
         fetchHistory();
     }, []);
@@ -48,9 +48,7 @@ export default function ContentDashboard() {
             let res = await fetch(`${BASE_URL}/api/dashboard`, {
                 credentials: "include",
             });
-
             res = await res.json();
-
             if (res.success) {
                 setHistory(res.data);
             }
@@ -58,29 +56,18 @@ export default function ContentDashboard() {
             console.log(error);
         }
     }
-
     const filtered = historyData.filter((g) => {
-        const matchSearch =
-            g.title?.toLowerCase().includes(search.toLowerCase()) ||
-            g.prompt?.toLowerCase().includes(search.toLowerCase());
-
-        const matchFilter =
-            filter === "all" || g.title?.toLowerCase() === filter;
-
+        const matchSearch = g.title?.toLowerCase().includes(search.toLowerCase()) || g.prompt?.toLowerCase().includes(search.toLowerCase());
+        const matchFilter = filter === "all" || g.title?.toLowerCase() === filter;
         return matchSearch && matchFilter;
     });
-
-    const articleCount = historyData.filter(
-        (g) => g.title?.toLowerCase() === "article"
-    ).length;
-
-    const imageCount = historyData.filter(
-        (g) => g.title?.toLowerCase() === "image"
-    ).length;
+    const articleCount = historyData.filter((g) => g.title?.toLowerCase() === "article").length;
+    const imageCount = historyData.filter((g) => g.title?.toLowerCase() === "image").length;
+    console.log("Dashboard data :", user);
 
     return (
         <div className={styles.dbRoot}>
-            <Sidebar />
+            <Sidebar hamburger={hamburger} />
 
             <div className={styles.root}>
                 {/* ── Background grain overlay ── */}
@@ -96,13 +83,40 @@ export default function ContentDashboard() {
                         </div>
 
                         <div>
-                            <div className={styles.appName}>CreatorAI</div>
+                            <div className={styles.appName}>Dashboard</div>
                             <div className={styles.appTagline}>
                                 Your generation history
                             </div>
                         </div>
                     </div>
-
+                    <div className={styles.hamburger} onClick={() => sethamburger(!hamburger)}>
+                        <svg
+                            width="28"
+                            height="28"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M4 6H20"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                            />
+                            <path
+                                d="M4 12H20"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                            />
+                            <path
+                                d="M4 18H20"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                            />
+                        </svg>
+                    </div>
                     {/* Credit Bar */}
                     <div className={styles.creditBox}>
                         <div className={styles.creditsPill}>
@@ -136,97 +150,66 @@ export default function ContentDashboard() {
                 <div className={styles.statsRow}>
                     {[
                         {
-                            label: "Total Generated",
+                            sub: "Total Generated",
                             value: historyData.length,
-                            sub: "All time",
-                            icon: "⬡",
                             accent: "#6366F1",
-                            bg: "#EEF2FF",
+                            bg: "linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%)",
+                            icon: <TotalGenerateIcon />
                         },
                         {
-                            label: "Articles Written",
+                            sub: "Articles Written",
                             value: articleCount,
-                            sub: "AI Generated",
-                            icon: "✦",
                             accent: "#0EA5E9",
-                            bg: "#E0F2FE",
+                            bg: "linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)",
+                            icon: <ArticalIcon />
                         },
                         {
-                            label: "Images Created",
+                            sub: "Generate Titles",
                             value: imageCount,
-                            sub: "High quality",
-                            icon: "◈",
                             accent: "#F59E0B",
-                            bg: "#FEF3C7",
+                            bg: "linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)",
+                            icon: <TitleIcon />
                         },
                         {
-                            label: "Images Created",
+                            sub: "Generate Images",
                             value: imageCount,
-                            sub: "High quality",
-                            icon: "◈",
-                            accent: "#F59E0B",
-                            bg: "#FEF3C7",
+                            accent: "#EC4899",
+                            bg: "linear-gradient(135deg, #FCE7F3 0%, #FBCFE8 100%)",
+                            icon: <ImageGenerateIcon />
                         },
                         {
-                            label: "Images Created",
+                            sub: "Remove Background",
                             value: imageCount,
-                            sub: "High quality",
-                            icon: "◈",
-                            accent: "#F59E0B",
-                            bg: "#FEF3C7",
+                            accent: "#8B5CF6",
+                            bg: "linear-gradient(135deg, #EDE9FE 0%, #DDD6FE 100%)",
+                            icon: <RemoveIcon />
                         },
                         {
-                            label: "Images Created",
+                            sub: "Review Resume",
                             value: imageCount,
-                            sub: "High quality",
-                            icon: "◈",
-                            accent: "#F59E0B",
-                            bg: "#FEF3C7",
+                            accent: "#14B8A6",
+                            bg: "linear-gradient(135deg, #CCFBF1 0%, #99F6E4 100%)",
+                            icon: <ReviewIcon />
                         },
                         {
-                            label: "Images Created",
+                            sub: "Community",
                             value: imageCount,
-                            sub: "High quality",
-                            icon: "◈",
-                            accent: "#F59E0B",
-                            bg: "#FEF3C7",
+                            accent: "#F43F5E",
+                            bg: "linear-gradient(135deg, #FFE4E6 0%, #FECDD3 100%)",
+                            icon: <CommunityIcon />
                         },
                         {
-                            label: "Credits Used",
-                            value:
-                                historyData.reduce(
-                                    (acc, item) =>
-                                        acc + (item.creditsUsed || 0),
-                                    0
-                                ),
+                            value: historyData.reduce((acc, item) => acc + (item.creditsUsed || 0), 0),
                             sub: `${user?.remainingLimit || 0} left`,
-                            icon: "⚡",
                             accent: "#10B981",
-                            bg: "#D1FAE5",
+                            bg: "linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%)",
+                            icon: <CreditIcon />
                         },
                     ].map((s, i) => (
                         <div key={i} className={styles.statCard}>
-                            <div
-                                style={{
-                                    background: s.bg,
-                                    color: s.accent,
-                                }}
-                                className={styles.statIcon}
-                            >
-                                {s.icon}
-                            </div>
-
-                            <div
-                                style={{ color: s.accent }}
-                                className={styles.statValue}
-                            >
-                                {s.value}
-                            </div>
-
-                            <div className={styles.statLabel}>
-                                {s.label}
-                            </div>
-
+                            <div />
+                            <div style={{ background: s.bg, color: s.accent, }} className={styles.statIcon}>{s.icon}</div>
+                            <div style={{ color: s.accent }} className={styles.statValue}>{s.value}</div>
                             <div className={styles.statSub}>{s.sub}</div>
                         </div>
                     ))}
@@ -318,7 +301,7 @@ export default function ContentDashboard() {
                                     }
                                 >
                                     {/* Type pill */}
-                                   
+
 
                                     <div className={styles.cardBody}>
                                         <div className={styles.cardTop}>
@@ -504,7 +487,7 @@ export default function ContentDashboard() {
 
                 <div className={styles.footer}>
                     Showing {filtered.length} of {historyData.length} generations
-                    · CreatorAI
+                    · Zyvix.ai
                 </div>
             </div>
         </div>

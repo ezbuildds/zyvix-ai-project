@@ -1,12 +1,10 @@
 import { useState } from "react";
-import "../../css/sidebar.css"
+import styles from "../../css/sidebar.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { authData } from "../../Context/ContextApi";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { DocIcon, EraserIcon, HashIcon, HomeIcon, ImageIcon, LogoutIcon, PenIcon, UsersIcon } from "./icon/Icon";
 // SVG Icons
-
-
 
 const navItems = [
     { label: "Dashboard", icon: HomeIcon, path: "/dashboard" },
@@ -17,50 +15,61 @@ const navItems = [
     { label: "Review Resume", icon: DocIcon, path: "/dashboard/resume" },
     { label: "Community", icon: UsersIcon, path: "/dashboard/community" },
 ];
-export default function Sidebar() {
-    const { user,setUser} = authData()
-    const navigate = useNavigate()
+
+export default function Sidebar({ hamburger }) {
+    const { user, setUser } = authData();
+    const navigate = useNavigate();
 
     const BASE_URL = import.meta.env.VITE_BASE_URL;
+
     async function handleLogout() {
         let res = await fetch(`${BASE_URL}/api/auth/logout`, {
             method: "post",
             credentials: "include",
-        })
-        res = await res.json()
+        });
+        res = await res.json();
         console.log(res);
-        if (!res.success) {
-            toast.error(res.message)
-            return
-        }
-        toast.success("Logout success")
-        setUser(null)
-        navigate("/")
 
+        if (!res.success) {
+            toast.error(res.message);
+            return;
+        }
+
+        toast.success("Logout success");
+        setUser(null);
+        navigate("/");
     }
     return (
-        <aside className="sidebar">
+        <aside className={styles.sidebar} style={{ display: hamburger ? "block" : "none" }}>
             {/* Logo */}
-            <NavLink to="/" className="sidebar-logo">
+            <NavLink to="/" className={styles.sidebarLogo}>
                 Zyvix.ai
             </NavLink>
 
             {/* Profile */}
-            <div className="sidebar-profile">
-                <div className="avatar-lg">{user?.username.charAt(0).toUpperCase()}</div>
-                <span className="profile-name">{user?.username}</span>
-                <span className="plan-badge">💎 Free Plan</span>
+            <div className={styles.sidebarProfile} >
+                <div className={styles.avatarLg}>
+                    {user?.username.charAt(0).toUpperCase()}
+                </div>
+
+                <span className={styles.profileName}>
+                    {user?.username}
+                </span>
+
+                <span className={styles.planBadge}>
+                    💎 Free Plan
+                </span>
             </div>
 
             {/* Navigation */}
-            <nav className="sidebar-nav">
+            <nav className={styles.sidebarNav}>
                 {navItems.map(({ label, icon: Icon, path }) => (
                     <NavLink
                         to={path}
                         end
                         key={label}
                         className={({ isActive }) =>
-                            `nav-item ${isActive ? "active" : ""}`
+                            `${styles.navItem} ${isActive ? styles.active : ""}`
                         }
                     >
                         {({ isActive }) => (
@@ -74,21 +83,23 @@ export default function Sidebar() {
             </nav>
 
             {/* Bottom */}
-            <div className="sidebar-bottom">
-                <div className="avatar-sm">ai</div>
-                <div className="bottom-info">
-                    <div className="bottom-name">{user?.username}</div>
-                    <div className="bottom-plan">Free Plan</div>
+            <div className={styles.sidebarBottom}>
+                <div className={styles.avatarSm}>ai</div>
+
+                <div className={styles.bottomInfo}>
+                    <div className={styles.bottomName}>{user?.username}</div>
+                    <div className={styles.bottomPlan}>Free Plan</div>
                 </div>
-                <button className="logout-btn" title="Logout" onClick={handleLogout}>
+
+                <button
+                    className={styles.logoutBtn}
+                    title="Logout"
+                    onClick={handleLogout}
+                >
                     Logout
                     <LogoutIcon />
                 </button>
             </div>
-
         </aside>
     );
 }
-
-
-

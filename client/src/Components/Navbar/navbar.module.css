@@ -97,3 +97,49 @@
   color: #ffb300;
   /* color: black; */
 }
+
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 15px 20px;
+  }
+
+  .logo {
+    font-size: 25px;
+    gap: 0px;
+  }
+
+  .navRight {
+    gap: 0px;
+  }
+
+  .navBtn {
+    padding: 10px 22px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .creditBox {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 3px 18px;
+    border-radius: 100px;
+  }
+
+  .coinIcon {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+
+  .creditLabel {
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  .creditValue {
+    font-size: 13px;
+    font-weight: 800;
+  }
+}

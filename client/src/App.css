@@ -375,25 +375,11 @@
   }
 }
 
-@media (max-width: 430px) {
+@media (max-width: 480px) {
   .animated-text {
     min-width: 0px;
     /* prevents jump during typing */
   }
-
-  .navbar {
-    padding: 15px 20px;
-  }
-
-  .logo {
-    font-size: 20px;
-  }
-
-  .nav-btn {
-    padding: 10px 22px;
-    font-size: 12px;
-  }
-
   .hero {
     padding: 90px 16px 40px;
     margin-top: 70px;
@@ -419,6 +405,7 @@
     /* width: 100%; */
     padding: 12px 20px;
     font-size: 14px;
+    font-weight: 600;
   }
 
   .trust {
