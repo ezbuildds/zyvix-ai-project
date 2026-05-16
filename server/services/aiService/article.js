@@ -53,7 +53,17 @@ export default async function article(req, res) {
                 message: " User not found"
             });
         }
-        await db.collection("generationHistory").insertOne({ userId: user._id, prompt: prompt, words: length, tone: tone, title: title, creditsUsed: 1, createdAt: new Date() })
+        await db.collection("generationHistory").insertOne({
+            userId: user._id,
+            type: "article",
+            prompt: prompt,
+            meta: {
+                tone: tone,
+                words: length,
+            },
+            creditsUsed: 1,
+            createdAt: new Date()
+        })
         return res.status(200).send({
             success: true,
             content: response.choices[0].message.content,

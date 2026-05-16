@@ -16,44 +16,32 @@ const categories = [
 export default function TitleGenerator() {
     const [keyword, setKeyword] = useState("");
     const [category, setCategory] = useState("general");
-    const [count, setCount] = useState(5);
+    const [count, setCount] = useState(1);
     const [titles, setTitles] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [copiedAll, setCopiedAll] = useState(false);
     const [copiedIdx, setCopiedIdx] = useState(null);
 
+    const BASE_URL = import.meta.env.VITE_BASE_URL;
     const generate = async () => {
         if (!keyword.trim()) return;
         setLoading(true); setError(""); setTitles([]);
         try {
-            const res = await fetch("https://api.anthropic.com/v1/messages", {
+            let res = await fetch(`${BASE_URL}/api/generate-title`, {
                 method: "POST",
+                credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    model: "claude-sonnet-4-20250514",
-                    max_tokens: 800,
-                    messages: [{
-                        role: "user",
-                        content: `Generate exactly ${count} catchy, SEO-friendly blog post titles for the following keyword/topic in the "${category}" category.
-                        Keyword/Topic: ${keyword}
-
-                        Rules:
-                        - Each title on a new line
-                        - No numbering, bullets, or extra formatting
-                        - Make them engaging, clickable, and varied in style
-                        - Mix different title formats (how-to, listicle, question, etc.)
-                        - Return ONLY the titles, nothing else`
-                    }]
+                    keyword,
+                    count,
+                    category
                 })
             });
-            const data = await res.json();
-            if (data?.content?.[0]?.text) {
-                const parsed = data.content[0].text
-                    .split("\n")
-                    .map(t => t.trim())
-                    .filter(t => t.length > 3 && !t.match(/^[\d\-\*\#]/));
-                setTitles(parsed.slice(0, count));
+            res = await res.json();
+            console.log("API Response:", res);
+            if (res.success && Array.isArray(res.titles)) {
+                setTitles(res.titles);
             } else {
                 setError("Could not generate titles. Please try again.");
             }

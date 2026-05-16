@@ -15,53 +15,53 @@ function formatTime(dateStr) {
 }
 
 const toneColors = {
-    professional:   { bg: "#EEF0FE", color: "#4338CA" },
-    casual:         { bg: "#E8F5F0", color: "#1A7A52" },
-    persuasive:     { bg: "#FEF3E7", color: "#A05D08" },
-    informative:    { bg: "#FCF0F8", color: "#9A2E6E" },
+    professional: { bg: "#EEF0FE", color: "#4338CA" },
+    casual: { bg: "#E8F5F0", color: "#1A7A52" },
+    persuasive: { bg: "#FEF3E7", color: "#A05D08" },
+    informative: { bg: "#FCF0F8", color: "#9A2E6E" },
     photorealistic: { bg: "#E8F0FE", color: "#1A56A5" },
-    abstract:       { bg: "#F0EEF8", color: "#6B42C4" },
-    friendly:       { bg: "#E8F5F0", color: "#1A7A52" },
-    academic:       { bg: "#EEF0FE", color: "#4338CA" },
+    abstract: { bg: "#F0EEF8", color: "#6B42C4" },
+    friendly: { bg: "#E8F5F0", color: "#1A7A52" },
+    academic: { bg: "#EEF0FE", color: "#4338CA" },
 };
 
 // Type ke hisab se config
 const TYPE_CONFIG = {
     article: {
-        label:      "Article",
-        badgeBg:    "#E0F2FE",
+        label: "Article",
+        badgeBg: "#E0F2FE",
         badgeColor: "#0369A1",
-        getMeta:    (g) => `${g.tone || ""} · ${g.words || ""} words`,
+        getMeta: (g) => `${g.tone || ""} · ${g.words || ""} words`,
     },
     image: {
-        label:      "Image",
-        badgeBg:    "#FCE7F3",
+        label: "Image",
+        badgeBg: "#FCE7F3",
         badgeColor: "#9D174D",
-        getMeta:    (g) => g.style || "Generated image",
+        getMeta: (g) => g.style || "Generated image",
     },
     title: {
-        label:      "Titles",
-        badgeBg:    "#EDE9FE",
+        label: "Titles",
+        badgeBg: "#EDE9FE",
         badgeColor: "#6D28D9",
-        getMeta:    (g) => g.count ? `${g.count} titles generated` : "Titles generated",
+        getMeta: (g) => g.count ? `${g.count} titles generated` : "Titles generated",
     },
     resume: {
-        label:      "Resume",
-        badgeBg:    "#CCFBF1",
+        label: "Resume",
+        badgeBg: "#CCFBF1",
         badgeColor: "#0F766E",
-        getMeta:    (g) => g.score ? `Score: ${g.score}` : "Resume reviewed",
+        getMeta: (g) => g.score ? `Score: ${g.score}` : "Resume reviewed",
     },
     background: {
-        label:      "Background",
-        badgeBg:    "#FEF3C7",
+        label: "Background",
+        badgeBg: "#FEF3C7",
         badgeColor: "#B45309",
-        getMeta:    (g) => "Background removed",
+        getMeta: (g) => "Background removed",
     },
 };
 
 export default function ContentDashboard() {
-    const [search, setSearch]     = useState("");
-    const [filter, setFilter]     = useState("all");
+    const [search, setSearch] = useState("");
+    const [filter, setFilter] = useState("all");
     const [expanded, setExpanded] = useState(null);
     const [historyData, setHistory] = useState([]);
     const [hamburger, sethamburger] = useState(false);
@@ -82,12 +82,11 @@ export default function ContentDashboard() {
     }
 
     const filtered = historyData.filter((g) => {
-        const matchSearch = g.title?.toLowerCase().includes(search.toLowerCase()) || g.prompt?.toLowerCase().includes(search.toLowerCase());
-        const matchFilter = filter === "all" || g.title?.toLowerCase() === filter;
+        const matchSearch = g.type?.toLowerCase().includes(search.toLowerCase()) || g.prompt?.toLowerCase().includes(search.toLowerCase());
+        const matchFilter = filter === "all" || g.type?.toLowerCase() === filter;
         return matchSearch && matchFilter;
     });
-
-    const countByType = (type) => historyData.filter((g) => g.title?.toLowerCase() === type).length;
+    const countByType = (type) => historyData.filter((g) => g.type?.toLowerCase() === type).length;
 
     return (
         <div className={styles.dbRoot}>
@@ -129,17 +128,15 @@ export default function ContentDashboard() {
                         </button>
                     </div>
                 </header>
-
-                {/* ── Stats Row ── */}
                 <div className={styles.statsRow}>
                     {[
-                        { sub: "Total Generated",    value: historyData.length,       accent: "#6366F1", bg: "linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%)", icon: <TotalGenerateIcon /> },
-                        { sub: "Articles Written",   value: countByType("article"),   accent: "#0EA5E9", bg: "linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)", icon: <ArticalIcon /> },
-                        { sub: "Generate Titles",    value: countByType("title"),     accent: "#F59E0B", bg: "linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)", icon: <TitleIcon /> },
-                        { sub: "Generate Images",    value: countByType("image"),     accent: "#EC4899", bg: "linear-gradient(135deg, #FCE7F3 0%, #FBCFE8 100%)", icon: <ImageGenerateIcon /> },
-                        { sub: "Remove Background",  value: countByType("background"),accent: "#8B5CF6", bg: "linear-gradient(135deg, #EDE9FE 0%, #DDD6FE 100%)", icon: <RemoveIcon /> },
-                        { sub: "Review Resume",      value: countByType("resume"),    accent: "#14B8A6", bg: "linear-gradient(135deg, #CCFBF1 0%, #99F6E4 100%)", icon: <ReviewIcon /> },
-                        { sub: "Community",          value: countByType("community"), accent: "#F43F5E", bg: "linear-gradient(135deg, #FFE4E6 0%, #FECDD3 100%)", icon: <CommunityIcon /> },
+                        { sub: "Total Generated", value: historyData.length, accent: "#6366F1", bg: "linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%)", icon: <TotalGenerateIcon /> },
+                        { sub: "Articles Written", value: countByType("article"), accent: "#0EA5E9", bg: "linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)", icon: <ArticalIcon /> },
+                        { sub: "Generate Titles", value: countByType("title"), accent: "#F59E0B", bg: "linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)", icon: <TitleIcon /> },
+                        { sub: "Generate Images", value: countByType("image"), accent: "#EC4899", bg: "linear-gradient(135deg, #FCE7F3 0%, #FBCFE8 100%)", icon: <ImageGenerateIcon /> },
+                        { sub: "Remove Background", value: countByType("background"), accent: "#8B5CF6", bg: "linear-gradient(135deg, #EDE9FE 0%, #DDD6FE 100%)", icon: <RemoveIcon /> },
+                        { sub: "Review Resume", value: countByType("resume"), accent: "#14B8A6", bg: "linear-gradient(135deg, #CCFBF1 0%, #99F6E4 100%)", icon: <ReviewIcon /> },
+                        { sub: "Community", value: countByType("community"), accent: "#F43F5E", bg: "linear-gradient(135deg, #FFE4E6 0%, #FECDD3 100%)", icon: <CommunityIcon /> },
                         {
                             value: historyData.reduce((acc, item) => acc + (item.creditsUsed || 0), 0),
                             sub: `${user?.remainingLimit || 0} left`,
@@ -156,8 +153,6 @@ export default function ContentDashboard() {
                         </div>
                     ))}
                 </div>
-
-                {/* ── Controls ── */}
                 <div className={styles.controls}>
                     <div className={styles.searchWrap}>
                         <svg className={styles.searchIcon} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -171,7 +166,6 @@ export default function ContentDashboard() {
                             onChange={(e) => setSearch(e.target.value)}
                         />
                     </div>
-
                     <div className={styles.filterGroup}>
                         {["all", "article", "image", "title", "resume", "background"].map((f) => (
                             <button
@@ -179,12 +173,12 @@ export default function ContentDashboard() {
                                 onClick={() => setFilter(f)}
                                 className={`${styles.filterBtn} ${filter === f ? styles.filterBtnActive : ""}`}
                             >
-                                {f === "all"        ? "All"
-                                 : f === "article"  ? "✦ Articles"
-                                 : f === "image"    ? "◈ Images"
-                                 : f === "title"    ? "❋ Titles"
-                                 : f === "resume"   ? "▣ Resume"
-                                 : "◎ Background"}
+                                {f === "all" ? "All"
+                                    : f === "article" ? "✦ Articles"
+                                        : f === "image" ? "◈ Images"
+                                            : f === "title" ? "❋ Titles"
+                                                : f === "resume" ? "▣ Resume"
+                                                    : "◎ Background"}
                             </button>
                         ))}
                     </div>
@@ -200,15 +194,10 @@ export default function ContentDashboard() {
                         </div>
                     ) : (
                         filtered.map((g) => {
-                            // Type config lo — default article
-                            const config = TYPE_CONFIG[g.title?.toLowerCase()] || TYPE_CONFIG.article;
-
-                            // Tone color lo
+                            const config = TYPE_CONFIG[g.type?.toLowerCase()] || TYPE_CONFIG.article;
                             const tone = g.tone?.toLowerCase() || g.style?.toLowerCase();
-                            const tc   = toneColors[tone] || { bg: "#F1F5F9", color: "#64748B" };
-
+                            const tc = toneColors[tone] || { bg: "#F1F5F9", color: "#64748B" };
                             const isOpen = expanded === g._id;
-
                             return (
                                 <div
                                     key={g._id}
@@ -239,30 +228,22 @@ export default function ContentDashboard() {
                                                 )}
                                             </div>
                                         </div>
-
-                                        {/* Prompt preview */}
                                         <div className={styles.promptPreview}>
                                             <span className={styles.promptLabel}>Prompt: </span>
                                             {isOpen ? g.prompt : g.prompt.slice(0, 80) + (g.prompt.length > 80 ? "…" : "")}
                                         </div>
-
                                         <div className={styles.cardFooter}>
-                                            {/* Tone badge — sirf jab tone ho */}
                                             {g.tone && (
                                                 <span className={styles.toneBadge} style={{ background: tc.bg, color: tc.color }}>
                                                     {g.tone}
                                                 </span>
                                             )}
-
-                                            {/* Credits */}
                                             <span className={styles.creditBadge}>
                                                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style={{ marginRight: 3 }}>
                                                     <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="#F59E0B" />
                                                 </svg>
                                                 {g.creditsUsed} credits
                                             </span>
-
-                                            {/* Type badge — dynamic */}
                                             <span className={styles.typeBadge} style={{ background: config.badgeBg, color: config.badgeColor }}>
                                                 {config.label}
                                             </span>
@@ -271,26 +252,21 @@ export default function ContentDashboard() {
                                                 {isOpen ? "▲ Less" : "▼ More"}
                                             </span>
                                         </div>
-
-                                        {/* Expanded content — type ke hisab se */}
                                         {isOpen && (
                                             <div className={styles.expandedContent}>
-                                                {g.title?.toLowerCase() === "image" || g.title?.toLowerCase() === "background" ? (
-                                                    // Image types ke liye image dikhao
+                                                {g.type?.toLowerCase() === "image" || g.type?.toLowerCase() === "background" ? (
                                                     g.imageUrl ? (
                                                         <img src={g.imageUrl} alt={g.prompt} style={{ width: "100%", borderRadius: 8, marginTop: 10 }} />
                                                     ) : (
                                                         <p style={{ color: "#94A3B8", fontSize: 13 }}>No preview available</p>
                                                     )
-                                                ) : g.title?.toLowerCase() === "title" ? (
-                                                    // Title type ke liye list dikhao
+                                                ) : g.type?.toLowerCase() === "title" ? (
                                                     <ul style={{ paddingLeft: 16, marginTop: 8 }}>
-                                                        {g.titles?.map((t, i) => (
+                                                        {g.type?.map((t, i) => (
                                                             <li key={i} style={{ fontSize: 13, color: "#334155", marginBottom: 4 }}>{t}</li>
                                                         ))}
                                                     </ul>
                                                 ) : (
-                                                    // Article, resume, baaki sab ke liye prompt dikhao
                                                     <p style={{ fontSize: 13, color: "#64748B", marginTop: 8, lineHeight: 1.6 }}>
                                                         {g.prompt}
                                                     </p>
