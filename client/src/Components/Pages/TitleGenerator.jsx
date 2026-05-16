@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Sidebar from "./Sidebar";
 import "../../css/TitleGenerator.css"
+import { authData } from "../../Context/ContextApi";
 
 const categories = [
     { label: "🌐 General", value: "general" },
@@ -23,6 +24,7 @@ export default function TitleGenerator() {
     const [copiedAll, setCopiedAll] = useState(false);
     const [copiedIdx, setCopiedIdx] = useState(null);
 
+    const { setUser } = authData()
     const BASE_URL = import.meta.env.VITE_BASE_URL;
     const generate = async () => {
         if (!keyword.trim()) return;
@@ -42,8 +44,9 @@ export default function TitleGenerator() {
             console.log("API Response:", res);
             if (res.success && Array.isArray(res.titles)) {
                 setTitles(res.titles);
+                setUser(prev => ({ ...prev, remainingLimit: res.remainingLimit }))
             } else {
-                setError("Could not generate titles. Please try again.");
+                setError(res.message);
             }
         } catch {
             setError("Network error. Please check your connection.");

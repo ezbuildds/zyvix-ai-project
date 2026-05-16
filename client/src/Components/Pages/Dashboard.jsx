@@ -131,11 +131,6 @@ export default function ContentDashboard() {
                 <div className={styles.statsRow}>
                     {[
                         { sub: "Total Generated", value: historyData.length, accent: "#6366F1", bg: "linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%)", icon: <TotalGenerateIcon /> },
-                        { sub: "Articles Written", value: countByType("article"), accent: "#0EA5E9", bg: "linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)", icon: <ArticalIcon /> },
-                        { sub: "Generate Titles", value: countByType("title"), accent: "#F59E0B", bg: "linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)", icon: <TitleIcon /> },
-                        { sub: "Generate Images", value: countByType("image"), accent: "#EC4899", bg: "linear-gradient(135deg, #FCE7F3 0%, #FBCFE8 100%)", icon: <ImageGenerateIcon /> },
-                        { sub: "Remove Background", value: countByType("background"), accent: "#8B5CF6", bg: "linear-gradient(135deg, #EDE9FE 0%, #DDD6FE 100%)", icon: <RemoveIcon /> },
-                        { sub: "Review Resume", value: countByType("resume"), accent: "#14B8A6", bg: "linear-gradient(135deg, #CCFBF1 0%, #99F6E4 100%)", icon: <ReviewIcon /> },
                         { sub: "Community", value: countByType("community"), accent: "#F43F5E", bg: "linear-gradient(135deg, #FFE4E6 0%, #FECDD3 100%)", icon: <CommunityIcon /> },
                         {
                             value: historyData.reduce((acc, item) => acc + (item.creditsUsed || 0), 0),
@@ -155,7 +150,7 @@ export default function ContentDashboard() {
                 </div>
                 <div className={styles.controls}>
                     <div className={styles.searchWrap}>
-                        <svg className={styles.searchIcon} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg className={styles.searchIcon} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
                         </svg>
                         <input
@@ -167,20 +162,27 @@ export default function ContentDashboard() {
                         />
                     </div>
                     <div className={styles.filterGroup}>
-                        {["all", "article", "image", "title", "resume", "background"].map((f) => (
-                            <button
-                                key={f}
-                                onClick={() => setFilter(f)}
-                                className={`${styles.filterBtn} ${filter === f ? styles.filterBtnActive : ""}`}
-                            >
-                                {f === "all" ? "All"
-                                    : f === "article" ? "✦ Articles"
-                                        : f === "image" ? "◈ Images"
-                                            : f === "title" ? "❋ Titles"
-                                                : f === "resume" ? "▣ Resume"
-                                                    : "◎ Background"}
-                            </button>
-                        ))}
+                        {[
+                            { key: "all", label: "All" },
+                            { key: "article", label: "✦ Articles" },
+                            { key: "image", label: "◈ Images" },
+                            { key: "title", label: "❋ Titles" },
+                            { key: "resume", label: "▣ Resume" },
+                            { key: "background", label: "◎ Background" },
+                        ].map((f) => {
+                            const count = f.key === "all" ? historyData.length : countByType(f.key);
+                            return (
+                                <button
+                                    key={f.key}
+                                    onClick={() => setFilter(f.key)}
+                                    className={`${styles.filterBtn} ${filter === f.key ? styles.filterBtnActive : ""}`}
+                                >
+                                    <span>{f.icon}</span>
+                                    {f.label}
+                                    <span className={styles.filterCount}>{count}</span>
+                                </button>
+                            );
+                        })}
                     </div>
                 </div>
 
@@ -188,7 +190,15 @@ export default function ContentDashboard() {
                 <div className={styles.list}>
                     {filtered.length === 0 ? (
                         <div className={styles.empty}>
-                            <div className={styles.emptyIcon}>◌</div>
+                            <div className={styles.emptyIcon}>
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                                    stroke="#a78bfa" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <circle cx="11" cy="11" r="8" />
+                                    <path d="m21 21-4.35-4.35" />
+                                    <line x1="11" y1="8" x2="11" y2="14" />
+                                    <line x1="8" y1="11" x2="14" y2="11" />
+                                </svg>
+                            </div>
                             <div className={styles.emptyText}>No generations found</div>
                             <div className={styles.emptySub}>Try adjusting your search or filter</div>
                         </div>
@@ -206,8 +216,7 @@ export default function ContentDashboard() {
                                 >
                                     <div className={styles.cardBody}>
                                         <div className={styles.cardTop}>
-                                            <div className={styles.cardTitle}>{g.prompt}</div>
-
+                                            <div className={styles.cardTitle}>{g.prompt} </div>
                                             <div className={styles.cardMeta}>
                                                 <span className={styles.metaDate}>
                                                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 4 }}>
@@ -281,7 +290,7 @@ export default function ContentDashboard() {
                 </div>
 
                 <div className={styles.footer}>
-                    Showing {filtered.length} of {historyData.length} generations · Zyvix.ai
+                    Showing {historyData.length} of {historyData.length} generations · Zyvix.ai
                 </div>
             </div>
         </div>
