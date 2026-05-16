@@ -16,7 +16,7 @@ const navItems = [
     { label: "Community", icon: UsersIcon, path: "/dashboard/community" },
 ];
 
-export default function Sidebar({ hamburger }) {
+export default function Sidebar() {
     const { user, setUser } = authData();
     const navigate = useNavigate();
 
@@ -40,7 +40,7 @@ export default function Sidebar({ hamburger }) {
         navigate("/");
     }
     return (
-        <aside className={styles.sidebar} style={{ display: hamburger ? "block" : "none" }}>
+        <aside className={styles.sidebar}>
             {/* Logo */}
             <NavLink to="/" className={styles.sidebarLogo}>
                 Zyvix.ai

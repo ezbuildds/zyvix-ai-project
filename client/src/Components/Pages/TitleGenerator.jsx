@@ -36,15 +36,14 @@ export default function TitleGenerator() {
                     messages: [{
                         role: "user",
                         content: `Generate exactly ${count} catchy, SEO-friendly blog post titles for the following keyword/topic in the "${category}" category.
+                        Keyword/Topic: ${keyword}
 
-Keyword/Topic: ${keyword}
-
-Rules:
-- Each title on a new line
-- No numbering, bullets, or extra formatting
-- Make them engaging, clickable, and varied in style
-- Mix different title formats (how-to, listicle, question, etc.)
-- Return ONLY the titles, nothing else`
+                        Rules:
+                        - Each title on a new line
+                        - No numbering, bullets, or extra formatting
+                        - Make them engaging, clickable, and varied in style
+                        - Mix different title formats (how-to, listicle, question, etc.)
+                        - Return ONLY the titles, nothing else`
                     }]
                 })
             });

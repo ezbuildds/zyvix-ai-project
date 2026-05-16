@@ -8,7 +8,7 @@ const AI = new OpenAI({
     apiKey: process.env.GEMINI_API_KEY,
     baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"
 });
-export default async function article(req, res) {
+export default async function title(req, res) {
     try {
         const { prompt, length, tone, title } = req.body;
         const token = req.cookies.token

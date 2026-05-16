@@ -6,74 +6,97 @@ import { ArticalIcon, BoltSmIcon, CommunityIcon, CreditIcon, ImageGenerateIcon, 
 
 function formatDate(dateStr) {
     const d = new Date(dateStr);
-    return d.toLocaleDateString("en-IN", {
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-    });
+    return d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
 }
 
 function formatTime(dateStr) {
     const d = new Date(dateStr);
-    return d.toLocaleTimeString("en-IN", {
-        hour: "2-digit",
-        minute: "2-digit",
-    });
+    return d.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" });
 }
 
 const toneColors = {
-    professional: { bg: "#EEF0FE", color: "#4338CA" },
-    casual: { bg: "#E8F5F0", color: "#1A7A52" },
-    persuasive: { bg: "#FEF3E7", color: "#A05D08" },
-    informative: { bg: "#FCF0F8", color: "#9A2E6E" },
+    professional:   { bg: "#EEF0FE", color: "#4338CA" },
+    casual:         { bg: "#E8F5F0", color: "#1A7A52" },
+    persuasive:     { bg: "#FEF3E7", color: "#A05D08" },
+    informative:    { bg: "#FCF0F8", color: "#9A2E6E" },
     photorealistic: { bg: "#E8F0FE", color: "#1A56A5" },
-    abstract: { bg: "#F0EEF8", color: "#6B42C4" },
+    abstract:       { bg: "#F0EEF8", color: "#6B42C4" },
+    friendly:       { bg: "#E8F5F0", color: "#1A7A52" },
+    academic:       { bg: "#EEF0FE", color: "#4338CA" },
+};
+
+// Type ke hisab se config
+const TYPE_CONFIG = {
+    article: {
+        label:      "Article",
+        badgeBg:    "#E0F2FE",
+        badgeColor: "#0369A1",
+        getMeta:    (g) => `${g.tone || ""} · ${g.words || ""} words`,
+    },
+    image: {
+        label:      "Image",
+        badgeBg:    "#FCE7F3",
+        badgeColor: "#9D174D",
+        getMeta:    (g) => g.style || "Generated image",
+    },
+    title: {
+        label:      "Titles",
+        badgeBg:    "#EDE9FE",
+        badgeColor: "#6D28D9",
+        getMeta:    (g) => g.count ? `${g.count} titles generated` : "Titles generated",
+    },
+    resume: {
+        label:      "Resume",
+        badgeBg:    "#CCFBF1",
+        badgeColor: "#0F766E",
+        getMeta:    (g) => g.score ? `Score: ${g.score}` : "Resume reviewed",
+    },
+    background: {
+        label:      "Background",
+        badgeBg:    "#FEF3C7",
+        badgeColor: "#B45309",
+        getMeta:    (g) => "Background removed",
+    },
 };
 
 export default function ContentDashboard() {
-    const [search, setSearch] = useState("");
-    const [filter, setFilter] = useState("all");
+    const [search, setSearch]     = useState("");
+    const [filter, setFilter]     = useState("all");
     const [expanded, setExpanded] = useState(null);
     const [historyData, setHistory] = useState([]);
-    const [hamburger, sethamburger] = useState(false)
+    const [hamburger, sethamburger] = useState(false);
     const { user } = authData();
 
     const BASE_URL = import.meta.env.VITE_BASE_URL;
-    useEffect(() => {
-        fetchHistory();
-    }, []);
+
+    useEffect(() => { fetchHistory(); }, []);
 
     async function fetchHistory() {
         try {
-            let res = await fetch(`${BASE_URL}/api/dashboard`, {
-                credentials: "include",
-            });
+            let res = await fetch(`${BASE_URL}/api/dashboard`, { credentials: "include" });
             res = await res.json();
-            if (res.success) {
-                setHistory(res.data);
-            }
+            if (res.success) setHistory(res.data);
         } catch (error) {
             console.log(error);
         }
     }
+
     const filtered = historyData.filter((g) => {
         const matchSearch = g.title?.toLowerCase().includes(search.toLowerCase()) || g.prompt?.toLowerCase().includes(search.toLowerCase());
         const matchFilter = filter === "all" || g.title?.toLowerCase() === filter;
         return matchSearch && matchFilter;
     });
-    const articleCount = historyData.filter((g) => g.title?.toLowerCase() === "article").length;
-    const imageCount = historyData.filter((g) => g.title?.toLowerCase() === "image").length;
-    console.log("Dashboard data :", user);
+
+    const countByType = (type) => historyData.filter((g) => g.title?.toLowerCase() === type).length;
 
     return (
         <div className={styles.dbRoot}>
-            <Sidebar hamburger={hamburger} />
+            <Sidebar />
 
             <div className={styles.root}>
-                {/* ── Background grain overlay ── */}
                 <div className={styles.grain} />
 
-                {/* ── Top Header ── */}
+                {/* ── Header ── */}
                 <header className={styles.header}>
                     <div className={styles.headerLeft}>
                         <div className={styles.logoMark}>
@@ -81,66 +104,27 @@ export default function ContentDashboard() {
                                 <BoltSmIcon color="#F0A830" />
                             </span>
                         </div>
-
                         <div>
                             <div className={styles.appName}>Dashboard</div>
-                            <div className={styles.appTagline}>
-                                Your generation history
-                            </div>
+                            <div className={styles.appTagline}>Your generation history</div>
                         </div>
                     </div>
-                    <div className={styles.hamburger} onClick={() => sethamburger(!hamburger)}>
-                        <svg
-                            width="28"
-                            height="28"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                d="M4 6H20"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                            />
-                            <path
-                                d="M4 12H20"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                            />
-                            <path
-                                d="M4 18H20"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                            />
+                    <div className={styles.hamburger}>
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                            <path d="M4 6H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                            <path d="M4 12H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                            <path d="M4 18H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                         </svg>
                     </div>
-                    {/* Credit Bar */}
                     <div className={styles.creditBox}>
                         <div className={styles.creditsPill}>
-                            <span className={styles.boltAnim}>
-                                <BoltSmIcon color="#F0A830" />
-                            </span>
-
-                            {user?.remainingLimit} / {user?.totalLimit} credits
-                            left
+                            <span className={styles.boltAnim}><BoltSmIcon color="#F0A830" /></span>
+                            {user?.remainingLimit} / {user?.totalLimit} credits left
                         </div>
-
                         <button className={styles.upgradeBtn}>
-                            <svg
-                                width="13"
-                                height="13"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                            >
-                                <polygon
-                                    points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"
-                                    fill="#1A1A2E"
-                                />
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="#1A1A2E" />
                             </svg>
-
                             Upgrade Plan
                         </button>
                     </div>
@@ -149,55 +133,13 @@ export default function ContentDashboard() {
                 {/* ── Stats Row ── */}
                 <div className={styles.statsRow}>
                     {[
-                        {
-                            sub: "Total Generated",
-                            value: historyData.length,
-                            accent: "#6366F1",
-                            bg: "linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%)",
-                            icon: <TotalGenerateIcon />
-                        },
-                        {
-                            sub: "Articles Written",
-                            value: articleCount,
-                            accent: "#0EA5E9",
-                            bg: "linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)",
-                            icon: <ArticalIcon />
-                        },
-                        {
-                            sub: "Generate Titles",
-                            value: imageCount,
-                            accent: "#F59E0B",
-                            bg: "linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)",
-                            icon: <TitleIcon />
-                        },
-                        {
-                            sub: "Generate Images",
-                            value: imageCount,
-                            accent: "#EC4899",
-                            bg: "linear-gradient(135deg, #FCE7F3 0%, #FBCFE8 100%)",
-                            icon: <ImageGenerateIcon />
-                        },
-                        {
-                            sub: "Remove Background",
-                            value: imageCount,
-                            accent: "#8B5CF6",
-                            bg: "linear-gradient(135deg, #EDE9FE 0%, #DDD6FE 100%)",
-                            icon: <RemoveIcon />
-                        },
-                        {
-                            sub: "Review Resume",
-                            value: imageCount,
-                            accent: "#14B8A6",
-                            bg: "linear-gradient(135deg, #CCFBF1 0%, #99F6E4 100%)",
-                            icon: <ReviewIcon />
-                        },
-                        {
-                            sub: "Community",
-                            value: imageCount,
-                            accent: "#F43F5E",
-                            bg: "linear-gradient(135deg, #FFE4E6 0%, #FECDD3 100%)",
-                            icon: <CommunityIcon />
-                        },
+                        { sub: "Total Generated",    value: historyData.length,       accent: "#6366F1", bg: "linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%)", icon: <TotalGenerateIcon /> },
+                        { sub: "Articles Written",   value: countByType("article"),   accent: "#0EA5E9", bg: "linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)", icon: <ArticalIcon /> },
+                        { sub: "Generate Titles",    value: countByType("title"),     accent: "#F59E0B", bg: "linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)", icon: <TitleIcon /> },
+                        { sub: "Generate Images",    value: countByType("image"),     accent: "#EC4899", bg: "linear-gradient(135deg, #FCE7F3 0%, #FBCFE8 100%)", icon: <ImageGenerateIcon /> },
+                        { sub: "Remove Background",  value: countByType("background"),accent: "#8B5CF6", bg: "linear-gradient(135deg, #EDE9FE 0%, #DDD6FE 100%)", icon: <RemoveIcon /> },
+                        { sub: "Review Resume",      value: countByType("resume"),    accent: "#14B8A6", bg: "linear-gradient(135deg, #CCFBF1 0%, #99F6E4 100%)", icon: <ReviewIcon /> },
+                        { sub: "Community",          value: countByType("community"), accent: "#F43F5E", bg: "linear-gradient(135deg, #FFE4E6 0%, #FECDD3 100%)", icon: <CommunityIcon /> },
                         {
                             value: historyData.reduce((acc, item) => acc + (item.creditsUsed || 0), 0),
                             sub: `${user?.remainingLimit || 0} left`,
@@ -208,7 +150,7 @@ export default function ContentDashboard() {
                     ].map((s, i) => (
                         <div key={i} className={styles.statCard}>
                             <div />
-                            <div style={{ background: s.bg, color: s.accent, }} className={styles.statIcon}>{s.icon}</div>
+                            <div style={{ background: s.bg, color: s.accent }} className={styles.statIcon}>{s.icon}</div>
                             <div style={{ color: s.accent }} className={styles.statValue}>{s.value}</div>
                             <div className={styles.statSub}>{s.sub}</div>
                         </div>
@@ -218,21 +160,9 @@ export default function ContentDashboard() {
                 {/* ── Controls ── */}
                 <div className={styles.controls}>
                     <div className={styles.searchWrap}>
-                        <svg
-                            className={styles.searchIcon}
-                            width="15"
-                            height="15"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="#94A3B8"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <circle cx="11" cy="11" r="8" />
-                            <path d="m21 21-4.35-4.35" />
+                        <svg className={styles.searchIcon} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
                         </svg>
-
                         <input
                             className={styles.searchInput}
                             type="text"
@@ -243,20 +173,18 @@ export default function ContentDashboard() {
                     </div>
 
                     <div className={styles.filterGroup}>
-                        {["all", "article", "image"].map((f) => (
+                        {["all", "article", "image", "title", "resume", "background"].map((f) => (
                             <button
                                 key={f}
                                 onClick={() => setFilter(f)}
-                                className={`${styles.filterBtn} ${filter === f
-                                    ? styles.filterBtnActive
-                                    : ""
-                                    }`}
+                                className={`${styles.filterBtn} ${filter === f ? styles.filterBtnActive : ""}`}
                             >
-                                {f === "all"
-                                    ? "All"
-                                    : f === "article"
-                                        ? "✦ Articles"
-                                        : "◈ Images"}
+                                {f === "all"        ? "All"
+                                 : f === "article"  ? "✦ Articles"
+                                 : f === "image"    ? "◈ Images"
+                                 : f === "title"    ? "❋ Titles"
+                                 : f === "resume"   ? "▣ Resume"
+                                 : "◎ Background"}
                             </button>
                         ))}
                     </div>
@@ -267,217 +195,108 @@ export default function ContentDashboard() {
                     {filtered.length === 0 ? (
                         <div className={styles.empty}>
                             <div className={styles.emptyIcon}>◌</div>
-
-                            <div className={styles.emptyText}>
-                                No generations found
-                            </div>
-
-                            <div className={styles.emptySub}>
-                                Try adjusting your search or filter
-                            </div>
+                            <div className={styles.emptyText}>No generations found</div>
+                            <div className={styles.emptySub}>Try adjusting your search or filter</div>
                         </div>
                     ) : (
                         filtered.map((g) => {
-                            const tone =
-                                g.tone?.toLowerCase() ||
-                                g.style?.toLowerCase();
+                            // Type config lo — default article
+                            const config = TYPE_CONFIG[g.title?.toLowerCase()] || TYPE_CONFIG.article;
 
-                            const tc = toneColors[tone] || {
-                                bg: "#F1F5F9",
-                                color: "#64748B",
-                            };
+                            // Tone color lo
+                            const tone = g.tone?.toLowerCase() || g.style?.toLowerCase();
+                            const tc   = toneColors[tone] || { bg: "#F1F5F9", color: "#64748B" };
 
                             const isOpen = expanded === g._id;
 
                             return (
                                 <div
                                     key={g._id}
-                                    className={`${styles.card} ${isOpen ? styles.cardOpen : ""
-                                        }`}
-                                    onClick={() =>
-                                        setExpanded(
-                                            isOpen ? null : g._id
-                                        )
-                                    }
+                                    className={`${styles.card} ${isOpen ? styles.cardOpen : ""}`}
+                                    onClick={() => setExpanded(isOpen ? null : g._id)}
                                 >
-                                    {/* Type pill */}
-
-
                                     <div className={styles.cardBody}>
                                         <div className={styles.cardTop}>
-                                            <div className={styles.cardTitle}>
-                                                {g.prompt}
-                                            </div>
+                                            <div className={styles.cardTitle}>{g.prompt}</div>
 
                                             <div className={styles.cardMeta}>
-                                                <span
-                                                    className={
-                                                        styles.metaDate
-                                                    }
-                                                >
-                                                    <svg
-                                                        width="11"
-                                                        height="11"
-                                                        viewBox="0 0 24 24"
-                                                        fill="none"
-                                                        stroke="#94A3B8"
-                                                        strokeWidth="2"
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        style={{
-                                                            marginRight: 4,
-                                                        }}
-                                                    >
-                                                        <rect
-                                                            x="3"
-                                                            y="4"
-                                                            width="18"
-                                                            height="18"
-                                                            rx="2"
-                                                        />
-
-                                                        <line
-                                                            x1="16"
-                                                            y1="2"
-                                                            x2="16"
-                                                            y2="6"
-                                                        />
-
-                                                        <line
-                                                            x1="8"
-                                                            y1="2"
-                                                            x2="8"
-                                                            y2="6"
-                                                        />
-
-                                                        <line
-                                                            x1="3"
-                                                            y1="10"
-                                                            x2="21"
-                                                            y2="10"
-                                                        />
+                                                <span className={styles.metaDate}>
+                                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 4 }}>
+                                                        <rect x="3" y="4" width="18" height="18" rx="2" />
+                                                        <line x1="16" y1="2" x2="16" y2="6" />
+                                                        <line x1="8" y1="2" x2="8" y2="6" />
+                                                        <line x1="3" y1="10" x2="21" y2="10" />
                                                     </svg>
-
-                                                    {formatDate(
-                                                        g.createdAt
-                                                    )}
+                                                    {formatDate(g.createdAt)}
                                                 </span>
-
-                                                <span
-                                                    className={styles.metaDot}
-                                                >
-                                                    ·
-                                                </span>
-
-                                                <span
-                                                    className={
-                                                        styles.metaTime
-                                                    }
-                                                >
-                                                    {formatTime(
-                                                        g.createdAt
-                                                    )}
-                                                </span>
-
+                                                <span className={styles.metaDot}>·</span>
+                                                <span className={styles.metaTime}>{formatTime(g.createdAt)}</span>
                                                 {g.words && (
                                                     <>
-                                                        <span
-                                                            className={
-                                                                styles.metaDot
-                                                            }
-                                                        >
-                                                            ·
-                                                        </span>
-
-                                                        <span
-                                                            className={
-                                                                styles.metaWords
-                                                            }
-                                                        >
-                                                            {g.words} words
-                                                        </span>
+                                                        <span className={styles.metaDot}>·</span>
+                                                        <span className={styles.metaWords}>{g.words} words</span>
                                                     </>
                                                 )}
                                             </div>
                                         </div>
 
                                         {/* Prompt preview */}
-                                        <div
-                                            className={
-                                                styles.promptPreview
-                                            }
-                                        >
-                                            <span
-                                                className={
-                                                    styles.promptLabel
-                                                }
-                                            >
-                                                Prompt:
-                                            </span>
-
-                                            {isOpen
-                                                ? g.prompt
-                                                : g.prompt.slice(0, 80) +
-                                                (g.prompt.length > 80
-                                                    ? "…"
-                                                    : "")}
+                                        <div className={styles.promptPreview}>
+                                            <span className={styles.promptLabel}>Prompt: </span>
+                                            {isOpen ? g.prompt : g.prompt.slice(0, 80) + (g.prompt.length > 80 ? "…" : "")}
                                         </div>
 
                                         <div className={styles.cardFooter}>
-                                            <span
-                                                className={
-                                                    styles.toneBadge
-                                                }
-                                                style={{
-                                                    background: tc.bg,
-                                                    color: tc.color,
-                                                }}
-                                            >
-                                                {g.tone}
-                                            </span>
+                                            {/* Tone badge — sirf jab tone ho */}
+                                            {g.tone && (
+                                                <span className={styles.toneBadge} style={{ background: tc.bg, color: tc.color }}>
+                                                    {g.tone}
+                                                </span>
+                                            )}
 
-                                            <span
-                                                className={
-                                                    styles.creditBadge
-                                                }
-                                            >
-                                                <svg
-                                                    width="11"
-                                                    height="11"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    style={{
-                                                        marginRight: 3,
-                                                    }}
-                                                >
-                                                    <polygon
-                                                        points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"
-                                                        fill="#F59E0B"
-                                                    />
+                                            {/* Credits */}
+                                            <span className={styles.creditBadge}>
+                                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style={{ marginRight: 3 }}>
+                                                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="#F59E0B" />
                                                 </svg>
-
                                                 {g.creditsUsed} credits
                                             </span>
 
-                                            <span
-                                                className={styles.typeBadge}
-                                            >
-                                                {g.title}
+                                            {/* Type badge — dynamic */}
+                                            <span className={styles.typeBadge} style={{ background: config.badgeBg, color: config.badgeColor }}>
+                                                {config.label}
                                             </span>
 
-                                            <span
-                                                className={
-                                                    styles.expandHint
-                                                }
-                                                style={{
-                                                    marginLeft: "auto",
-                                                }}
-                                            >
-                                                {isOpen
-                                                    ? "▲ Less"
-                                                    : "▼ More"}
+                                            <span className={styles.expandHint} style={{ marginLeft: "auto" }}>
+                                                {isOpen ? "▲ Less" : "▼ More"}
                                             </span>
                                         </div>
+
+                                        {/* Expanded content — type ke hisab se */}
+                                        {isOpen && (
+                                            <div className={styles.expandedContent}>
+                                                {g.title?.toLowerCase() === "image" || g.title?.toLowerCase() === "background" ? (
+                                                    // Image types ke liye image dikhao
+                                                    g.imageUrl ? (
+                                                        <img src={g.imageUrl} alt={g.prompt} style={{ width: "100%", borderRadius: 8, marginTop: 10 }} />
+                                                    ) : (
+                                                        <p style={{ color: "#94A3B8", fontSize: 13 }}>No preview available</p>
+                                                    )
+                                                ) : g.title?.toLowerCase() === "title" ? (
+                                                    // Title type ke liye list dikhao
+                                                    <ul style={{ paddingLeft: 16, marginTop: 8 }}>
+                                                        {g.titles?.map((t, i) => (
+                                                            <li key={i} style={{ fontSize: 13, color: "#334155", marginBottom: 4 }}>{t}</li>
+                                                        ))}
+                                                    </ul>
+                                                ) : (
+                                                    // Article, resume, baaki sab ke liye prompt dikhao
+                                                    <p style={{ fontSize: 13, color: "#64748B", marginTop: 8, lineHeight: 1.6 }}>
+                                                        {g.prompt}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             );
@@ -486,8 +305,7 @@ export default function ContentDashboard() {
                 </div>
 
                 <div className={styles.footer}>
-                    Showing {filtered.length} of {historyData.length} generations
-                    · Zyvix.ai
+                    Showing {filtered.length} of {historyData.length} generations · Zyvix.ai
                 </div>
             </div>
         </div>
