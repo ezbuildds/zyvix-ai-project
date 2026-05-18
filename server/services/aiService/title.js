@@ -70,8 +70,8 @@ export default async function title(req, res) {
         })
 
         return res.status(200).send({
-           success:true,
-           title:generatedTitles,a
+            success: true,
+            titles: generatedTitles,
             remainingLimit: req.remainingCredits.remaining
         });
 

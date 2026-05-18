@@ -29,30 +29,46 @@ export default function ImageGenerator() {
     const [error, setError] = useState("");
     const [currentStyle, setCurrentStyle] = useState(imageStyles[0].label);
 
+    const BASE_URL = import.meta.env.VITE_BASE_URL
+
     const generate = async () => {
         if (!prompt.trim()) return;
-        setLoading(true); setError(""); setImgUrl("");
-        try {
-            const fullPrompt = encodeURIComponent(`${prompt}, ${style}, masterpiece, best quality`);
-            const url = `https://image.pollinations.ai/prompt/${fullPrompt}?width=${size.w}&height=${size.h}&nologo=true&enhance=true&seed=${Date.now()}`;
-            // preload to confirm it loads
-            await new Promise((res, rej) => {
-                const img = new Image();
-                img.onload = res;
-                img.onerror = rej;
-                img.src = url;
-            });
-            setImgUrl(url);
-            setCurrentStyle(imageStyles.find(s => s.value === style)?.label || style);
-        } catch {
-            setError("Image generation failed. Please try a different prompt or try again.");
-        } finally { setLoading(false); }
-    };
 
+        setLoading(true);
+        setError("");
+        setImgUrl("");
+console.log(style);
+
+        try {
+            const response = await fetch(`${BASE_URL}/api/generate-image`, {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    prompt,
+                    style,
+                    width: size.w,
+                    height: size.h
+                    // isPublic,
+                }),
+            });
+            const data = await response.json();
+            if (!response.ok || !data.success) {
+                throw new Error(data.message || "Image generation failed");
+            }
+            setImgUrl(data.imageUrl);
+            setCurrentStyle(imageStyles.find((s) => s.value === style)?.label || style);
+        } catch (err) {
+            setError(err.message || "Image generation failed. Please try again.");
+        } finally {
+            setLoading(false);
+        }
+    };
     const downloadImg = async () => {
         try {
             const res = await fetch(imgUrl);
             const blob = await res.blob();
+
             const a = document.createElement("a");
             a.href = URL.createObjectURL(blob);
             a.download = `quickai-image-${Date.now()}.png`;

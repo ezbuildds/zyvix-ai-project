@@ -18,6 +18,7 @@ import article from "./services/aiService/article.js";
 import checkLimitMiddleware from "./middlewares/checkLimitMiddleware.js";
 import dashboard from "./controller/dashboard.js";
 import title from "./services/aiService/title.js";
+import image from "./services/aiService/image.js";
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -53,6 +54,7 @@ app.get("/api/users/profile", authMiddleware, profile)
 app.get("/api/dashboard", dashboard)
 app.post("/api/generate-article", checkLimitMiddleware, article)
 app.post("/api/generate-title", checkLimitMiddleware, title)
+app.post("/api/generate-image", checkLimitMiddleware, image)
 
 await dbConnection();
 app.listen(PORT, () => {
