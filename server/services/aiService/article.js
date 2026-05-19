@@ -43,6 +43,7 @@ export default async function article(req, res) {
             max_tokens: length ? Math.ceil(length * 2) : 2000,
 
         });
+        const generatedContent = response.choices[0].message.content;
         const db = await dbConnection();
         const decodedUser = jwt.verify(token, process.env.SECRET_KEY);
         const user = await db.collection("users").findOne({ _id: new ObjectId(decodedUser.userId) });
@@ -56,6 +57,7 @@ export default async function article(req, res) {
         await db.collection("generationHistory").insertOne({
             userId: user._id,
             type: "article",
+            content: generatedContent,
             prompt: prompt,
             meta: {
                 tone: tone,
@@ -66,7 +68,7 @@ export default async function article(req, res) {
         })
         return res.status(200).send({
             success: true,
-            content: response.choices[0].message.content,
+            content: generatedContent,
             remainingLimit: req.remainingCredits.remaining
         });
     } catch (error) {

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "../../css/Dashboard.module.css";
 import Sidebar from "./Sidebar";
 import { authData } from "../../Context/ContextApi";
+import ReactMarkdown from "react-markdown";
 import { BoltSmIcon, CommunityIcon, CreditIcon, TotalGenerateIcon } from "./icon/Icon";
 
 function formatDate(dateStr) {
@@ -15,14 +16,14 @@ function formatTime(dateStr) {
 }
 
 const toneColors = {
-    professional:  { bg: "#EEF0FE", color: "#4338CA" },
-    casual:        { bg: "#E8F5F0", color: "#1A7A52" },
-    persuasive:    { bg: "#FEF3E7", color: "#A05D08" },
-    informative:   { bg: "#FCF0F8", color: "#9A2E6E" },
-    photorealistic:{ bg: "#E8F0FE", color: "#1A56A5" },
-    abstract:      { bg: "#F0EEF8", color: "#6B42C4" },
-    friendly:      { bg: "#E8F5F0", color: "#1A7A52" },
-    academic:      { bg: "#EEF0FE", color: "#4338CA" },
+    professional: { bg: "#EEF0FE", color: "#4338CA" },
+    casual: { bg: "#E8F5F0", color: "#1A7A52" },
+    persuasive: { bg: "#FEF3E7", color: "#A05D08" },
+    informative: { bg: "#FCF0F8", color: "#9A2E6E" },
+    photorealistic: { bg: "#E8F0FE", color: "#1A56A5" },
+    abstract: { bg: "#F0EEF8", color: "#6B42C4" },
+    friendly: { bg: "#E8F5F0", color: "#1A7A52" },
+    academic: { bg: "#EEF0FE", color: "#4338CA" },
 };
 
 const TYPE_CONFIG = {
@@ -59,8 +60,8 @@ const TYPE_CONFIG = {
 };
 
 export default function ContentDashboard() {
-    const [search, setSearch]     = useState("");
-    const [filter, setFilter]     = useState("all");
+    const [search, setSearch] = useState("");
+    const [filter, setFilter] = useState("all");
     const [expanded, setExpanded] = useState(null);
     const [historyData, setHistory] = useState([]);
     const { user } = authData();
@@ -178,11 +179,11 @@ export default function ContentDashboard() {
                     </div>
                     <div className={styles.filterGroup}>
                         {[
-                            { key: "all",      label: "All" },
-                            { key: "article",  label: "✦ Articles" },
-                            { key: "image",    label: "◈ Images" },
-                            { key: "title",    label: "❋ Titles" },
-                            { key: "resume",   label: "▣ Resume" },
+                            { key: "all", label: "All" },
+                            { key: "article", label: "✦ Articles" },
+                            { key: "image", label: "◈ Images" },
+                            { key: "title", label: "❋ Titles" },
+                            { key: "resume", label: "▣ Resume" },
                             { key: "removebg", label: "◎ Background" },
                         ].map((f) => {
                             const count = f.key === "all" ? historyData.length : countByType(f.key);
@@ -217,8 +218,8 @@ export default function ContentDashboard() {
                     ) : (
                         filtered.map((g) => {
                             const config = TYPE_CONFIG[g.type?.toLowerCase()] || TYPE_CONFIG.article;
-                            const tone   = g.tone?.toLowerCase() || g.style?.toLowerCase();
-                            const tc     = toneColors[tone] || { bg: "#F1F5F9", color: "#64748B" };
+                            const tone = g.tone?.toLowerCase() || g.style?.toLowerCase();
+                            const tc = toneColors[tone] || { bg: "#F1F5F9", color: "#64748B" };
                             const isOpen = expanded === g._id;
                             const displayText = g.prompt || g.meta?.originalName || "N/A";
 
@@ -301,8 +302,11 @@ export default function ContentDashboard() {
                                                         ))}
                                                     </ul>
                                                 ) : (
-                                                    <p style={{ fontSize: 13, color: "#64748B", marginTop: 8, lineHeight: 1.6 }}>
-                                                        {g.prompt}
+                                                    <p style={{
+                                                        fontSize: 13, color: "#64748B", marginTop: 8, lineHeight: 1.6,
+                                                        whiteSpace: "pre-wrap",padding:"20px"
+                                                    }}>
+                                                       <ReactMarkdown>{g.content || g.prompt}</ReactMarkdown>
                                                     </p>
                                                 )}
                                             </div>
