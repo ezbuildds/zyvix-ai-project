@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import Sidebar from "./Sidebar";
 import styles from "../../css/BackgroundRemove.module.css";
+import { authData } from "../../Context/ContextApi";
 
 const outputOptions = [
     { label: "Transparent", sub: "PNG with alpha", emoji: "🔲" },
@@ -19,8 +20,29 @@ function formatBytes(bytes) {
     return (bytes / (1024 * 1024)).toFixed(1) + " MB";
 }
 
+async function applyBackground(base64Png, outputOpt, bgColor) {
+    return new Promise((resolve) => {
+
+        if (outputOpt === "Transparent") return resolve(base64Png);
+
+        const img = new Image();
+        img.onload = () => {
+            const canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext("2d");
+
+            ctx.fillStyle = outputOpt === "White BG" ? "#ffffff" : bgColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.drawImage(img, 0, 0);
+            resolve(canvas.toDataURL("image/png"));
+        };
+        img.src = base64Png;
+    });
+}
+
 export default function BackgroundRemoval() {
-    const [activeNav, setActiveNav] = useState("Remove Background");
     const [file, setFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState("");
     const [resultUrl, setResultUrl] = useState("");
@@ -33,7 +55,9 @@ export default function BackgroundRemoval() {
     const [bgColor, setBgColor] = useState("#ffffff");
     const [selectedSwatch, setSelectedSwatch] = useState("#ffffff");
     const inputRef = useRef();
+    const { setUser } = authData();
 
+    const BASE_URL = import.meta.env.VITE_BASE_URL
     const handleFile = (f) => {
         if (!f || !f.type.startsWith("image/")) return;
         setFile(f);
@@ -53,54 +77,38 @@ export default function BackgroundRemoval() {
         setFile(null); setPreviewUrl(""); setResultUrl(""); setError("");
     };
 
-    // Uses remove.bg-style: we'll use photor API (free) via canvas simulation
-    // Since no free bg removal API works without key, we'll simulate with canvas
-    const processImage = () => {
+    const processImage = async () => {
         if (!file) return;
-        setLoading(true); setError(""); setResultUrl("");
+        setLoading(true);
+        setError("");
+        setResultUrl("");
 
-        // Simulate processing with canvas - actual bg removal needs API key
-        // We demonstrate the UI flow with a processing simulation
-        setTimeout(() => {
-            const img = new Image();
-            img.onload = () => {
-                const canvas = document.createElement("canvas");
-                canvas.width = img.width;
-                canvas.height = img.height;
-                const ctx = canvas.getContext("2d");
+        try {
+            const formData = new FormData();
+            formData.append("image_file", file);
+            const res = await fetch(`${BASE_URL}/api/remove-image-bg`, {
+                method: "POST",
+                body: formData,
+                credentials: "include",
+            });
 
-                if (outputOpt === "White BG") {
-                    ctx.fillStyle = "#ffffff";
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                } else if (outputOpt === "Custom BG") {
-                    ctx.fillStyle = selectedSwatch;
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                }
+            const data = await res.json();
 
-                ctx.drawImage(img, 0, 0);
-
-                // Simulate a vignette/processing effect to show "something happened"
-                if (outputOpt === "Transparent") {
-                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                    const data = imageData.data;
-                    for (let i = 0; i < data.length; i += 4) {
-                        const r = data[i], g = data[i + 1], b = data[i + 2];
-                        // simple threshold: remove near-white pixels
-                        if (r > 230 && g > 230 && b > 230) data[i + 3] = 0;
-                    }
-                    ctx.putImageData(imageData, 0, 0);
-                }
-
-                setResultUrl(canvas.toDataURL("image/png"));
+            if (!res.ok || !data.success) {
+                setError(data.message || "Background removal failed. Please try again.");
                 setLoading(false);
-                setActiveTab("result");
-            };
-            img.onerror = () => {
-                setError("Failed to process image. Please try again.");
-                setLoading(false);
-            };
-            img.src = previewUrl;
-        }, 2500);
+                return;
+            }
+            const finalImage = await applyBackground(data.imageUrl, outputOpt, bgColor);
+            setResultUrl(finalImage);
+            setActiveTab("result");
+            setUser(prev => ({ ...prev, remainingLimit: data.remainingLimit }))
+        } catch (err) {
+            console.error(err);
+            setError("Something went wrong. Please try again.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     const downloadResult = () => {
@@ -112,11 +120,10 @@ export default function BackgroundRemoval() {
 
     return (
         <>
-            {/* <style>{styles}</style> */}
             <div className="app-root">
 
                 {/* ══ SIDEBAR ══ */}
-                <Sidebar />.
+                <Sidebar />
 
                 {/* ══ MAIN ══ */}
                 <div className={styles.mainArea}>
@@ -156,7 +163,7 @@ export default function BackgroundRemoval() {
                                         <input
                                             ref={inputRef}
                                             type="file"
-                                            accept="image/*"
+                                            accept="image/png, image/jpeg, image/webp"
                                             onChange={e => handleFile(e.target.files[0])}
                                             style={{ display: "none" }}
                                         />
@@ -168,9 +175,9 @@ export default function BackgroundRemoval() {
                                             </svg>
                                         </div>
                                         <div className={styles.dropTitle}>Drop image here or click to browse</div>
-                                        <div className={styles.dropSub}>Supports JPG, PNG, WEBP, BMP</div>
+                                        <div className={styles.dropSub}>Supports JPG, PNG, WEBP</div>
                                         <div className={styles.dropFormats}>
-                                            {["JPG", "PNG", "WEBP", "BMP"].map(f => <span key={f} className={styles.fmtBadge}>{f}</span>)}
+                                            {["JPG", "PNG", "WEBP"].map(f => <span key={f} className={styles.fmtBadge}>{f}</span>)}
                                         </div>
                                     </div>
                                 ) : (
@@ -188,6 +195,7 @@ export default function BackgroundRemoval() {
                                     </div>
                                 )}
                             </div>
+
                             {/* Output options */}
                             <div>
                                 <div className={styles.fieldLabel}>Output Type</div>
@@ -261,7 +269,7 @@ export default function BackgroundRemoval() {
                         <div className={styles.outputCard}>
                             <div className={styles.outputHeader}>
                                 <div className={styles.cardHeader} style={{ gap: 10 }}>
-                                    <div className={styles.cardHeaderIcon} >
+                                    <div className={styles.cardHeaderIcon}>
                                         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                                             <rect x="3" y="3" width="18" height="18" rx="2" />
                                             <circle cx="8.5" cy="8.5" r="1.5" />

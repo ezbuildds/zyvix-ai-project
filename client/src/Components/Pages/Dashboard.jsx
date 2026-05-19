@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "../../css/Dashboard.module.css";
 import Sidebar from "./Sidebar";
 import { authData } from "../../Context/ContextApi";
-import { ArticalIcon, BoltSmIcon, CommunityIcon, CreditIcon, ImageGenerateIcon, RemoveIcon, ReviewIcon, TitleIcon, TotalGenerateIcon } from "./icon/Icon";
+import { BoltSmIcon, CommunityIcon, CreditIcon, TotalGenerateIcon } from "./icon/Icon";
 
 function formatDate(dateStr) {
     const d = new Date(dateStr);
@@ -15,17 +15,16 @@ function formatTime(dateStr) {
 }
 
 const toneColors = {
-    professional: { bg: "#EEF0FE", color: "#4338CA" },
-    casual: { bg: "#E8F5F0", color: "#1A7A52" },
-    persuasive: { bg: "#FEF3E7", color: "#A05D08" },
-    informative: { bg: "#FCF0F8", color: "#9A2E6E" },
-    photorealistic: { bg: "#E8F0FE", color: "#1A56A5" },
-    abstract: { bg: "#F0EEF8", color: "#6B42C4" },
-    friendly: { bg: "#E8F5F0", color: "#1A7A52" },
-    academic: { bg: "#EEF0FE", color: "#4338CA" },
+    professional:  { bg: "#EEF0FE", color: "#4338CA" },
+    casual:        { bg: "#E8F5F0", color: "#1A7A52" },
+    persuasive:    { bg: "#FEF3E7", color: "#A05D08" },
+    informative:   { bg: "#FCF0F8", color: "#9A2E6E" },
+    photorealistic:{ bg: "#E8F0FE", color: "#1A56A5" },
+    abstract:      { bg: "#F0EEF8", color: "#6B42C4" },
+    friendly:      { bg: "#E8F5F0", color: "#1A7A52" },
+    academic:      { bg: "#EEF0FE", color: "#4338CA" },
 };
 
-// Type ke hisab se config
 const TYPE_CONFIG = {
     article: {
         label: "Article",
@@ -51,20 +50,19 @@ const TYPE_CONFIG = {
         badgeColor: "#0F766E",
         getMeta: (g) => g.score ? `Score: ${g.score}` : "Resume reviewed",
     },
-    background: {
-        label: "Background",
+    removebg: {
+        label: "removeBg",
         badgeBg: "#FEF3C7",
         badgeColor: "#B45309",
-        getMeta: (g) => "Background removed",
+        getMeta: (g) => g.meta?.originalName || "Background removed",
     },
 };
 
 export default function ContentDashboard() {
-    const [search, setSearch] = useState("");
-    const [filter, setFilter] = useState("all");
+    const [search, setSearch]     = useState("");
+    const [filter, setFilter]     = useState("all");
     const [expanded, setExpanded] = useState(null);
     const [historyData, setHistory] = useState([]);
-    const [hamburger, sethamburger] = useState(false);
     const { user } = authData();
 
     const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -82,10 +80,14 @@ export default function ContentDashboard() {
     }
 
     const filtered = historyData.filter((g) => {
-        const matchSearch = g.type?.toLowerCase().includes(search.toLowerCase()) || g.prompt?.toLowerCase().includes(search.toLowerCase());
+        const matchSearch =
+            g.type?.toLowerCase().includes(search.toLowerCase()) ||
+            g.prompt?.toLowerCase().includes(search.toLowerCase()) ||
+            g.meta?.originalName?.toLowerCase().includes(search.toLowerCase());
         const matchFilter = filter === "all" || g.type?.toLowerCase() === filter;
         return matchSearch && matchFilter;
     });
+
     const countByType = (type) => historyData.filter((g) => g.type?.toLowerCase() === type).length;
 
     return (
@@ -95,7 +97,6 @@ export default function ContentDashboard() {
             <div className={styles.root}>
                 <div className={styles.grain} />
 
-                {/* ── Header ── */}
                 <header className={styles.header}>
                     <div className={styles.headerLeft}>
                         <div className={styles.logoMark}>
@@ -128,10 +129,23 @@ export default function ContentDashboard() {
                         </button>
                     </div>
                 </header>
+
                 <div className={styles.statsRow}>
                     {[
-                        { sub: "Total Generated", value: historyData.length, accent: "#6366F1", bg: "linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%)", icon: <TotalGenerateIcon /> },
-                        { sub: "Community", value: countByType("community"), accent: "#F43F5E", bg: "linear-gradient(135deg, #FFE4E6 0%, #FECDD3 100%)", icon: <CommunityIcon /> },
+                        {
+                            sub: "Total Generated",
+                            value: historyData.length,
+                            accent: "#6366F1",
+                            bg: "linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%)",
+                            icon: <TotalGenerateIcon />
+                        },
+                        {
+                            sub: "Community",
+                            value: countByType("community"),
+                            accent: "#F43F5E",
+                            bg: "linear-gradient(135deg, #FFE4E6 0%, #FECDD3 100%)",
+                            icon: <CommunityIcon />
+                        },
                         {
                             value: historyData.reduce((acc, item) => acc + (item.creditsUsed || 0), 0),
                             sub: `${user?.remainingLimit || 0} left`,
@@ -148,6 +162,7 @@ export default function ContentDashboard() {
                         </div>
                     ))}
                 </div>
+
                 <div className={styles.controls}>
                     <div className={styles.searchWrap}>
                         <svg className={styles.searchIcon} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -163,12 +178,12 @@ export default function ContentDashboard() {
                     </div>
                     <div className={styles.filterGroup}>
                         {[
-                            { key: "all", label: "All" },
-                            { key: "article", label: "✦ Articles" },
-                            { key: "image", label: "◈ Images" },
-                            { key: "title", label: "❋ Titles" },
-                            { key: "resume", label: "▣ Resume" },
-                            { key: "background", label: "◎ Background" },
+                            { key: "all",      label: "All" },
+                            { key: "article",  label: "✦ Articles" },
+                            { key: "image",    label: "◈ Images" },
+                            { key: "title",    label: "❋ Titles" },
+                            { key: "resume",   label: "▣ Resume" },
+                            { key: "removebg", label: "◎ Background" },
                         ].map((f) => {
                             const count = f.key === "all" ? historyData.length : countByType(f.key);
                             return (
@@ -177,7 +192,6 @@ export default function ContentDashboard() {
                                     onClick={() => setFilter(f.key)}
                                     className={`${styles.filterBtn} ${filter === f.key ? styles.filterBtnActive : ""}`}
                                 >
-                                    <span>{f.icon}</span>
                                     {f.label}
                                     <span className={styles.filterCount}>{count}</span>
                                 </button>
@@ -186,13 +200,11 @@ export default function ContentDashboard() {
                     </div>
                 </div>
 
-                {/* ── Generation List ── */}
                 <div className={styles.list}>
                     {filtered.length === 0 ? (
                         <div className={styles.empty}>
                             <div className={styles.emptyIcon}>
-                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
-                                    stroke="#a78bfa" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                                     <circle cx="11" cy="11" r="8" />
                                     <path d="m21 21-4.35-4.35" />
                                     <line x1="11" y1="8" x2="11" y2="14" />
@@ -205,9 +217,11 @@ export default function ContentDashboard() {
                     ) : (
                         filtered.map((g) => {
                             const config = TYPE_CONFIG[g.type?.toLowerCase()] || TYPE_CONFIG.article;
-                            const tone = g.tone?.toLowerCase() || g.style?.toLowerCase();
-                            const tc = toneColors[tone] || { bg: "#F1F5F9", color: "#64748B" };
+                            const tone   = g.tone?.toLowerCase() || g.style?.toLowerCase();
+                            const tc     = toneColors[tone] || { bg: "#F1F5F9", color: "#64748B" };
                             const isOpen = expanded === g._id;
+                            const displayText = g.prompt || g.meta?.originalName || "N/A";
+
                             return (
                                 <div
                                     key={g._id}
@@ -216,7 +230,7 @@ export default function ContentDashboard() {
                                 >
                                     <div className={styles.cardBody}>
                                         <div className={styles.cardTop}>
-                                            <div className={styles.cardTitle}>{g.prompt} </div>
+                                            <div className={styles.cardTitle}>{displayText}</div>
                                             <div className={styles.cardMeta}>
                                                 <span className={styles.metaDate}>
                                                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 4 }}>
@@ -237,10 +251,17 @@ export default function ContentDashboard() {
                                                 )}
                                             </div>
                                         </div>
+
                                         <div className={styles.promptPreview}>
-                                            <span className={styles.promptLabel}>Prompt: </span>
-                                            {isOpen ? g.prompt : g.prompt.slice(0, 80) + (g.prompt.length > 80 ? "…" : "")}
+                                            <span className={styles.promptLabel}>
+                                                {g.prompt ? "Prompt: " : "File: "}
+                                            </span>
+                                            {isOpen
+                                                ? displayText
+                                                : displayText.slice(0, 80) + (displayText.length > 80 ? "…" : "")
+                                            }
                                         </div>
+
                                         <div className={styles.cardFooter}>
                                             {g.tone && (
                                                 <span className={styles.toneBadge} style={{ background: tc.bg, color: tc.color }}>
@@ -256,22 +277,26 @@ export default function ContentDashboard() {
                                             <span className={styles.typeBadge} style={{ background: config.badgeBg, color: config.badgeColor }}>
                                                 {config.label}
                                             </span>
-
                                             <span className={styles.expandHint} style={{ marginLeft: "auto" }}>
                                                 {isOpen ? "▲ Less" : "▼ More"}
                                             </span>
                                         </div>
+
                                         {isOpen && (
                                             <div className={styles.expandedContent}>
-                                                {g.type?.toLowerCase() === "image" || g.type?.toLowerCase() === "background" ? (
-                                                    g.imageUrl ? (
-                                                        <img src={g.imageUrl} alt={g.prompt} style={{ width: "100%", borderRadius: 8, marginTop: 10 }} />
+                                                {g.type?.toLowerCase() === "image" || g.type?.toLowerCase() === "removebg" ? (
+                                                    g.meta?.imageUrl ? (
+                                                        <img
+                                                            src={g.meta.imageUrl}
+                                                            alt={g.prompt || "image"}
+                                                            style={{ width: "100%", borderRadius: 8, marginTop: 10 }}
+                                                        />
                                                     ) : (
                                                         <p style={{ color: "#94A3B8", fontSize: 13 }}>No preview available</p>
                                                     )
                                                 ) : g.type?.toLowerCase() === "title" ? (
                                                     <ul style={{ paddingLeft: 16, marginTop: 8 }}>
-                                                        {g.type?.map((t, i) => (
+                                                        {g.meta?.titles?.map((t, i) => (
                                                             <li key={i} style={{ fontSize: 13, color: "#334155", marginBottom: 4 }}>{t}</li>
                                                         ))}
                                                     </ul>

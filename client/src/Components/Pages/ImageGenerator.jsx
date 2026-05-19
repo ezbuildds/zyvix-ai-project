@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Sidebar from "./Sidebar";
 import styles from "../../css/ImageGenerator.module.css";
+import { authData } from "../../Context/ContextApi";
 const imageStyles = [
     { label: "🎨 Realistic", value: "realistic, photorealistic, ultra detailed" },
     { label: "🌸 Ghibli", value: "studio ghibli style, anime, soft colors, whimsical" },
@@ -30,6 +31,7 @@ export default function ImageGenerator() {
     const [currentStyle, setCurrentStyle] = useState(imageStyles[0].label);
 
     const BASE_URL = import.meta.env.VITE_BASE_URL
+    const { setUser } = authData()
 
     const generate = async () => {
         if (!prompt.trim()) return;
@@ -37,7 +39,7 @@ export default function ImageGenerator() {
         setLoading(true);
         setError("");
         setImgUrl("");
-console.log(style);
+        console.log(style);
 
         try {
             const response = await fetch(`${BASE_URL}/api/generate-image`, {
@@ -58,6 +60,7 @@ console.log(style);
             }
             setImgUrl(data.imageUrl);
             setCurrentStyle(imageStyles.find((s) => s.value === style)?.label || style);
+            setUser(prev => ({ ...prev, remainingLimit: data.remainingLimit }))
         } catch (err) {
             setError(err.message || "Image generation failed. Please try again.");
         } finally {
