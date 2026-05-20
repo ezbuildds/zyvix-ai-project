@@ -5,14 +5,14 @@ import "../../css/TitleGenerator.css"
 import { authData } from "../../Context/ContextApi";
 
 const categories = [
-    { label: "🌐 General", value: "general" },
-    { label: "💻 Technology", value: "technology" },
-    { label: "💼 Business", value: "business" },
-    { label: "❤️ Health", value: "health" },
-    { label: "✨ Lifestyle", value: "lifestyle" },
-    { label: "🎓 Education", value: "education" },
-    { label: "✈️ Travel", value: "travel" },
-    { label: "🍔 Food", value: "food" },
+    { label: "General", value: "general" },
+    { label: "Technology", value: "technology" },
+    { label: "Business", value: "business" },
+    { label: "Health", value: "health" },
+    { label: "Lifestyle", value: "lifestyle" },
+    { label: "Education", value: "education" },
+    { label: "Travel", value: "travel" },
+    { label: "Food", value: "food" },
 ];
 export default function TitleGenerator() {
     const [keyword, setKeyword] = useState("");
@@ -74,7 +74,7 @@ export default function TitleGenerator() {
                     {/* ══ MAIN ══ */}
                     <div className="main-area">
                         <h1 className="page-title">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" strokeWidth="2.2" strokeLinecap="round">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9381ff" strokeWidth="2.2" strokeLinecap="round">
                                 <line x1="4" y1="9" x2="20" y2="9" /><line x1="4" y1="15" x2="20" y2="15" />
                                 <line x1="10" y1="3" x2="8" y2="21" /><line x1="16" y1="3" x2="14" y2="21" />
                             </svg>
@@ -142,8 +142,14 @@ export default function TitleGenerator() {
                                     ) : (
                                         <>
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round">
-                                                <line x1="4" y1="9" x2="20" y2="9" /><line x1="4" y1="15" x2="20" y2="15" />
-                                                <line x1="10" y1="3" x2="8" y2="21" /><line x1="16" y1="3" x2="14" y2="21" />
+                                                <line x1="12" y1="2" x2="14" y2="10" />
+                                                <line x1="14" y1="10" x2="22" y2="12" />
+                                                <line x1="22" y1="12" x2="14" y2="14" />
+                                                <line x1="14" y1="14" x2="12" y2="22" />
+                                                <line x1="12" y1="22" x2="10" y2="14" />
+                                                <line x1="10" y1="14" x2="2" y2="12" />
+                                                <line x1="2" y1="12" x2="10" y2="10" />
+                                                <line x1="10" y1="10" x2="12" y2="2" />
                                             </svg>
                                             Generate Titles
                                         </>
@@ -186,7 +192,7 @@ export default function TitleGenerator() {
                                 {!loading && titles.length === 0 && !error && (
                                     <div className="empty-output">
                                         <div className="empty-icon-wrap">
-                                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" strokeWidth="1.8" strokeLinecap="round">
+                                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9381ff" strokeWidth="1.8" strokeLinecap="round">
                                                 <line x1="4" y1="9" x2="20" y2="9" /><line x1="4" y1="15" x2="20" y2="15" />
                                                 <line x1="10" y1="3" x2="8" y2="21" /><line x1="16" y1="3" x2="14" y2="21" />
                                             </svg>
@@ -208,7 +214,7 @@ export default function TitleGenerator() {
                                                     title="Copy this title"
                                                 >
                                                     {copiedIdx === i ? (
-                                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9381ff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                                             <polyline points="20 6 9 17 4 12" />
                                                         </svg>
                                                     ) : (

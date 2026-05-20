@@ -25,9 +25,9 @@
 .triggerBtn {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
     padding: 7px 14px 7px 7px;
-    background: #fff;
+    background: none;
     border: none;
     border-radius: 50px;
     cursor: pointer;

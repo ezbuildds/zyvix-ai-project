@@ -50,7 +50,7 @@ export function ChevronIcon() {
     </svg>
   );
 }
-export function LockIcon({ color = "#14b8a6" }) {
+export function LockIcon({ color = "#9381ff" }) {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <rect x="3" y="11" width="18" height="11" rx="2" />

@@ -3,14 +3,14 @@ import Sidebar from "./Sidebar";
 import styles from "../../css/ImageGenerator.module.css";
 import { authData } from "../../Context/ContextApi";
 const imageStyles = [
-    { label: "🎨 Realistic", value: "realistic, photorealistic, ultra detailed" },
-    { label: "🌸 Ghibli", value: "studio ghibli style, anime, soft colors, whimsical" },
-    { label: "✨ Anime", value: "anime style, vibrant, detailed illustration" },
-    { label: "🎭 Cartoon", value: "cartoon style, colorful, fun illustration" },
-    { label: "🧙 Fantasy", value: "fantasy art, magical, epic, detailed digital painting" },
-    { label: "🖼️ 3D Render", value: "3D render, octane render, realistic lighting, high quality" },
-    { label: "🖼️ Portrait", value: "portrait photography, bokeh, professional lighting, detailed" },
-    { label: "🌆 Cyberpunk", value: "cyberpunk, neon lights, futuristic, dark atmosphere" },
+    { label: "Realistic", value: "realistic, photorealistic, ultra detailed" },
+    { label: "Ghibli", value: "studio ghibli style, anime, soft colors, whimsical" },
+    { label: "Anime", value: "anime style, vibrant, detailed illustration" },
+    { label: "Cartoon", value: "cartoon style, colorful, fun illustration" },
+    { label: "Fantasy", value: "fantasy art, magical, epic, detailed digital painting" },
+    { label: "3D Render", value: "3D render, octane render, realistic lighting, high quality" },
+    { label: "Portrait", value: "portrait photography, bokeh, professional lighting, detailed" },
+    { label: "Cyberpunk", value: "cyberpunk, neon lights, futuristic, dark atmosphere" },
 ];
 
 const imageSizes = [
@@ -91,7 +91,7 @@ export default function ImageGenerator() {
                 {/* ══ MAIN ══ */}
                 <div className={styles.mainArea}>
                     <h1 className={styles.pageTitle}>
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9381ff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                             <rect x="3" y="3" width="18" height="18" rx="3" />
                             <circle cx="8.5" cy="8.5" r="1.5" />
                             <polyline points="21 15 16 10 5 21" />
@@ -170,10 +170,15 @@ export default function ImageGenerator() {
                                     <><div className={styles.spinner} /> Generating image...</>
                                 ) : (
                                     <>
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                                            <rect x="3" y="3" width="18" height="18" rx="3" />
-                                            <circle cx="8.5" cy="8.5" r="1.5" />
-                                            <polyline points="21 15 16 10 5 21" />
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round">
+                                            <line x1="12" y1="2" x2="14" y2="10" />
+                                            <line x1="14" y1="10" x2="22" y2="12" />
+                                            <line x1="22" y1="12" x2="14" y2="14" />
+                                            <line x1="14" y1="14" x2="12" y2="22" />
+                                            <line x1="12" y1="22" x2="10" y2="14" />
+                                            <line x1="10" y1="14" x2="2" y2="12" />
+                                            <line x1="2" y1="12" x2="10" y2="10" />
+                                            <line x1="10" y1="10" x2="12" y2="2" />
                                         </svg>
                                         Generate Image
                                     </>
@@ -208,7 +213,7 @@ export default function ImageGenerator() {
 
                             {loading && (
                                 <div className={styles.imgSkeleton}>
-                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9381ff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                                         <rect x="3" y="3" width="18" height="18" rx="3" />
                                         <circle cx="8.5" cy="8.5" r="1.5" />
                                         <polyline points="21 15 16 10 5 21" />
@@ -220,7 +225,7 @@ export default function ImageGenerator() {
                             {!loading && !imgUrl && !error && (
                                 <div className={styles.emptyOutput}>
                                     <div className={styles.emptyIconWrap}>
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9381ff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                                             <rect x="3" y="3" width="18" height="18" rx="3" />
                                             <circle cx="8.5" cy="8.5" r="1.5" />
                                             <polyline points="21 15 16 10 5 21" />

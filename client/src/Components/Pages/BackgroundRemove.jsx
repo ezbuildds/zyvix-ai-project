@@ -128,7 +128,7 @@ export default function BackgroundRemoval() {
                 {/* ══ MAIN ══ */}
                 <div className={styles.mainArea}>
                     <h1 className={styles.pageTitle}>
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9381ff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M20 20H7L3 16l10-10 7 7-3.5 3.5" />
                             <path d="M6.5 17.5l4-4" />
                         </svg>
@@ -255,9 +255,15 @@ export default function BackgroundRemoval() {
                                     <><div className={styles.spinner} /> Processing...</>
                                 ) : (
                                     <>
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                                            <path d="M20 20H7L3 16l10-10 7 7-3.5 3.5" />
-                                            <path d="M6.5 17.5l4-4" />
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round">
+                                            <line x1="12" y1="2" x2="14" y2="10" />
+                                            <line x1="14" y1="10" x2="22" y2="12" />
+                                            <line x1="22" y1="12" x2="14" y2="14" />
+                                            <line x1="14" y1="14" x2="12" y2="22" />
+                                            <line x1="12" y1="22" x2="10" y2="14" />
+                                            <line x1="10" y1="14" x2="2" y2="12" />
+                                            <line x1="2" y1="12" x2="10" y2="10" />
+                                            <line x1="10" y1="10" x2="12" y2="2" />
                                         </svg>
                                         Remove Background
                                     </>
@@ -306,7 +312,7 @@ export default function BackgroundRemoval() {
                             {!loading && !resultUrl && !error && (
                                 <div className={styles.emptyOutput}>
                                     <div className={styles.emptyIconWrap}>
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9381ff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M20 20H7L3 16l10-10 7 7-3.5 3.5" />
                                             <path d="M6.5 17.5l4-4" />
                                         </svg>
