@@ -3,6 +3,7 @@ import styles from "../css/Footer.module.css";
 import { LogoIcon } from "./Auth/Authicon/AuthIcon";
 
 
+
 const companyLinks = [
   { label: "Home", href: "#" },
   { label: "About us", href: "#" },
@@ -10,7 +11,7 @@ const companyLinks = [
   { label: "Privacy policy", href: "#" },
 ];
 
- function Footer() {
+function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 

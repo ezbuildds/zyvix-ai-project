@@ -1,3 +1,21 @@
+export function LogoIcon() {
+  return (
+  <svg width="48" height="48" viewBox="20 20 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="pulseGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#9381ff" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#pulseGlow)">
+    <circle cx="60" cy="60" r="30" stroke="#9381ff" stroke-width="6" opacity="0.25"/>
+    <circle cx="60" cy="60" r="18" fill="#9381ff"/>
+    <path d="M24 60H44L52 46L68 74L76 60H96"
+      stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
+  );
+}
 export const StarIcon = () => (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />

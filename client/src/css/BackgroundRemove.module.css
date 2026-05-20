@@ -6,10 +6,22 @@
     box-sizing: border-box;
 }
 
+:root {
+    --p:      #9381ff;
+    --p2:     #b8adff;
+    --p3:     #7b6cf0;
+    --p4:     #ede9ff;
+    --p5:     #f5f3ff;
+    --txt:    #1a1440;
+    --txt2:   #5b5580;
+    --border: #e8e4ff;
+    --shadow: rgba(147, 129, 255, 0.18);
+}
+
 .appRoot {
     display: flex;
     height: 100vh;
-     background-color: #f0f9f7;
+    background-color: #f8f7ff;
     overflow: hidden;
 }
 
@@ -26,7 +38,7 @@
 .pageTitle {
     font-size: 22px;
     font-weight: 800;
-    color: #1e1b4b;
+    color: var(--txt);
     letter-spacing: -0.5px;
     display: flex;
     align-items: center;
@@ -59,8 +71,7 @@
     background: #fff;
     border-radius: 22px;
     padding: 26px 22px;
-    border: 1px solid #ffe4cc;
-    box-shadow: 0 4px 20px rgba(249, 115, 22, 0.07);
+    border: 1px solid var(--border);
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -76,7 +87,7 @@
     width: 36px;
     height: 36px;
     border-radius: 10px;
-    background: linear-gradient(135deg, #14b8a6, #06b6d4);
+    background: linear-gradient(135deg, var(--p), var(--p3));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -86,7 +97,7 @@
 .cardTitle {
     font-size: 16px;
     font-weight: 800;
-    color: #1e1b4b;
+    color: var(--txt);
 }
 
 .fieldLabel {
@@ -100,10 +111,10 @@
 
 /* Drop zone */
 .dropZone {
-    border: 2px dashed #7cb0a9;
+    border: 2px dashed var(--p2);
     border-radius: 16px;
     padding: 32px 20px;
-    background: #eff8f6;
+    background: var(--p5);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -116,9 +127,9 @@
 
 .dropZone:hover,
 .dropZone.dragging {
-    border-color: #14b8a6;
-     background: #eff8f6;
-    box-shadow: 0 0  4px rgba(20, 184, 166, 0.35);
+    border-color: var(--p);
+    background: var(--p4);
+    box-shadow: 0 0 4px var(--shadow);
 }
 
 .dropZone input[type="file"] {
@@ -132,7 +143,7 @@
     width: 52px;
     height: 52px;
     border-radius: 14px;
-    background-color: #14b8a6;
+    background: linear-gradient(135deg, var(--p), var(--p3));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -141,7 +152,7 @@
 .dropTitle {
     font-size: 14px;
     font-weight: 700;
-    color: #1e1b4b;
+    color: var(--txt);
 }
 
 .dropSub {
@@ -158,9 +169,9 @@
 }
 
 .fmtBadge {
-    border: 1px solid #a9f8ef;
-    background: #e7fdfb;
-    color: #14b8a6;
+    border: 1px solid var(--p2);
+    background: var(--p4);
+    color: var(--p);
     font-size: 10px;
     font-weight: 700;
     padding: 3px 9px;
@@ -172,10 +183,10 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    background: #e7fdfb;
+    background: var(--p4);
     border-radius: 12px;
     padding: 12px 14px;
-    border: 1.5px solid #a9f8ef;
+    border: 1.5px solid var(--p2);
 }
 
 .previewThumb {
@@ -183,7 +194,7 @@
     height: 48px;
     border-radius: 8px;
     object-fit: cover;
-    border: 1px solid #e6e6e6;
+    border: 1px solid var(--border);
     flex-shrink: 0;
 }
 
@@ -195,7 +206,7 @@
 .previewName {
     font-size: 13px;
     font-weight: 700;
-    color: #1e1b4b;
+    color: var(--txt);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -208,7 +219,7 @@
 }
 
 .removeFileBtn {
-    background: #6fe4da;
+    background: var(--p4);
     border: none;
     cursor: pointer;
     width: 28px;
@@ -217,14 +228,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #00b6f8;
+    color: var(--p);
     transition: background 0.18s;
     flex-shrink: 0;
 }
 
 .removeFileBtn:hover {
     background: none;
-    border: 1.5px solid #a9f8ef;
+    border: 1.5px solid var(--p2);
 }
 
 /* Options */
@@ -237,22 +248,22 @@
 .optionCard {
     padding: 12px 14px;
     border-radius: 12px;
-    border: 1.5px solid #e5e7eb;
-    background: #fafafa;
+    border: 1.5px solid var(--border);
+    background: #faf9ff;
     cursor: pointer;
     transition: all 0.18s;
     text-align: center;
 }
 
 .optionCard:hover {
-   background: #e7fdfb;
-    border-color: #a9f8ef;
+    background: var(--p4);
+    border-color: var(--p2);
 }
 
 .optionCard.selected {
-    background: #e7fdfb;
-    border-color: #a9f8ef;
-    color: #14b8a6;
+    background: var(--p4);
+    border-color: var(--p2);
+    color: var(--p);
 }
 
 .optionEmoji {
@@ -263,7 +274,7 @@
 .optionLabel {
     font-size: 12px;
     font-weight: 700;
-    color: #374151;
+    color: var(--txt);
 }
 
 .optionSub {
@@ -273,7 +284,7 @@
 }
 
 .optionCard.selected .optionLabel {
-    color: #14b8a6;
+    color: var(--p);
 }
 
 /* Quality toggle */
@@ -282,15 +293,15 @@
     align-items: center;
     justify-content: space-between;
     padding: 12px 16px;
-    background: #fafafa;
+    background: #faf9ff;
     border-radius: 12px;
-    border: 1.5px solid #e5e7eb;
+    border: 1.5px solid var(--border);
 }
 
 .qualityLabel {
     font-size: 13px;
     font-weight: 600;
-    color: #374151;
+    color: var(--txt);
 }
 
 .qualitySub {
@@ -312,7 +323,7 @@
 }
 
 .toggle.on {
-    background: linear-gradient(135deg, #14b8a6, #06b6d4);
+    background: linear-gradient(135deg, var(--p), var(--p3));
 }
 
 .toggleThumb {
@@ -335,7 +346,7 @@
     width: 100%;
     padding: 14px;
     border-radius: 13px;
-    background: linear-gradient(135deg, #14b8a6, #06b6d4);
+    background: linear-gradient(135deg, var(--p), var(--p3));
     color: #fff;
     border: none;
     font-family: 'Manrope', sans-serif;
@@ -347,7 +358,7 @@
     justify-content: center;
     gap: 8px;
     transition: opacity 0.2s, transform 0.15s;
-     box-shadow: 0 6px 18px rgba(20, 184, 166, 0.35);
+    box-shadow: 0 6px 18px var(--shadow);
 }
 
 .processBtn:hover:not(:disabled) {
@@ -384,8 +395,7 @@
     background: #fff;
     border-radius: 22px;
     padding: 26px 22px;
-    border: 1px solid #ffe4cc;
-    box-shadow: 0 4px 20px rgba(249, 115, 22, 0.07);
+    border: 1px solid var(--border);
     min-height: 715px;
     display: flex;
     flex-direction: column;
@@ -413,9 +423,9 @@
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
-    border: 1.5px solid #e5e7eb;
+    border: 1.5px solid var(--border);
     background: #fff;
-    color: #6b7280;
+    color: var(--txt2);
     display: flex;
     align-items: center;
     gap: 5px;
@@ -423,9 +433,9 @@
 }
 
 .actionBtn:hover {
-    border-color: #f97316;
-    color: #ea580c;
-    background: #fff7ed;
+    border-color: var(--p);
+    color: var(--p);
+    background: var(--p4);
 }
 
 /* Empty */
@@ -444,7 +454,7 @@
     width: 60px;
     height: 60px;
     border-radius: 18px;
-    background-color: #dcf7f4;
+    background: var(--p4);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -458,7 +468,7 @@
 
 .emptySub {
     font-size: 13px;
-    color: #63cec2;
+    color: var(--p);
     max-width: 240px;
     line-height: 1.6;
 }
@@ -477,25 +487,20 @@
     width: 120px;
     height: 120px;
     border-radius: 20px;
-    background: linear-gradient(90deg, #ffedd5 25%, #fed7aa 50%, #ffedd5 75%);
+    background: linear-gradient(90deg, var(--p5) 25%, var(--p4) 50%, var(--p5) 75%);
     background-size: 400% 100%;
     animation: shimmer 1.4s ease infinite;
 }
 
 @keyframes shimmer {
-    0% {
-        background-position: 100% 0;
-    }
-
-    100% {
-        background-position: -100% 0;
-    }
+    0%  { background-position: 100% 0; }
+    100%{ background-position: -100% 0; }
 }
 
 .processingText {
     font-size: 14px;
     font-weight: 700;
-    color: #f97316;
+    color: var(--p);
 }
 
 .processingSub {
@@ -506,30 +511,22 @@
 .progressBarWrap {
     width: 200px;
     height: 6px;
-    background: #ffedd5;
+    background: var(--p4);
     border-radius: 10px;
     overflow: hidden;
 }
 
 .progressBar {
     height: 100%;
-    background: linear-gradient(90deg, #fb923c, #f97316);
+    background: linear-gradient(90deg, var(--p2), var(--p));
     border-radius: 10px;
     animation: progress 2.5s ease-in-out infinite;
 }
 
 @keyframes progress {
-    0% {
-        width: 0%;
-    }
-
-    60% {
-        width: 80%;
-    }
-
-    100% {
-        width: 95%;
-    }
+    0%   { width: 0%; }
+    60%  { width: 80%; }
+    100% { width: 95%; }
 }
 
 /* Compare */
@@ -552,16 +549,16 @@
     font-size: 12px;
     font-weight: 700;
     cursor: pointer;
-    border: 1.5px solid #e5e7eb;
-    background: #fafafa;
-    color: #6b7280;
+    border: 1.5px solid var(--border);
+    background: #faf9ff;
+    color: var(--txt2);
     transition: all 0.18s;
 }
 
 .tabBtn.active {
-    background: #fff7ed;
-    border-color: #f97316;
-    color: #ea580c;
+    background: var(--p4);
+    border-color: var(--p);
+    color: var(--p);
 }
 
 .imgCanvas {
@@ -576,7 +573,7 @@
         linear-gradient(-45deg, transparent 75%, #e5e7eb 75%);
     background-size: 20px 20px;
     background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-    background-color: #f9fafb;
+    background-color: var(--p5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -599,7 +596,6 @@
         opacity: 0;
         transform: scale(0.97);
     }
-
     to {
         opacity: 1;
         transform: scale(1);
@@ -619,8 +615,8 @@
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(249, 115, 22, 0.2);
-    color: #ea580c;
+    border: 1px solid rgba(147, 129, 255, 0.25);
+    color: var(--p3);
     font-family: 'Manrope', sans-serif;
     font-size: 12px;
     font-weight: 700;
@@ -633,7 +629,7 @@
 }
 
 .overlayBtn:hover {
-    background: #f97316;
+    background: var(--p);
     color: #fff;
 }
 
@@ -647,7 +643,7 @@
 .bgLabel {
     font-size: 12px;
     font-weight: 600;
-    color: #6b7280;
+    color: var(--txt2);
 }
 
 .bgSwatch {
@@ -664,8 +660,8 @@
 }
 
 .bgSwatch.selected {
-    border-color: #f97316;
-    box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.3);
+    border-color: var(--p);
+    box-shadow: 0 0 0 2px var(--shadow);
 }
 
 .errorMsg {

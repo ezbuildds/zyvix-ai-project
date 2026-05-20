@@ -55,9 +55,12 @@ export default function Sidebar() {
                 <span className={styles.profileName}>
                     {user?.username}
                 </span>
-
                 <span className={styles.planBadge}>
-                    💎 Free Plan
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2L14.5 9.5H22L16 14.5L18.5 22L12 17.5L5.5 22L8 14.5L2 9.5H9.5L12 2Z"
+                            fill="var(--p)" stroke="var(--p)" strokeWidth="1.5" strokeLinejoin="round" />
+                    </svg>
+                    {`${user.plan.charAt(0).toUpperCase()}${user.plan.slice(1)}`} plan
                 </span>
             </div>
 

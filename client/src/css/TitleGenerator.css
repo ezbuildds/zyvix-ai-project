@@ -7,18 +7,31 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+:root {
+    --p:      #9381ff;
+    --p2:     #b8adff;
+    --p3:     #7b6cf0;
+    --p4:     #ede9ff;
+    --p5:     #f5f3ff;
+    --txt:    #1a1440;
+    --txt2:   #5b5580;
+    --border: #e8e4ff;
+    --shadow: rgba(147, 129, 255, 0.18);
+}
+
 .db-root {
     font-family: "Poppins", sans-serif;
     display: flex;
     height: 100vh;
-    /* background-color: #f0f9f7; */
     overflow: hidden;
 }
+
 .app-root {
     font-family: 'Outfit', sans-serif;
     display: flex;
     height: 100vh;
-    /* background-color: #f5f5f5; */
+    background-color: #f8f7ff;
     overflow-y: auto;
     flex: 1;
 }
@@ -36,7 +49,7 @@
 .page-title {
     font-size: 22px;
     font-weight: 800;
-    color: #1e1b4b;
+    color: var(--txt);
     letter-spacing: -0.5px;
     display: flex;
     align-items: center;
@@ -69,8 +82,7 @@
     background: #fff;
     border-radius: 22px;
     padding: 26px 22px;
-    border: 1px solid #ede9fe;
-    /* box-shadow: 0 4px 20px rgba(99, 102, 241, 0.07); */
+    border: 1px solid var(--border);
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -86,7 +98,7 @@
     width: 36px;
     height: 36px;
     border-radius: 10px;
-    background: linear-gradient(135deg, #14b8a6, #06b6d4);
+    background: linear-gradient(135deg, var(--p), var(--p3));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -96,7 +108,7 @@
 .card-title {
     font-size: 16px;
     font-weight: 800;
-    color: #1e1b4b;
+    color: var(--txt);
 }
 
 .field-label {
@@ -111,24 +123,24 @@
 .keyword-input {
     width: 100%;
     padding: 12px 14px;
-    border: 1.5px solid #e5e7eb;
+    border: 1.5px solid var(--border);
     border-radius: 12px;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-size: 14px;
-    color: #1e1b4b;
-    background: #fafafa;
+    color: var(--txt);
+    background: #faf9ff;
     outline: none;
     transition: border-color 0.2s, background 0.2s;
 }
 
 .keyword-input::placeholder {
-    color: #d1d5db;
+    color: #c4bfee;
 }
 
 .keyword-input:focus {
-    border-color: #a9f8ef;
+    border-color: var(--p2);
     background: #fff;
-    box-shadow: 0 0 3px rgba(20, 184, 166, 0.35);
+    box-shadow: 0 0 0 3px rgba(147, 129, 255, 0.12);
 }
 
 /* Count selector */
@@ -136,16 +148,16 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #fafafa;
+    background: #faf9ff;
     border-radius: 12px;
     padding: 12px 16px;
-    border: 1.5px solid #e5e7eb;
+    border: 1.5px solid var(--border);
 }
 
 .count-label {
     font-size: 13px;
     font-weight: 600;
-    color: #6b7280;
+    color: var(--txt2);
 }
 
 .count-controls {
@@ -159,8 +171,8 @@
     height: 28px;
     border-radius: 8px;
     background: #ffffff;
-    border: 1.5px solid #a9f8ef;
-    color: #14b8a6;
+    border: 1.5px solid var(--p2);
+    color: var(--p);
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
@@ -172,15 +184,15 @@
 }
 
 .count-btn:hover {
-    background: #e7fdfb;
-    border-color: #a9f8ef;
-    color: #14b8a6;
+    background: var(--p4);
+    border-color: var(--p2);
+    color: var(--p);
 }
 
 .count-val {
     font-size: 16px;
     font-weight: 800;
-    color: #1e1b4b;
+    color: var(--txt);
     min-width: 20px;
     text-align: center;
 }
@@ -195,13 +207,13 @@
 .cat-btn {
     padding: 8px 15px;
     border-radius: 50px;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
-    border: 1.5px solid #e5e7eb;
+    border: 1.5px solid var(--border);
     background: #fff;
-    color: #6b7280;
+    color: var(--txt2);
     transition: all 0.18s;
     display: flex;
     align-items: center;
@@ -209,26 +221,26 @@
 }
 
 .cat-btn:hover {
-    background: #e7fdfb;
-    border-color: #a9f8ef;
-    color: #14b8a6;
+    background: var(--p4);
+    border-color: var(--p2);
+    color: var(--p);
 }
 
 .cat-btn.selected {
-    background: linear-gradient(135deg, #14b8a6, #06b6d4);
+    background: linear-gradient(135deg, var(--p), var(--p3));
     border-color: transparent;
     color: #fff;
-    box-shadow: 0 3px 10px rgba(168, 85, 247, 0.3);
+    box-shadow: 0 3px 10px var(--shadow);
 }
 
 .generate-btn {
     width: 100%;
     padding: 14px;
     border-radius: 13px;
-    background: linear-gradient(135deg, #14b8a6, #06b6d4);
+    background: linear-gradient(135deg, var(--p), var(--p3));
     color: #fff;
     border: none;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-size: 14px;
     font-weight: 700;
     cursor: pointer;
@@ -237,7 +249,7 @@
     justify-content: center;
     gap: 8px;
     transition: opacity 0.2s, transform 0.15s;
-    box-shadow: 0 8px 25px rgba(20, 184, 166, 0.35);
+    box-shadow: 0 8px 25px var(--shadow);
 }
 
 .generate-btn:hover:not(:disabled) {
@@ -274,8 +286,7 @@
     background: #fff;
     border-radius: 22px;
     padding: 26px 22px;
-    border: 1px solid #ede9fe;
-    /* box-shadow: 0 4px 20px rgba(99, 102, 241, 0.07); */
+    border: 1px solid var(--border);
     min-height: 500px;
     display: flex;
     flex-direction: column;
@@ -297,25 +308,25 @@
 }
 
 .count-badge {
-    background: #f3f0ff;
-    color: #7c3aed;
+    background: var(--p4);
+    color: var(--p3);
     font-size: 11px;
     font-weight: 700;
     padding: 4px 11px;
     border-radius: 20px;
-    border: 1px solid #e0d9f7;
+    border: 1px solid var(--border);
 }
 
 .copy-all-btn {
     padding: 7px 13px;
     border-radius: 9px;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
-    border: 1.5px solid #e5e7eb;
+    border: 1.5px solid var(--border);
     background: #fff;
-    color: #6b7280;
+    color: var(--txt2);
     display: flex;
     align-items: center;
     gap: 5px;
@@ -323,9 +334,9 @@
 }
 
 .copy-all-btn:hover {
-    border-color: #a855f7;
-    color: #a855f7;
-    background: #fdf4ff;
+    border-color: var(--p);
+    color: var(--p);
+    background: var(--p4);
 }
 
 .copy-all-btn.copied {
@@ -350,7 +361,7 @@
     width: 60px;
     height: 60px;
     border-radius: 18px;
-    background-color: #dcf7f4;
+    background: var(--p4);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -364,7 +375,7 @@
 
 .empty-sub {
     font-size: 13px;
-    color: #63cec2;
+    color: var(--p);
     max-width: 240px;
     line-height: 1.6;
 }
@@ -378,19 +389,14 @@
 
 .shimmer {
     border-radius: 10px;
-    background: linear-gradient(90deg, #f3f0ff 25%, #e8e0ff 50%, #f3f0ff 75%);
+    background: linear-gradient(90deg, var(--p5) 25%, var(--p4) 50%, var(--p5) 75%);
     background-size: 400% 100%;
     animation: shimmer 1.4s ease infinite;
 }
 
 @keyframes shimmer {
-    0% {
-        background-position: 100% 0;
-    }
-
-    100% {
-        background-position: -100% 0;
-    }
+    0%  { background-position: 100% 0; }
+    100%{ background-position: -100% 0; }
 }
 
 /* Title cards */
@@ -407,16 +413,16 @@
     gap: 12px;
     padding: 16px 18px;
     border-radius: 14px;
-    border: 1.5px solid #ede9fe;
-    background: #fafafa;
+    border: 1.5px solid var(--border);
+    background: #faf9ff;
     transition: all 0.2s;
     cursor: default;
 }
 
 .title-card:hover {
-    border-color: #c4b5fd;
-    background: #fdf4ff;
-    box-shadow: 0 4px 14px rgba(168, 85, 247, 0.1);
+    border-color: var(--p2);
+    background: var(--p4);
+    box-shadow: 0 4px 14px var(--shadow);
     transform: translateX(3px);
 }
 
@@ -425,7 +431,7 @@
     height: 26px;
     border-radius: 8px;
     flex-shrink: 0;
-    background: linear-gradient(135deg, #a855f7, #7c3aed);
+    background: linear-gradient(135deg, var(--p), var(--p3));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -438,7 +444,7 @@
     flex: 1;
     font-size: 14px;
     font-weight: 600;
-    color: #1e1b4b;
+    color: var(--txt);
     line-height: 1.5;
 }
 
@@ -446,7 +452,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: #c4b5fd;
+    color: var(--p2);
     padding: 4px;
     border-radius: 6px;
     transition: color 0.18s;
@@ -455,7 +461,7 @@
 }
 
 .title-copy-btn:hover {
-    color: #a855f7;
+    color: var(--p);
 }
 
 .title-copy-btn.copied-single {

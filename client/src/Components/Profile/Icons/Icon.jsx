@@ -19,21 +19,20 @@ export function GoogleIcon() {
 
 export function LogoIcon() {
   return (
-    <svg width="40" height="40" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
-          <feDropShadow dx="0" dy="6" stdDeviation="8" floodColor="#14b8a6" floodOpacity="0.25" />
-        </filter>
-      </defs>
-      <g filter="url(#softShadow)">
-        <path d="M60 20L66 54L100 60L66 66L60 100L54 66L20 60L54 54L60 20Z"
-          fill="#14b8a6" />
-        <path d="M90 15L92 25L102 27L92 29L90 39L88 29L78 27L88 25L90 15Z"
-          fill="#06b6d4" opacity="0.75" />
-        <path d="M30 75L32 85L42 87L32 89L30 99L28 89L18 87L28 85L30 75Z"
-          fill="#06b6d4" opacity="0.55" />
-      </g>
-    </svg>
+  <svg width="48" height="48" viewBox="20 20 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="pulseGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#9381ff" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#pulseGlow)">
+    <circle cx="60" cy="60" r="30" stroke="#9381ff" stroke-width="6" opacity="0.25"/>
+    <circle cx="60" cy="60" r="18" fill="#9381ff"/>
+    <path d="M24 60H44L52 46L68 74L76 60H96"
+      stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
   );
 }
 export function ArrowIcon() {

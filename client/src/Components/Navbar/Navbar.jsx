@@ -4,6 +4,7 @@ import Profile from "../Profile/Profile";
 import { LogoIcon } from "../Profile/Icons/Icon";
 import styles from "../Navbar/navbar.module.css"
 import { FaCoins } from "react-icons/fa";
+import { LogoutIcon } from "../Pages/icon/Icon";
 
 function Navbar({ openSignupModel }) {
     const [showProfileModel, setProfileModel] = useState(false)
@@ -21,7 +22,7 @@ function Navbar({ openSignupModel }) {
         <>
             <nav className={styles.navbar}>
                 <div className={styles.logo}>
-                    <LogoIcon />
+                    <LogoIcon/>
                     Zyvix.ai
                 </div>
                 <div className={styles.navRight}>

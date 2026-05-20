@@ -6,7 +6,6 @@
   justify-content: space-between;
   padding: 20px 150px;
   width: 100%;
-
 }
 
 .logo {
@@ -15,7 +14,7 @@
   gap: 8px;
   font-size: 28px;
   font-weight: 600;
-  background: linear-gradient(135deg, #14b8a6, #06b6d4);
+  background: linear-gradient(135deg, var(--p), var(--p3));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -23,8 +22,8 @@
 }
 
 .navBtn {
-  background: linear-gradient(135deg, #14b8a6, #06b6d4);
-  box-shadow: 0 8px 25px rgba(20, 184, 166, 0.35);
+  background: linear-gradient(135deg, var(--p), var(--p3));
+  box-shadow: 0 8px 25px var(--shadow);
   outline: none;
   color: #ffffff;
   border: none;
@@ -34,7 +33,6 @@
   font-weight: 500;
   cursor: pointer;
   text-decoration: none;
-  /* transition: background 0.2s; */
   transition: all 0.3s ease-in-out;
 }
 
@@ -47,7 +45,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* border: 1px solid rgb(255, 1, 1); */
   gap: 30px;
 }
 
@@ -57,11 +54,6 @@
   gap: 12px;
   padding: 3px 18px;
   border-radius: 100px;
-  /* border: 1px solid rgb(209, 209, 209); */
-  /* backdrop-filter: blur(14px); */
-  /* box-shadow:
-        0 4px 20px rgba(0,0,0,0.25),
-        inset 0 1px 1px rgba(255,255,255,0.08); */
 }
 
 .coinIcon {
@@ -86,7 +78,7 @@
 
 .creditLabel {
   font-size: 11px;
-  color: #77777e;
+  color: var(--txt2);
   font-weight: 600;
   letter-spacing: 0.5px;
 }
@@ -95,9 +87,7 @@
   font-size: 15px;
   font-weight: 700;
   color: #ffb300;
-  /* color: black; */
 }
-
 
 @media (max-width: 480px) {
   .navbar {

@@ -5,7 +5,7 @@
     background: #ffffff;
     display: flex;
     flex-direction: column;
-    border-right: 1px solid #ede9fe;
+    border-right: 1px solid var(--border);
     padding: 0;
     position: relative;
     z-index: 10;
@@ -18,9 +18,9 @@
     padding: 24px 20px 20px;
     font-size: 20px;
     font-weight: 800;
-    color: #1e1b4b;
-    border-bottom: 1px solid #f3f0ff;
-    background: linear-gradient(135deg, #14b8a6, #06b6d4);
+    color: var(--txt);
+    /* border-bottom: 1px solid var(--border); */
+    background: linear-gradient(135deg, var(--p), var(--p3));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -32,15 +32,15 @@
     flex-direction: column;
     align-items: center;
     padding: 28px 20px 20px;
-    border-bottom: 1px solid #f3f0ff;
-    gap: 10px;
+    /* border-bottom: 1px solid var(--border); */
+    gap: 5px;
 }
 
 .avatarLg {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #14b8a6, #06b6d4);
+    background: linear-gradient(135deg, var(--p), var(--p3));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -53,9 +53,23 @@
 .profileName {
     font-size: 14px;
     font-weight: 700;
-    color: #1e1b4b;
+    color: var(--txt);
 }
-
+.planBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: linear-gradient(135deg, var(--p4), var(--p5));
+    color: var(--p3);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 13px;
+    border-radius: 20px;
+    /* border: 1px solid var(--p2); */
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+    /* box-shadow: 0 2px 8px var(--shadow); */
+}
 .sidebarNav {
     flex: 1;
     padding: 16px 12px;
@@ -73,7 +87,7 @@
     border-radius: 12px;
     font-size: 14px;
     font-weight: 600;
-    color: #6b7280;
+    color: var(--txt2);
     cursor: pointer;
     transition: all 0.18s;
     border: none;
@@ -84,14 +98,14 @@
 }
 
 .navItem:hover {
-    background: #e2f9f6;
-    color: #14b8a6;
+    background: var(--p4);
+    color: var(--p);
 }
 
 .navItem.active {
-    background: linear-gradient(135deg, #14b8a6, #06b6d4);
+    background: linear-gradient(135deg, var(--p), var(--p3));
     color: #fff;
-    box-shadow: 0 8px 25px rgba(20, 184, 166, 0.35);
+    box-shadow: 0 8px 25px var(--shadow);
 }
 
 .navItem svg {
@@ -100,7 +114,7 @@
 
 .sidebarBottom {
     padding: 16px 12px;
-    border-top: 1px solid #f3f0ff;
+    border-top: 1px solid var(--border);
     display: flex;
     align-items: center;
     gap: 10px;
@@ -110,7 +124,7 @@
     width: 34px;
     height: 34px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #14b8a6, #06b6d4);
+    background: linear-gradient(135deg, var(--p), var(--p3));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -127,7 +141,7 @@
 .bottomName {
     font-size: 13px;
     font-weight: 700;
-    color: #1e1b4b;
+    color: var(--txt);
 }
 
 .bottomPlan {
@@ -153,14 +167,3 @@
 .logoutBtn:hover {
     color: #ef4444;
 }
-
-
-
-
-/* @media (max-width: 890px) {
-    .sidebar {
-       display: none;
-    }
-
-
-} */
