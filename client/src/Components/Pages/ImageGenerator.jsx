@@ -2,6 +2,7 @@ import { useState } from "react";
 import Sidebar from "./Sidebar";
 import styles from "../../css/ImageGenerator.module.css";
 import { authData } from "../../Context/ContextApi";
+import Plan from "../Pricing/Plan";
 const imageStyles = [
     { label: "Realistic", value: "realistic, photorealistic, ultra detailed" },
     { label: "Ghibli", value: "studio ghibli style, anime, soft colors, whimsical" },
@@ -28,10 +29,11 @@ export default function ImageGenerator() {
     const [imgUrl, setImgUrl] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [planPopUp, setPlan] = useState(false)
     const [currentStyle, setCurrentStyle] = useState(imageStyles[0].label);
 
     const BASE_URL = import.meta.env.VITE_BASE_URL
-    const { setUser } = authData()
+    const { user, setUser } = authData()
 
     const generate = async () => {
         if (!prompt.trim()) return;
@@ -55,8 +57,12 @@ export default function ImageGenerator() {
                 }),
             });
             const data = await response.json();
-            if (!response.ok || !data.success) {
-                throw new Error(data.message || "Image generation failed");
+            if (!data.success) {
+                setError(data.message);
+            }
+            if (user.remainingLimit === 0) {
+                setPlan(true)
+                return
             }
             setImgUrl(data.imageUrl);
             setCurrentStyle(imageStyles.find((s) => s.value === style)?.label || style);
@@ -90,6 +96,7 @@ export default function ImageGenerator() {
                 <Sidebar />
                 {/* ══ MAIN ══ */}
                 <div className={styles.mainArea}>
+                    {planPopUp && <Plan closePlanPopUp={setPlan} />}
                     <h1 className={styles.pageTitle}>
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9381ff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                             <rect x="3" y="3" width="18" height="18" rx="3" />

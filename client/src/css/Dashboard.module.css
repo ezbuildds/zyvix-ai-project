@@ -11,7 +11,6 @@
 .root {
   /* min-height: 100vh; */
   /* background: #F8FAFF; */
-  font-family: 'DM Sans', 'Segoe UI', sans-serif;
   position: relative;
   padding: 0 0 48px 0;
   width: 1400px;
@@ -34,16 +33,16 @@
   gap: 20px;
   padding: 20px 32px;
   background: #fff;
-  border-bottom: 1px solid #E2E8F0;
+  /* border-bottom: 1px solid #E2E8F0; */
   position: sticky;
   top: 0;
   z-index: 10;
   flex-wrap: wrap;
 }
 
-.hamburger {
+/* .hamburger {
   display: none;
-}
+} */
 
 .headerLeft {
   display: flex;
@@ -116,10 +115,8 @@
 .creditBox {
   display: flex;
   gap: 30px;
-  /* min-width: 180px; */
-  /* flex: 1; */
-  /* max-width: 240px; */
-  /* border: 1px solid #FFE0A3; */
+  justify-content: center;
+  align-items: center;
 }
 
 .boltAnim {
@@ -274,7 +271,7 @@
 }
 
 .statSub {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   color: #64748B;
   margin-top: 4px;
@@ -597,70 +594,406 @@
   letter-spacing: 0.3px;
 }
 
-@media (max-width: 480px) {
+
+
+
+
+
+/* ================= LARGE TABLET ================= */
+
+@media (max-width: 1024px) {
+
+  .root {
+    width: 100%;
+  }
+
+  .header {
+    padding: 18px 22px;
+  }
 
   .statsRow {
-    /* grid-template-columns: 1fr; */
-    padding: 10px 15px;
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    padding: 20px 22px 0;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .controls {
+    padding: 18px 22px 0;
+  }
+
+  .list {
+    padding: 16px 22px 0;
+    max-height: unset;
+  }
+
+  .footer {
+    padding: 12px 22px 0;
+  }
+
+  .card.featured {
+    transform: none;
+  }
+}
+
+/* ================= TABLET ================= */
+
+@media (max-width: 768px) {
+
+  .dbRoot {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .root {
+    padding-bottom: 28px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .headerLeft {
+    width: 100%;
+  }
+
+  .creditBox {
+    width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .upgradeBtn {
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+
+  /* Stats */
+
+  .statsRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    padding: 16px;
   }
 
   .statCard {
-    padding: 10px 15px;
-    gap: 4px;
+    padding: 16px;
+    border-radius: 18px;
   }
 
   .statIcon {
-    width: 43px;
-    height: 43px;
-    margin-bottom: 8px;
-    z-index: 2;
-  }
-
-  .statSub {
-    font-size: 10px;
-    margin-top: 0px;
-  }
-
-  .appName {
-    font-size: 15px;
+    width: 46px;
+    height: 46px;
   }
 
   .statValue {
-    font-size: 14px;
-    margin-top: 0px;
+    font-size: 15px;
+    margin-top: 8px;
+  }
+
+  /* Controls */
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .searchWrap {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .filterGroup {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+
+  .filterGroup::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filterBtn {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  /* List */
+
+  .list {
+    padding: 14px 16px 0;
+    gap: 12px;
+    max-height: unset;
+    overflow: visible;
+  }
+
+  .card {
+    padding: 14px;
+    border-radius: 14px;
   }
 
   .cardTitle {
     font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .promptPreview {
+    font-size: 11px;
+    padding: 8px 10px;
+    line-height: 1.6;
+  }
+
+  .cardFooter {
+    gap: 6px;
+  }
+
+  .toneBadge,
+  .creditBadge,
+  .typeBadge {
+    font-size: 9px;
+  }
+
+  .footer {
+    padding: 16px;
+    font-size: 11px;
+  }
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 480px) {
+
+  .dbRoot {
+    overflow-x: hidden;
+  }
+
+  .root {
+    width: 100%;
+    overflow-x: hidden;
   }
 
   .header {
     padding: 12px;
+    gap: 12px;
+  }
+
+  .headerLeft {
+    gap: 10px;
+  }
+
+  .logoMark {
+    width: 36px;
+    height: 36px;
+  }
+
+  .appName {
+    font-size: 14px;
+    line-height: 1.2;
+  }
+
+  .appTagline {
+    font-size: 10px;
+  }
+
+  .creditBox {
+    /* flex-direction: column; */
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .creditsPill {
+    width: 100%;
+    justify-content: center;
+    height: auto;
+    padding: 8px 12px;
+    text-align: center;
   }
 
   .upgradeBtn {
-    /* width: 100%; */
+    width: 100%;
     justify-content: center;
+    padding: 11px 14px;
   }
+
+  /* Stats */
+
+  .statsRow {
+    grid-template-columns: 1fr;
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .statCard {
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .statIcon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    font-size: 16px;
+  }
+
+  .statValue {
+    font-size: 14px;
+    margin-top: 6px;
+  }
+
+  .statLabel {
+    font-size: 10px;
+  }
+
+  .statSub {
+    font-size: 10px;
+    line-height: 1.4;
+  }
+
+  /* Controls */
 
   .controls {
-    padding: 20px 15px 0;
-
+    padding: 12px;
+    gap: 10px;
   }
 
+  .searchInput {
+    font-size: 12px;
+    padding: 10px 14px 10px 34px;
+  }
+
+  .filterGroup {
+    gap: 8px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  .filterBtn {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  /* List */
+
   .list {
-    padding: 16px 15px 0;
+    padding: 12px;
+    gap: 10px;
   }
 
   .card {
-    padding: 10px 10px;
+    gap: 10px;
+    padding: 12px;
+    flex-direction: row;
+  }
+
+  .cardLeft {
+    padding-top: 0;
+  }
+
+  .typeIcon {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+  }
+
+  .cardBody {
+    gap: 6px;
+  }
+
+  .cardTitle {
+    font-size: 12px;
+  }
+
+  .cardMeta {
+    gap: 4px;
+  }
+
+  .metaDate,
+  .metaTime,
+  .metaWords {
+    font-size: 10px;
+  }
+
+  .promptPreview {
+    font-size: 10px;
+    padding: 8px;
+    border-radius: 7px;
+  }
+
+  .promptLabel {
+    font-size: 9px;
+  }
+
+  .cardFooter {
+    gap: 5px;
+  }
+
+  .toneBadge,
+  .creditBadge,
+  .typeBadge,
+  .expandHint {
+    font-size: 8px;
+  }
+
+  .empty {
+    padding: 50px 16px;
+  }
+
+  .emptyIcon {
+    width: 54px;
+    height: 54px;
+    font-size: 22px;
+  }
+
+  .emptyText {
+    font-size: 14px;
+  }
+
+  .emptySub {
+    font-size: 12px;
+  }
+
+  .footer {
+    padding: 14px 12px 0;
+    font-size: 10px;
+    line-height: 1.5;
   }
 }
 
-@media (max-width: 890px) {
-  .hamburger {
-    display: block;
+/* ================= EXTRA SMALL DEVICES ================= */
+
+@media (max-width: 360px) {
+
+  .header,
+  .controls,
+  .statsRow,
+  .list,
+  .footer {
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
+  .card {
+    padding: 10px;
+  }
+
+  .filterBtn {
+    padding: 7px 10px;
+    font-size: 11px;
+  }
+
+  .searchInput {
+    font-size: 11px;
+  }
+
+  .creditsPill {
+    font-size: 11px;
+  }
+
+  .upgradeBtn {
+    font-size: 11px;
+  }
 }

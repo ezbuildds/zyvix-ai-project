@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "./PricingPopup.module.css";
+import styles from "./plan.module.css";
 
 const plans = [
     {
@@ -93,25 +93,13 @@ function PlanCard({ plan, billing, onSelect }) {
     );
 }
 
-export default function PricingPopup() {
-    const [open, setOpen] = useState(true);
+export default function Plan({closePlanPopUp}) {
     const [billing, setBilling] = useState("monthly");
-
-    if (!open) {
-        return (
-            <div className={styles.fallback}>
-                <button className={styles.fallbackBtn} onClick={() => setOpen(true)}>
-                    View Pricing
-                </button>
-            </div>
-        );
-    }
-
     return (
-        <div className={styles.overlay} onClick={e => { if (e.target === e.currentTarget) setOpen(false); }}>
+        <div className={styles.overlay}>
             <div className={styles.popup}>
 
-                <button className={styles.closeBtn} onClick={() => setOpen(false)} aria-label="Close">
+                <button className={styles.closeBtn} onClick={()=> closePlanPopUp(false)} aria-label="Close">
                     ×
                 </button>
 

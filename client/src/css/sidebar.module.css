@@ -167,3 +167,8 @@
 .logoutBtn:hover {
     color: #ef4444;
 }
+@media (max-width: 1100px) {
+  .sidebar{
+    display: none;
+  }
+}

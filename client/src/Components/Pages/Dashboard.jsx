@@ -4,6 +4,7 @@ import Sidebar from "./Sidebar";
 import { authData } from "../../Context/ContextApi";
 import ReactMarkdown from "react-markdown";
 import { BoltSmIcon, CommunityIcon, CreditIcon, TotalGenerateIcon } from "./icon/Icon";
+import Plan from "../Pricing/Plan";
 
 function formatDate(dateStr) {
     const d = new Date(dateStr);
@@ -64,6 +65,7 @@ export default function ContentDashboard() {
     const [filter, setFilter] = useState("all");
     const [expanded, setExpanded] = useState(null);
     const [historyData, setHistory] = useState([]);
+    const [showPlanPopUp, setPlanPopUp] = useState(false)
     const { user } = authData();
 
     const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -96,8 +98,8 @@ export default function ContentDashboard() {
             <Sidebar />
 
             <div className={styles.root}>
+                {showPlanPopUp && <Plan closePlanPopUp={setPlanPopUp} />}
                 <div className={styles.grain} />
-
                 <header className={styles.header}>
                     <div className={styles.headerLeft}>
                         <div className={styles.logoMark}>
@@ -110,19 +112,12 @@ export default function ContentDashboard() {
                             <div className={styles.appTagline}>Your generation history</div>
                         </div>
                     </div>
-                    <div className={styles.hamburger}>
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                            <path d="M4 6H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                            <path d="M4 12H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                            <path d="M4 18H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                        </svg>
-                    </div>
                     <div className={styles.creditBox}>
                         <div className={styles.creditsPill}>
                             <span className={styles.boltAnim}><BoltSmIcon color="#F0A830" /></span>
                             {user?.remainingLimit} / {user?.totalLimit} credits left
                         </div>
-                        <button className={styles.upgradeBtn}>
+                        <button className={styles.upgradeBtn} onClick={() => setPlanPopUp(true)}>
                             Upgrade Plan
                         </button>
                     </div>
@@ -301,9 +296,9 @@ export default function ContentDashboard() {
                                                 ) : (
                                                     <p style={{
                                                         fontSize: 13, color: "#64748B", marginTop: 8, lineHeight: 1.6,
-                                                        whiteSpace: "pre-wrap",padding:"20px"
+                                                        whiteSpace: "pre-wrap", padding: "20px"
                                                     }}>
-                                                       <ReactMarkdown>{g.content || g.prompt}</ReactMarkdown>
+                                                        <ReactMarkdown>{g.content || g.prompt}</ReactMarkdown>
                                                     </p>
                                                 )}
                                             </div>

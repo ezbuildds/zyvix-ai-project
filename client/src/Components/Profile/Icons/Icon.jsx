@@ -22,15 +22,15 @@ export function LogoIcon() {
   <svg width="48" height="48" viewBox="20 20 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <filter id="pulseGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#9381ff" flood-opacity="0.35"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#9381ff" floodOpacity="0.35"/>
     </filter>
   </defs>
 
   <g filter="url(#pulseGlow)">
-    <circle cx="60" cy="60" r="30" stroke="#9381ff" stroke-width="6" opacity="0.25"/>
+    <circle cx="60" cy="60" r="30" stroke="#9381ff" strokeWidth="6" opacity="0.25"/>
     <circle cx="60" cy="60" r="18" fill="#9381ff"/>
     <path d="M24 60H44L52 46L68 74L76 60H96"
-      stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      stroke="white" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"/>
   </g>
 </svg>
   );

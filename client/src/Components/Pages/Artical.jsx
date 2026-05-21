@@ -6,6 +6,7 @@ import html2canvas from "html2canvas";
 import { LogoIcon } from "../Profile/Icons/Icon";
 import { lengths, tones } from "../../Data/article";
 import { authData } from "../../Context/ContextApi";
+import Plan from "../Pricing/Plan";
 
 function renderMarkdown(text) {
     return text
@@ -29,10 +30,11 @@ export default function Article() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [copied, setCopied] = useState(false);
+    const [planPopUp, setPlan] = useState(false)
     const articleRef = useRef(null);
 
 
-    const { setUser } = authData()
+    const { user,setUser } = authData()
     const BASE_URL = import.meta.env.VITE_BASE_URL
     const wordCount = article ? article.split(/\s+/).filter(Boolean).length : 0;
 
@@ -61,9 +63,13 @@ export default function Article() {
             if (data?.success && data?.content) {
                 setArticle(data.content);
                 setUser(prev => ({ ...prev, remainingLimit: data.remainingLimit }))
-            } else {
-                setError(data.message);
+                return
+            } 
+            if (user.remainingLimit === 0) {
+                setPlan(true)  
             }
+            setError(data.message);
+
         } catch (e) {
             setError(e.message);
         } finally {
@@ -76,15 +82,6 @@ export default function Article() {
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };
-
-    // const downloadTxt = () => {
-    //     const blob = new Blob([article], { type: "text/plain" });
-    //     const a = document.createElement("a");
-    //     a.href = URL.createObjectURL(blob);
-    //     a.download = `article-${Date.now()}.txt`;
-    //     a.click();
-    // };
-
     const downloadPDF = async () => {
         if (!article) return;
         const { default: jsPDF } = await import("jspdf");
@@ -166,6 +163,7 @@ export default function Article() {
             <div className={styles.dbRoot}>
                 <Sidebar />
                 <div className={styles.awRoot}>
+                    {planPopUp && <Plan closePlanPopUp={setPlan}/>}
                     <h1 className={styles.awPageTitle}>
                         <LogoIcon />
                         AI Article Writer

@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import Sidebar from "./Sidebar";
 import styles from "../../css/BackgroundRemove.module.css";
 import { authData } from "../../Context/ContextApi";
+import Plan from "../Pricing/Plan";
 
 const outputOptions = [
     { label: "Transparent", sub: "PNG with alpha", emoji: "🔲" },
@@ -54,8 +55,9 @@ export default function BackgroundRemoval() {
     const [activeTab, setActiveTab] = useState("result");
     const [bgColor, setBgColor] = useState("#ffffff");
     const [selectedSwatch, setSelectedSwatch] = useState("#ffffff");
+    const [planPopUp, setPlan] = useState(false)
     const inputRef = useRef();
-    const { setUser } = authData();
+    const { user, setUser } = authData();
 
     const BASE_URL = import.meta.env.VITE_BASE_URL
     const handleFile = (f) => {
@@ -94,9 +96,12 @@ export default function BackgroundRemoval() {
 
             const data = await res.json();
 
-            if (!res.ok || !data.success) {
+            if (!data.success) {
                 setError(data.message || "Background removal failed. Please try again.");
                 setLoading(false);
+            }
+            if (user.remainingLimit === 0) {
+                setPlan(true)
                 return;
             }
             const finalImage = await applyBackground(data.imageUrl, outputOpt, bgColor);
@@ -127,6 +132,7 @@ export default function BackgroundRemoval() {
 
                 {/* ══ MAIN ══ */}
                 <div className={styles.mainArea}>
+                    {planPopUp && <Plan closePlanPopUp={setPlan} />}
                     <h1 className={styles.pageTitle}>
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9381ff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M20 20H7L3 16l10-10 7 7-3.5 3.5" />

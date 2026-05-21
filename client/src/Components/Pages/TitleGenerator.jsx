@@ -3,6 +3,7 @@ import { useState } from "react";
 import Sidebar from "./Sidebar";
 import "../../css/TitleGenerator.css"
 import { authData } from "../../Context/ContextApi";
+import Plan from "../Pricing/Plan";
 
 const categories = [
     { label: "General", value: "general" },
@@ -23,8 +24,9 @@ export default function TitleGenerator() {
     const [error, setError] = useState("");
     const [copiedAll, setCopiedAll] = useState(false);
     const [copiedIdx, setCopiedIdx] = useState(null);
+    const [planPopUp, setPlan] = useState(false)
 
-    const { setUser } = authData()
+    const { user, setUser } = authData()
     const BASE_URL = import.meta.env.VITE_BASE_URL;
     const generate = async () => {
         if (!keyword.trim()) return;
@@ -45,9 +47,13 @@ export default function TitleGenerator() {
             if (res.success && Array.isArray(res.titles)) {
                 setTitles(res.titles);
                 setUser(prev => ({ ...prev, remainingLimit: res.remainingLimit }))
-            } else {
-                setError(res.message);
+                return
             }
+            if (user.remainingLimit === 0) {
+                setPlan(true)
+            }
+            setError(res.message);
+
         } catch {
             setError("Network error. Please check your connection.");
         } finally { setLoading(false); }
@@ -72,6 +78,7 @@ export default function TitleGenerator() {
                 <Sidebar />
                 <div className="app-root">
                     {/* ══ MAIN ══ */}
+                    {planPopUp && <Plan closePlanPopUp={setPlan} />}
                     <div className="main-area">
                         <h1 className="page-title">
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9381ff" strokeWidth="2.2" strokeLinecap="round">
