@@ -64,7 +64,6 @@ export default async function removeBg(req, res) {
         await db.collection("generationHistory").insertOne({
             userId: user._id,
             type: "removeBg",
-            prompt: null,
             meta: {
                 originalName: req.file.originalname,
                 imageUrl,

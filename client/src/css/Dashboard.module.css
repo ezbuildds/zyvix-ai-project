@@ -55,8 +55,8 @@
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  background: #FFF6E8;
-  border: 1px solid #FFE0A3;
+  background: #e0dbfaa1;
+  border: 1px solid #e2ddff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -210,14 +210,14 @@
   align-items: center;
   gap: 6px;
   padding: 9px 18px;
-  background: #FBBF24;
-  color: #1A1A2E;
+  background: #9381ff;
+  color: #f7f7f7;
   border: none;
   border-radius: 8px;
   font-weight: 700;
   font-size: 13px;
   cursor: pointer;
-  letter-spacing: -0.2px;
+  letter-spacing: 0.2px;
   white-space: nowrap;
 }
 

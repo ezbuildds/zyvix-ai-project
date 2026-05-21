@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
 
 :root {
-    --p:      #9381ff;
-    --p2:     #b8adff;
-    --p3:     #7b6cf0;
-    --p4:     #ede9ff;
-    --p5:     #f5f3ff;
-    --txt:    #1a1440;
-    --txt2:   #5b5580;
+    --p: #9381ff;
+    --p2: #b8adff;
+    --p3: #7b6cf0;
+    --p4: #ede9ff;
+    --p5: #f5f3ff;
+    --txt: #1a1440;
+    --txt2: #5b5580;
     --border: #e8e4ff;
     --shadow: rgba(147, 129, 255, 0.18);
 
@@ -52,6 +52,91 @@
     margin-top: 100px;
 }
 
+/* ===== AI CAPSULE - Modern Badge ===== */
+.ai-capsule {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px 6px 8px;
+    margin-bottom: 10px;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(168, 168, 168, 0.851);
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.85);
+    letter-spacing: 0.02em;
+    cursor: default;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    animation: capsule-fade-in 0.6s ease both;
+}
+
+.capsule-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 6px #4ade80;
+    animation: pulse-dot 2s ease-in-out infinite;
+    flex-shrink: 0;
+}
+
+@keyframes pulse-dot {
+
+    0%,
+    100% {
+        opacity: 1;
+        box-shadow: 0 0 6px #4ade80;
+    }
+
+    50% {
+        opacity: 0.6;
+        box-shadow: 0 0 12px #4ade80, 0 0 20px #4ade8066;
+    }
+}
+
+.capsule-icon {
+    font-size: 12px;
+    background: linear-gradient(135deg, #a78bfa, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: spin-slow 6s linear infinite;
+}
+
+@keyframes spin-slow {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.capsule-tag {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #7c3aed, #3b82f6);
+    color: #fff;
+    -webkit-text-fill-color: #fff;
+}
+
+@keyframes capsule-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .hero h1 {
     font-size: 76px;
     font-weight: 600;
@@ -82,7 +167,9 @@
 }
 
 @keyframes blink {
-    50% { opacity: 0; }
+    50% {
+        opacity: 0;
+    }
 }
 
 .hero p {
@@ -212,8 +299,14 @@
 }
 
 @keyframes scroll-left {
-    0%   { transform: translateX(0); opacity: 1; }
-    100% { transform: translateX(-50%); }
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 .brand {
@@ -231,12 +324,33 @@
     opacity: 1;
 }
 
-.brand.linkedin  { color: #0366a6; }
-.brand.instagram { color: #99003d; font-style: italic; font-weight: 400; }
-.brand.facebook  { color: #0d3b7f; }
-.brand.slack     { color: #2a0a2c; }
-.brand.framer    { color: #003399; font-weight: 400; }
-.brand.netflix   { color: #b00610; letter-spacing: 1px; }
+.brand.linkedin {
+    color: #0366a6;
+}
+
+.brand.instagram {
+    color: #99003d;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.brand.facebook {
+    color: #0d3b7f;
+}
+
+.brand.slack {
+    color: #2a0a2c;
+}
+
+.brand.framer {
+    color: #003399;
+    font-weight: 400;
+}
+
+.brand.netflix {
+    color: #b00610;
+    letter-spacing: 1px;
+}
 
 /* ****** protected route loader ******** */
 .p-loader-wrapper {
@@ -256,8 +370,13 @@
 }
 
 @keyframes spin {
-    0%   { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @media (max-width: 480px) {

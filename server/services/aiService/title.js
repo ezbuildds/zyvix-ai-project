@@ -64,6 +64,7 @@ export default async function title(req, res) {
             meta: {
                 category: category,
                 count: count,
+                titles: generatedTitles
             },
             creditsUsed: 1,
             createdAt: new Date()

@@ -168,7 +168,7 @@ export default function BackgroundRemoval() {
                                             style={{ display: "none" }}
                                         />
                                         <div className={styles.dropIcon}>
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1440b8ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                 <polyline points="16 16 12 12 8 16" />
                                                 <line x1="12" y1="12" x2="12" y2="21" />
                                                 <path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3" />

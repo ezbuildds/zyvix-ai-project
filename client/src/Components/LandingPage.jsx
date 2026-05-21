@@ -31,22 +31,14 @@ const brands = [
     ),
   },
 ];
-
-// ✅ Component ke bahar - stable reference
 const words = ["AI tools"];
 
 export default function LandingPage() {
   const [openSignupModel, setSignupModel] = useState(false)
   const [showLoginModel, setLoginModel] = useState(false)
   const [showForgotModel, setForgotModel] = useState(false)
+
   const { user } = authData()
-
-  // ✅ Stable callbacks - har render pe naya reference nahi banega
-  // const handleOpenSignup = useCallback((val) => setSignupModel(val), [])
-  // const handleOpenLogin = useCallback((val) => setLoginModel(val), [])
-  // const handleOpenForgot = useCallback((val) => setForgotModel(val), [])
-
-  // 🔥 typing animation
   const [text, setText] = useState("");
   const [index, setIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -78,13 +70,19 @@ export default function LandingPage() {
       <div className="page">
         <div className="bg-gradient" />
 
-        <Navbar openSignupModel={setSignupModel}/>
+        <Navbar openSignupModel={setSignupModel} />
         {openSignupModel && <Signup openSignupModel={setSignupModel} openLoginModel={setLoginModel} />}
         {showLoginModel && <Login openSignupModel={setSignupModel} openLoginModel={setLoginModel} openForgotModel={setForgotModel} />}
         {showForgotModel && <Forgot setForgotModel={setForgotModel} />}
 
         {/* Hero */}
         <section className="hero">
+          <div className="ai-capsule">
+            <span className="capsule-dot" />
+            <span className="capsule-icon">✦</span>
+            <span>AI Powered Content 🚀</span>
+            <span className="capsule-tag">NEW</span>
+          </div>
           <h1>
             Build stunning content<br />
             <span className="with-fixed">with</span>{" "}
