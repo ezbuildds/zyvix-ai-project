@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 const MAX_ATTEMPTS = 3;
 
 
-export default function ForgotOtpModel({ email, setForgotModel ,closeProfileForgotModel,showProfileForgotModel}) {
+export default function ForgotOtpModel({ email, setForgotModel,setLoginModel ,closeProfileForgotModel,showProfileForgotModel}) {
   const [digits, setDigits] = useState(["", "", "", "", "", ""]);
   const [status, setStatus] = useState("idle"); // idle | loading | error | success
   const [feedback, setFeedback] = useState("");
@@ -192,7 +192,7 @@ export default function ForgotOtpModel({ email, setForgotModel ,closeProfileForg
           </div>
           <div className={styles.otpIconWrap}>
             <div className={styles.otpIconPulse} />
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#9381ff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
               <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z" />
               <path d="M14.5 2.5c1.5.5 3 1.5 4 3M17 0c2 1 4 3 4.5 5.5" />
             </svg>
@@ -320,7 +320,7 @@ export default function ForgotOtpModel({ email, setForgotModel ,closeProfileForg
         </div>
 
         {/* Back */}
-        <button className={styles.backLink} onClick={() => { }}>
+        <button className={styles.backLink} onClick={()=>{setForgotModel(false);setLoginModel(true)}}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <line x1="19" y1="12" x2="5" y2="12" />
             <polyline points="12 19 5 12 12 5" />

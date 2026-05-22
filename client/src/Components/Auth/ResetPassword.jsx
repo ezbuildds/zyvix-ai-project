@@ -256,7 +256,7 @@ export default function ResetPassword({ setForgotModel, closeProfileForgotModel,
 
                     <button
                         className={styles.cancelBtn}
-                        onClick={() => setChangePasswordModel(false)}
+                        onClick={() => setForgotModel(false)}
                     >
                         Cancel
                     </button>

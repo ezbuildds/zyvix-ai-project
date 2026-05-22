@@ -5,7 +5,7 @@ import OtpVerification from "./OtpVerification";
 import ForgotOtpModel from "./ForgotOtpModel";
 import { BackIcon, ErrorIcon, InputIcon, PulseIcon, SendIcon } from "./Authicon/AuthIcon";
 
-function Forgot({ setForgotModel, showProfileForgotModel, closeProfileForgotModel }) {
+function Forgot({ setForgotModel, showProfileForgotModel, closeProfileForgotModel,setLoginModel }) {
     const [showResetModel, setResetModel] = useState(false)
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
@@ -44,7 +44,7 @@ function Forgot({ setForgotModel, showProfileForgotModel, closeProfileForgotMode
                 <div className={styles.cardHeader}>
                     <div className={styles.headerIconWrap}>
                         <div className={styles.iconPulse} />
-                        <PulseIcon/>
+                        <PulseIcon />
                     </div>
 
                     {showProfileForgotModel ? <button className={styles.closeBtn} onClick={() => { closeProfileForgotModel(false) }}>✕ </button>
@@ -63,7 +63,7 @@ function Forgot({ setForgotModel, showProfileForgotModel, closeProfileForgotMode
 
                         <div className={styles.inputWrap}>
                             <span className={styles.inputIcon}>
-                                <InputIcon/>
+                                <InputIcon />
                             </span>
 
                             <input
@@ -83,15 +83,15 @@ function Forgot({ setForgotModel, showProfileForgotModel, closeProfileForgotMode
 
                         {error && (
                             <span className={styles.fieldError}>
-                                <ErrorIcon/>
+                                <ErrorIcon />
                                 {error}
                             </span>
                         )}
                     </div>
 
                     {/* info strip */}
-                    <div style={{ display: "flex", alignItems: "center", gap: 10, backgroundColor: "#f0f9f7", border: "1px solid #c8eee7ff", borderRadius: 12, padding: "11px 14px" }}>
-                        <div style={{ fontSize: 11, fontWeight: 600, color: "#14b8a6", lineHeight: 1.5,textAlign:"center" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, backgroundColor: "#f5f3ff", border: "1px solid #e8e4ff", borderRadius: 12, padding: "11px 14px" }}>
+                        <div style={{ fontSize: 11, fontWeight: 600, color: "#9381ff", lineHeight: 1.5, textAlign: "center" }}>
                             A 6-digit verification code will be sent to your email. Code expires in 10 minutes.
                         </div>
                     </div>
@@ -101,19 +101,19 @@ function Forgot({ setForgotModel, showProfileForgotModel, closeProfileForgotMode
                     <button className={styles.primaryBtn} onClick={submit} disabled={loading}>
                         {loading ? (<><div className={styles.spinner} /> Sending code...</>) : (
                             <>
-                                <SendIcon/>
+                                <SendIcon />
                                 Send Reset Code
                             </>
                         )}
                     </button>
 
-                    <button className={styles.ghostBtn}>
-                        <BackIcon/>
+                    <button className={styles.ghostBtn} onClick={()=>{setForgotModel(false);setLoginModel(true)}}>
+                        <BackIcon />
                         Back to Sign In
                     </button>
                 </div>
             </div>}
-            {showResetModel && <ForgotOtpModel email={email} setForgotModel={setForgotModel} closeProfileForgotModel={closeProfileForgotModel} showProfileForgotModel={showProfileForgotModel} />}
+            {showResetModel && <ForgotOtpModel email={email} setForgotModel={setForgotModel} setLoginModel={setLoginModel} closeProfileForgotModel={closeProfileForgotModel} showProfileForgotModel={showProfileForgotModel} />}
         </div>
     );
 }

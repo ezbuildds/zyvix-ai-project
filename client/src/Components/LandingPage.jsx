@@ -73,7 +73,7 @@ export default function LandingPage() {
         <Navbar openSignupModel={setSignupModel} />
         {openSignupModel && <Signup openSignupModel={setSignupModel} openLoginModel={setLoginModel} />}
         {showLoginModel && <Login openSignupModel={setSignupModel} openLoginModel={setLoginModel} openForgotModel={setForgotModel} />}
-        {showForgotModel && <Forgot setForgotModel={setForgotModel} />}
+        {showForgotModel && <Forgot setForgotModel={setForgotModel} setLoginModel={setLoginModel}/>}
 
         {/* Hero */}
         <section className="hero">

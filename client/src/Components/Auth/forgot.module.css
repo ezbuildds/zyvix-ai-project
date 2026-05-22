@@ -9,45 +9,46 @@
 }
 
 :root {
-    --indigo: #4f46e5;
-    --violet: #7c3aed;
-    --pink: #e879f9;
-    --soft-bg: #f5f3ff;
-    --border: #ede9fe;
-    --text-1: #1e1b4b;
-    --text-2: #6b7280;
-    --text-3: #9ca3af;
-    --white: #ffffff;
-    --success: #22c55e;
-    --error: #ef4444;
+    --p:      #9381ff;
+    --p2:     #b8adff;
+    --p3:     #7b6cf0;
+    --p4:     #ede9ff;
+    --p5:     #f5f3ff;
+    --txt:    #1a1440;
+    --txt2:   #5b5580;
+    --border: #e8e4ff;
+    --shadow: rgba(147, 129, 255, 0.18);
+
+    --indigo:    var(--p);
+    --violet:    var(--p3);
+    --soft-bg:   var(--p5);
+    --text-1:    var(--txt);
+    --text-2:    var(--txt2);
+    --text-3:    #9ca3af;
+    --white:     #ffffff;
+    --success:   #22c55e;
+    --error:     #ef4444;
+    --warning:   #f59e0b;
     --radius-xl: 24px;
     --radius-lg: 16px;
     --radius-md: 12px;
-    --text-1: #1e1b4b;
-    --text-2: #6b7280;
-    --text-3: #9ca3af;
-    --white: #ffffff;
-    --success: #22c55e;
-    --error: #ef4444;
-    --warning: #f59e0b;
     --rx: 22px;
     --rm: 12px;
 }
 
-/* ************************************* SIGN UP CODE ********************************** */
+/* ── Overlay ── */
 .modalOverlay {
     font-family: 'Sora', sans-serif;
     position: fixed;
     inset: 0;
     background: rgba(15, 23, 42, 0.45);
-    /* modern dark overlay */
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
 }
 
-/* Modal Box - modern card UI */
+/* ── Modal Box ── */
 .modalBox {
     background: #ffffff;
     padding: 32px 40px;
@@ -58,37 +59,29 @@
     box-shadow:
         0 10px 25px rgba(0, 0, 0, 0.08),
         0 20px 50px rgba(0, 0, 0, 0.12);
-    /* ⭐ smooth entrance */
     animation: popIn 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     will-change: transform, opacity;
-    /* 🔥 GPU boost */
 }
 
 @keyframes popIn {
-    from {
-        opacity: 0;
-        transform: scale(0.96) translateY(14px);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
+    from { opacity: 0; transform: scale(0.96) translateY(14px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
+/* ── Card Header ── */
 .cardHeader {
     padding: 20px 32px 16px;
     text-align: center;
 }
 
-/* Close button */
+/* ── Close Button ── */
 .closeBtn {
     position: absolute;
     top: 12px;
     right: 14px;
     border: none;
-    background: #f1f5f9;
-    color: #64748b;
+    background: var(--p5);
+    color: var(--txt2);
     border-radius: 8px;
     padding: 4px 8px;
     font-size: 16px;
@@ -97,20 +90,21 @@
 }
 
 .closeBtn:hover {
-    background: #e2e8f0;
-    color: #0f172a;
+    background: var(--p4);
+    color: var(--txt);
 }
 
+/* ── Header Icon ── */
 .headerIconWrap {
     width: 62px;
     height: 62px;
     border-radius: 18px;
-    background:linear-gradient(135deg, #e0f2fe, #ccfbf1);
+    background: linear-gradient(135deg, var(--p4), var(--p5));
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 16px;
-    box-shadow: 0 4px 18px rgba(14, 165, 233, 0.18);
+    box-shadow: 0 4px 18px var(--shadow);
     position: relative;
 }
 
@@ -118,43 +112,24 @@
     position: absolute;
     inset: -6px;
     border-radius: 24px;
-    border: 2px solid rgba(14, 165, 233, 0.18);
+    border: 2px solid rgba(147, 129, 255, 0.2);
     animation: pulse 2.2s ease infinite;
 }
 
 @keyframes pulse {
-
-    0%,
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-
-    50% {
-        transform: scale(1.07);
-        opacity: 0.45;
-    }
-}
-
-.closeBtn {
-    position: absolute;
-    right: 12px;
-    top: 12px;
-    border: none;
-    background: transparent;
-    font-size: 16px;
-    cursor: pointer;
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%       { transform: scale(1.07); opacity: 0.45; }
 }
 
 .headerTitle {
     font-size: 22px;
     font-weight: 800;
-    color: var(--text-1);
+    color: var(--txt);
     letter-spacing: -0.5px;
 }
 
 .headerTitle span {
-    background: linear-gradient(135deg, #14b8a6, #06b6d4);
+    background: linear-gradient(135deg, var(--p), var(--p3));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -162,14 +137,13 @@
 
 .headerSub {
     font-size: 13px;
-    color: var(--text-3);
+    color: #9ca3af;
     margin-top: 8px;
     line-height: 1.65;
     font-weight: 500;
 }
 
 /* ── Body ── */
-
 .cardBody {
     padding: 16px 32px;
     display: flex;
@@ -186,7 +160,7 @@
 .fieldLabel {
     font-size: 11px;
     font-weight: 700;
-    color: var(--text-2);
+    color: var(--txt2);
     text-transform: uppercase;
     letter-spacing: 0.6px;
 }
@@ -200,14 +174,14 @@
     left: 13px;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--text-3);
+    color: #9ca3af;
     pointer-events: none;
     display: flex;
     transition: color 0.18s;
 }
 
 .inputWrap:focus-within .inputIcon {
-    color: #14b8a6;
+    color: var(--p);
 }
 
 .fieldInput {
@@ -217,20 +191,20 @@
     border-radius: var(--rm);
     font-family: 'Sora', sans-serif;
     font-size: 13px;
-    color: var(--text-1);
-    background: #fafafe;
+    color: var(--txt);
+    background: var(--p5);
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
 .fieldInput::placeholder {
-    color: #d1d5db;
+    color: #c4bfee;
 }
 
 .fieldInput:focus {
-    border-color: #14b8a6;
-    background: var(--white);
-    box-shadow: 0 0 3px rgba(20, 184, 166, 0.35);
+    border-color: var(--p2);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(147, 129, 255, 0.12);
 }
 
 .fieldInput.hasError {
@@ -255,7 +229,6 @@
 }
 
 /* ── Footer ── */
-
 .cardFooter {
     padding: 4px 32px 20px;
     display: flex;
@@ -267,8 +240,8 @@
     width: 100%;
     padding: 14px;
     border-radius: var(--rm);
-    background: linear-gradient(135deg, #14b8a6, #06b6d4);
-    color: var(--white);
+    background: linear-gradient(135deg, var(--p), var(--p3));
+    color: #fff;
     border: none;
     font-family: 'Sora', sans-serif;
     font-size: 14px;
@@ -279,14 +252,14 @@
     justify-content: center;
     gap: 8px;
     transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
-    box-shadow: 0 6px 20px rgba(20, 184, 166, 0.35);
+    box-shadow: 0 6px 20px var(--shadow);
     letter-spacing: -0.2px;
 }
 
 .primaryBtn:hover:not(:disabled) {
     opacity: 0.91;
     transform: translateY(-1px);
-    box-shadow: 0 10px 28px rgba(20, 184, 166, 0.35);
+    box-shadow: 0 10px 28px var(--shadow);
 }
 
 .primaryBtn:active:not(:disabled) {
@@ -302,9 +275,9 @@
     width: 100%;
     padding: 12px;
     border-radius: var(--rm);
-    background-color: #f0f9f7;
+    background: var(--p5);
     border: 1.5px solid var(--border);
-    color: var(--text-2);
+    color: var(--txt2);
     font-family: 'Sora', sans-serif;
     font-size: 13px;
     font-weight: 600;
@@ -317,10 +290,9 @@
 }
 
 .ghostBtn:hover {
-    /* background: #ede9fe; */
-    background-color: #e5f8f5;
-    border-color: #14b8a6;
-    color: #14b8a6;
+    background: var(--p4);
+    border-color: var(--p2);
+    color: var(--p);
 }
 
 .spinner {
@@ -334,78 +306,66 @@
 }
 
 @keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+    to { transform: rotate(360deg); }
 }
 
-
-
+/* ── Responsive ── */
 @media (max-width: 430px) {
+    .modalOverlay {
+        padding: 25px;
+        align-items: center;
+    }
 
-  /* Overlay */
-  .modalOverlay {
-    padding: 25px;
-    align-items: center; 
-  }
+    .modalBox {
+        padding: 18px;
+        animation: popIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
 
-  /* Modal box full width */
-  .modalBox {
-    /* max-width: 100%; */
-    /* width: 100%; */
-    padding: 18px;
-    animation: popIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  }
+    .cardHeader {
+        padding: 16px 12px;
+    }
 
-  /* Header */
-  .cardHeader {
-    padding: 16px 12px;
-  }
+    .headerIconWrap {
+        width: 52px;
+        height: 52px;
+    }
 
-  .headerIconWrap {
-    width: 52px;
-    height: 52px;
-  }
+    .headerTitle {
+        font-size: 18px;
+    }
 
-  .headerTitle {
-    font-size: 18px;
-  }
+    .headerSub {
+        font-size: 12px;
+    }
 
-  .headerSub {
-    font-size: 12px;
-  }
+    .cardBody {
+        padding: 12px;
+        gap: 12px;
+    }
 
-  /* Body */
-  .cardBody {
-    padding: 12px;
-    gap: 12px;
-  }
+    .fieldLabel {
+        font-size: 10px;
+    }
 
-  .fieldLabel {
-    font-size: 10px;
-  }
+    .fieldInput {
+        font-size: 12px;
+        padding: 11px 12px 11px 38px;
+    }
 
-  .fieldInput {
-    font-size: 12px;
-    padding: 11px 12px 11px 38px;
-  }
+    .cardFooter {
+        padding: 10px 12px 16px;
+        gap: 8px;
+    }
 
-  /* Footer */
-  .cardFooter {
-    padding: 10px 12px 16px;
-    gap: 8px;
-  }
+    .primaryBtn,
+    .ghostBtn {
+        font-size: 13px;
+        padding: 12px;
+    }
 
-  .primaryBtn,
-  .ghostBtn {
-    font-size: 13px;
-    padding: 12px;
-  }
-
-  /* Close button fix */
-  .closeBtn {
-    top: 10px;
-    right: 10px;
-    font-size: 14px;
-  }
+    .closeBtn {
+        top: 10px;
+        right: 10px;
+        font-size: 14px;
+    }
 }
