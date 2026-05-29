@@ -3,9 +3,10 @@
 .dbRoot {
   font-family: "Poppins", sans-serif;
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
   /* background-color: #f0f9f7; */
   /* overflow: hidden; */
+  padding-bottom: 45px;
 }
 
 .root {
@@ -822,7 +823,7 @@
   /* Stats */
 
   .statsRow {
-    grid-template-columns: 1fr;
+     grid-template-columns: repeat(3, 1fr);
     padding: 12px;
     gap: 12px;
   }

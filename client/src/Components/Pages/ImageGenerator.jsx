@@ -80,7 +80,7 @@ export default function ImageGenerator() {
 
             const a = document.createElement("a");
             a.href = URL.createObjectURL(blob);
-            a.download = `quickai-image-${Date.now()}.png`;
+            a.download = `zyvix.ai-image-${Date.now()}.png`;
             a.click();
         } catch {
             window.open(imgUrl, "_blank");

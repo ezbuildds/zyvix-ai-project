@@ -7,13 +7,13 @@
 }
 
 :root {
-  --p:      #9381ff;
-  --p2:     #b8adff;
-  --p3:     #7b6cf0;
-  --p4:     #ede9ff;
-  --p5:     #f5f3ff;
-  --txt:    #1a1440;
-  --txt2:   #5b5580;
+  --p: #9381ff;
+  --p2: #b8adff;
+  --p3: #7b6cf0;
+  --p4: #ede9ff;
+  --p5: #f5f3ff;
+  --txt: #1a1440;
+  --txt2: #5b5580;
   --border: #e8e4ff;
   --shadow: rgba(147, 129, 255, 0.18);
 }
@@ -24,16 +24,18 @@
   height: 100vh;
   background-color: #f8f7ff;
   overflow: hidden;
+  /* padding-bottom: 90px; */
 }
 
 /* MAIN */
 .mainArea {
   flex: 1;
   overflow-y: auto;
-  padding: 32px 28px;
+  padding: 32px 10px;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  /* padding-bottom: 90px; */
 }
 
 .pageTitle {
@@ -321,6 +323,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  margin-bottom: 60px;
 }
 
 .outputHeader {
@@ -411,8 +414,13 @@
 }
 
 @keyframes shimmer {
-  0%  { background-position: 100% 0; }
-  100%{ background-position: -100% 0; }
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: -100% 0;
+  }
 }
 
 .skeletonText {
@@ -431,7 +439,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 380px;
+  /* min-height: 380px; */
+
 }
 
 .genImage {
@@ -448,6 +457,7 @@
     opacity: 0;
     transform: scale(0.97);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -510,4 +520,158 @@
   padding: 4px 11px;
   border-radius: 20px;
   border: 1px solid var(--p2);
+}
+
+
+@media (max-width: 768px) {
+  .mainArea {
+    padding: 16px;
+    gap: 18px;
+  }
+
+  .configCard,
+  .outputCard {
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .pageTitle {
+    font-size: 20px;
+  }
+
+  .sizeGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .toggleRow {
+    align-items: flex-start;
+  }
+
+  .outputHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .outputActions {
+    width: 100%;
+  }
+
+  .actionBtn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .imgOverlay {
+    position: static;
+    margin-top: 12px;
+    justify-content: center;
+  }
+
+  .overlayBtn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .imgSkeleton {
+    min-height: 260px;
+  }
+
+  .imgResult {
+    min-height: 400px;
+    height: 60vh;
+  }
+
+  .genImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .imgSkeleton {
+    min-height: 300px;
+  }
+
+  .imgOverlay {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    gap: 6px;
+  }
+
+  .overlayBtn {
+    flex: unset;
+    min-width: unset;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainArea {
+    padding: 12px;
+  }
+
+  .pageTitle {
+    font-size: 18px;
+  }
+
+  .cardTitle {
+    font-size: 15px;
+  }
+
+  .promptInput {
+    font-size: 13px;
+  }
+
+  .styleBtn,
+  .actionBtn,
+  .overlayBtn {
+    font-size: 11px;
+  }
+
+  .sizeGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .generateBtn {
+    font-size: 14px;
+    padding: 14px;
+  }
+
+  .toggleLabel {
+    font-size: 13px;
+  }
+
+  .emptyText {
+    font-size: 14px;
+  }
+
+  .emptySub {
+    font-size: 12px;
+  }
+
+  .imgResult {
+    height: auto;
+    padding: 8px;
+    border-radius: 12px;
+  }
+
+  .genImage {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 55vh;
+    object-fit: contain;
+    border-radius: 10px;
+  }
+
+  .imgSkeleton {
+    min-height: 220px;
+  }
+
+  .overlayBtn {
+    width: auto;
+    font-size: 11px;
+    padding: 8px 12px;
+  }
 }
