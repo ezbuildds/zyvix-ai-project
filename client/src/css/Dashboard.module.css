@@ -100,7 +100,7 @@
 }
 
 .appName {
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 700;
   color: #0F172A;
   letter-spacing: -0.4px;
@@ -211,7 +211,7 @@
   background: #9381ff;
   color: #f7f7f7;
   border: none;
-  border-radius: 8px;
+  border-radius: 50px;
   font-weight: 700;
   font-size: 13px;
   cursor: pointer;
@@ -792,7 +792,6 @@
   }
 
   .appName {
-    font-size: 14px;
     line-height: 1.2;
   }
 
@@ -823,7 +822,7 @@
   /* Stats */
 
   .statsRow {
-     grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     padding: 12px;
     gap: 12px;
   }

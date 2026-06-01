@@ -34,7 +34,7 @@ export default function Article() {
     const articleRef = useRef(null);
 
 
-    const { user,setUser } = authData()
+    const { user, setUser } = authData()
     const BASE_URL = import.meta.env.VITE_BASE_URL
     const wordCount = article ? article.split(/\s+/).filter(Boolean).length : 0;
 
@@ -64,9 +64,9 @@ export default function Article() {
                 setArticle(data.content);
                 setUser(prev => ({ ...prev, remainingLimit: data.remainingLimit }))
                 return
-            } 
+            }
             if (user.remainingLimit === 0) {
-                setPlan(true)  
+                setPlan(true)
             }
             setError(data.message);
 
@@ -163,14 +163,9 @@ export default function Article() {
             <div className={styles.dbRoot}>
                 <Sidebar />
                 <div className={styles.awRoot}>
-                    {planPopUp && <Plan closePlanPopUp={setPlan}/>}
-                    <h1 className={styles.awPageTitle}>
-                        <LogoIcon />
-                        AI Article Writer
-                    </h1>
-
+                    {planPopUp && <Plan closePlanPopUp={setPlan} />}
+                    <h1 className={styles.awPageTitle}><LogoIcon />AI Article Writer</h1>
                     <div className={styles.awGrid}>
-
                         {/* ── Config Card ── */}
                         <div className={styles.configCard}>
                             <div className={styles.cardHeader}>

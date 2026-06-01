@@ -393,7 +393,7 @@
 
 .emptySub {
   font-size: 13px;
-  color: var(--p);
+   color: #9ca3af;
   max-width: 240px;
   line-height: 1.6;
 }
@@ -533,6 +533,7 @@
   .outputCard {
     padding: 18px;
     border-radius: 18px;
+    min-height: auto;
   }
 
   .pageTitle {

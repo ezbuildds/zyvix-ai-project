@@ -9,7 +9,7 @@
     --txt: #1a1440;
     --txt2: #5b5580;
     --border: #e8e4ff;
-    --shadow: rgba(147, 129, 255, 0.18);
+    --shadow: rgb(61, 54, 54);
 
     --indigo: var(--p);
     --violet: var(--p3);
@@ -30,6 +30,8 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Outfit', sans-serif;
+     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
 .page {
@@ -60,8 +62,9 @@
     padding: 6px 14px 6px 8px;
     margin-bottom: 10px;
     border-radius: 100px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(168, 168, 168, 0.851);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(30px);
     font-size: 13px;
     font-weight: 500;
     color: rgba(0, 0, 0, 0.85);
@@ -69,6 +72,8 @@
     cursor: default;
     transition: border-color 0.3s, box-shadow 0.3s;
     animation: capsule-fade-in 0.6s ease both;
+
+
 }
 
 .capsule-dot {
@@ -209,9 +214,9 @@
 }
 
 .btn-secondary {
-    background: linear-gradient(135deg, var(--p), var(--p3));
+    background-color: white;
     box-shadow: 0 8px 25px var(--shadow);
-    color: #fff;
+    color: #000000;
     padding: 12px 40px;
     border-radius: 50px;
     font-size: 15px;

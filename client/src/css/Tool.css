@@ -1,10 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
 .tools-section {
-    /* font-family: 'Outfit', sans-serif; */
-    font-family: "Poppins", sans-serif;
-    /* min-height: 100vh; */
     padding: 10px 24px;
 }
 
@@ -41,7 +35,7 @@
     background: #ffffff;
     border-radius: 20px;
     padding: 32px 28px;
-    border: 1px solid rgba(0, 0, 0, 0.06);
+    border: 2px solid rgba(0, 0, 0, 0.06);
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     cursor: pointer;
@@ -137,4 +131,16 @@
 .tool-card:hover .card-arrow {
     opacity: 1;
     transform: translateX(0);
+}
+@media (max-width: 480px) {
+.tool-card {
+    padding: 20px 20px;
+    box-shadow: none;
+}
+.tools-section {
+    padding: 10px 14px;
+}
+.tools-grid {
+    gap: 10px;
+}
 }

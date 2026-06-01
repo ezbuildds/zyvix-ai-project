@@ -25,7 +25,7 @@ export default async function checkLimitMiddleware(req, res, next) {
         if (currentCount >= limit) {
             return res.status(429).send({
                 success: false,
-                message: `Free limit exhausted. Upgrade to premium for more generations.`,
+                message: `Upgrade to premium for more generations.`,
                 limit,
                 used: currentCount,
                 plan: user.plan,
