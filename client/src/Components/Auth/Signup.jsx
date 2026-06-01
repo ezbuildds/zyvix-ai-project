@@ -4,6 +4,7 @@ import styles from "./signup.module.css";
 import OtpVerification from "./OtpVerification";
 import { GithubIcon, GoogleIcon, LogoIcon } from "./Authicon/AuthIcon";
 import { toast } from "react-toastify";
+import useLockScroll from "../../hooks/useLockScroll";
 
 function getStrength(pwd) {
     if (!pwd) return 0;
@@ -84,6 +85,7 @@ const strengthMeta = ["", "weak", "fair", "good", "strong"];
             setErrors({ api: "Something went wrong" });
         }
     };
+    useLockScroll()
     return (
         <>
             {showOtpModel && (

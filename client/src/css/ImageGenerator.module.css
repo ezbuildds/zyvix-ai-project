@@ -537,7 +537,7 @@
   }
 
   .pageTitle {
-    font-size: 20px;
+    font-size: 19px;
   }
 
   .sizeGrid {
@@ -612,9 +612,9 @@
     padding: 12px;
   }
 
-  .pageTitle {
+  /* .pageTitle {
     font-size: 18px;
-  }
+  } */
 
   .cardTitle {
     font-size: 15px;

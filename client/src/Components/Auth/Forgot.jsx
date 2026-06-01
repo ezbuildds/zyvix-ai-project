@@ -4,8 +4,9 @@ import styles from "./forgot.module.css";
 import OtpVerification from "./OtpVerification";
 import ForgotOtpModel from "./ForgotOtpModel";
 import { BackIcon, ErrorIcon, InputIcon, PulseIcon, SendIcon } from "./Authicon/AuthIcon";
+import useLockScroll from "../../hooks/useLockScroll";
 
-function Forgot({ setForgotModel, showProfileForgotModel, closeProfileForgotModel,setLoginModel }) {
+function Forgot({ setForgotModel, showProfileForgotModel, closeProfileForgotModel, setLoginModel }) {
     const [showResetModel, setResetModel] = useState(false)
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
@@ -38,6 +39,7 @@ function Forgot({ setForgotModel, showProfileForgotModel, closeProfileForgotMode
         }
 
     };
+    useLockScroll()
     return (
         <div className={styles.modalOverlay} style={{ background: showProfileForgotModel ? "none" : "rgba(15, 23, 42, 0.45)" }}>
             {!showResetModel && <div className={styles.modalBox}>
@@ -107,7 +109,7 @@ function Forgot({ setForgotModel, showProfileForgotModel, closeProfileForgotMode
                         )}
                     </button>
 
-                    <button className={styles.ghostBtn} onClick={()=>{setForgotModel(false);setLoginModel(true)}}>
+                    <button className={styles.ghostBtn} onClick={() => { setForgotModel(false); setLoginModel(true) }}>
                         <BackIcon />
                         Back to Sign In
                     </button>

@@ -5,6 +5,7 @@ import { authData } from "../../Context/ContextApi";
 import { useNavigate } from "react-router-dom";
 import LoginSuccessMessage from "./LoginSuccessMessage";
 import { toast } from "react-toastify";
+import useLockScroll from "../../hooks/useLockScroll";
 
 function Login({ openSignupModel, openLoginModel, openForgotModel }) {
     const [form, setForm] = useState({ email: "", password: "" });
@@ -77,7 +78,7 @@ function Login({ openSignupModel, openLoginModel, openForgotModel }) {
             setErrors({ api: "Something went wrong" });
         }
     };
-
+    useLockScroll()
     return (
         <div className={styles.modalOverlay}>
             {showLoginMessage && <LoginSuccessMessage showLoginMessage={showLoginMessage} />}

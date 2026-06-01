@@ -32,7 +32,7 @@ export const SparkleIcon = () => (
     </svg>
 );
 export const BoltSmIcon = ({ color = "#F0C050" }) => (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill={color} />
     </svg>
 );

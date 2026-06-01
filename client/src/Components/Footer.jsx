@@ -31,7 +31,7 @@ function Footer() {
           {/* Brand col */}
           <div>
             <a href="#" className={styles.footerLogo}>
-              <LogoIcon />
+              {/* <LogoIcon /> */}
               Quick.ai
             </a>
             <p className={styles.footerDesc}>
@@ -81,6 +81,7 @@ function Footer() {
         {/* Bottom bar */}
         <div className={styles.footerBottom}>
           <p>Copyright 2025 © Zyvix.ai All Right Reserved.</p>
+          <p>Develop By ( Manu Patel )</p>
         </div>
       </footer>
     </>

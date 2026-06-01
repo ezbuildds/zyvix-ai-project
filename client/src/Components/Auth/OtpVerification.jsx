@@ -4,6 +4,7 @@ import { authData } from "../../Context/ContextApi";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import LoginSuccessMessage from "./LoginSuccessMessage";
+import useLockScroll from "../../hooks/useLockScroll";
 
 
 const MAX_ATTEMPTS = 3;
@@ -168,6 +169,7 @@ export default function OtpVerification({ email, openOtpModel }) {
     if (digits[i]) return `${styles.otpBox} ${styles.filled}`;
     return styles.otpBox;
   };
+  useLockScroll()
   return (
     <>
       {showSuccessModel && <LoginSuccessMessage showSuccessMessage={showSuccessModel} />}

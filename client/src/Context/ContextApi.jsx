@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react"
 export const userData = createContext()
 export default function ContextProvider({ children }) {
     const [user, setUser] = useState(null)
-    const [loading, setLoading] = useState()
+    const [loading, setLoading] = useState(true)
     const BASE_URL = import.meta.env.VITE_BASE_URL;
 
     useEffect(() => {

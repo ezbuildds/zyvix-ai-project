@@ -23,10 +23,11 @@
     .footerTop {
         grid-template-columns: 1fr;
         gap: 36px;
+        padding-bottom: 26px;
     }
 
     .footer {
-        padding: 48px 24px 0;
+       padding: 40px 24px 10px 15px;
     }
 }
 
@@ -105,7 +106,7 @@
     border: 1.5px solid #e5e7eb;
     border-radius: 10px;
     font-family: 'Manrope', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     color: #1e1b4b;
     outline: none;
     transition: border-color 0.2s;
@@ -122,8 +123,8 @@
 }
 
 .newsletterBtn {
-    background: linear-gradient(135deg, #14b8a6, #06b6d4);
-    box-shadow: 0 8px 25px rgba(20, 184, 166, 0.35);
+    background: linear-gradient(135deg, var(--p), var(--p3));
+    box-shadow: 0 8px 25px #8d83fc75;
     color: #fff;
     border: none;
     padding: 11px 22px;
@@ -137,7 +138,7 @@
 }
 
 .newsletterBtn:hover {
-    background: #4338ca;
+    background: linear-gradient(135deg, var(--p), var(--p3));
 }
 
 .newsletterBtn:active {
@@ -156,15 +157,15 @@
 
 /* Bottom bar */
 .footerBottom {
-    border-top: 1px solid #f0f0f5;
     padding: 20px 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 .footerBottom p {
-    font-size: 13px;
+    font-size: 12px;
     color: #9ca3af;
     font-weight: 500;
 }

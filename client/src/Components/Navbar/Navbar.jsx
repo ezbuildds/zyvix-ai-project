@@ -6,10 +6,10 @@ import styles from "../Navbar/navbar.module.css"
 import { FaCoins } from "react-icons/fa";
 import { LogoutIcon } from "../Pages/icon/Icon";
 
-function Navbar({ openSignupModel }) {
+function Navbar({ openSignupModel, scrolled }) {
     const [showProfileModel, setProfileModel] = useState(false)
     const { user } = authData()
-    const freeCredits = user?.remainingLimit 
+    const freeCredits = user?.remainingLimit
 
     useEffect(() => {
         if (user) {
@@ -21,8 +21,9 @@ function Navbar({ openSignupModel }) {
     return (
         <>
             <nav className={styles.navbar}>
+            {/* <nav className={`${styles.navbar} ${scrolled ? styles.glass : ""}`}> */}
                 <div className={styles.logo}>
-                    <LogoIcon/>
+                    {/* <LogoIcon/> */}
                     Zyvix.ai
                 </div>
                 <div className={styles.navRight}>

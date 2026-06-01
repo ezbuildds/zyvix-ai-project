@@ -37,6 +37,7 @@ export default function LandingPage() {
   const [openSignupModel, setSignupModel] = useState(false)
   const [showLoginModel, setLoginModel] = useState(false)
   const [showForgotModel, setForgotModel] = useState(false)
+  const [scrolled, setScrolled] = useState(false);
 
   const { user } = authData()
   const [text, setText] = useState("");
@@ -65,15 +66,26 @@ export default function LandingPage() {
     return () => clearTimeout(timer);
   }, [text, isDeleting, index]);
 
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+
   return (
     <>
       <div className="page">
         <div className="bg-gradient" />
 
-        <Navbar openSignupModel={setSignupModel} />
+        <Navbar openSignupModel={setSignupModel} scrolled={scrolled} />
         {openSignupModel && <Signup openSignupModel={setSignupModel} openLoginModel={setLoginModel} />}
         {showLoginModel && <Login openSignupModel={setSignupModel} openLoginModel={setLoginModel} openForgotModel={setForgotModel} />}
-        {showForgotModel && <Forgot setForgotModel={setForgotModel} setLoginModel={setLoginModel}/>}
+        {showForgotModel && <Forgot setForgotModel={setForgotModel} setLoginModel={setLoginModel} />}
 
         {/* Hero */}
         <section className="hero">
@@ -96,7 +108,7 @@ export default function LandingPage() {
           </p>
 
           <div className="btn-group">
-            <Link to="/dashboard" className="btn-primary" onClick={(e) => { if (!user) { e.preventDefault(); setLoginModel(true); } }}>Start creating now ✨</Link>
+            <Link to="/dashboard" className="btn-primary" onClick={(e) => { if (!user) { e.preventDefault(); setLoginModel(true); } }}>Start creating now </Link>
             <Link to="/dashboard" className="btn-secondary">Watch demo</Link>
           </div>
 

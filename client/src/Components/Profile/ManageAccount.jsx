@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { LogoIcon } from "./Icons/Icon.jsx";
 import styles from "../../css/ManageAccount.module.css"
 import ProfileTab from "./ProfileTab.jsx";
@@ -6,6 +5,8 @@ import SecurityTab from "./SecurityTab.jsx";
 import BillingTab from "./BillingTab.jsx";
 import ChangePassword from "./ChangePassword.jsx";
 import Forgot from "../Auth/Forgot.jsx";
+import useLockScroll from "../../hooks/useLockScroll.js";
+import { useState } from "react";
 const tabs = [
     {
         id: "profile",
@@ -38,14 +39,15 @@ const tabs = [
 
 const tabTitles = { profile: "Profile details", security: "Security settings", billing: "Billing & usage" };
 
-export default function ManageAccount({ openProfile}) {
+export default function ManageAccount({ openProfile }) {
     const [activeTab, setActiveTab] = useState("profile");
     const [showChangePasswordModel, setChangePasswordModel] = useState(false)
     const [showProfileForgotModel, setProfileForgotModel] = useState(false)
+    useLockScroll()
     return (
         <div className={styles.pageShell}>
-            {showChangePasswordModel && (<ChangePassword  setChangePasswordModel={setChangePasswordModel} setProfileForgotModel={setProfileForgotModel}/>)}
-            {showProfileForgotModel && (<Forgot showProfileForgotModel={setProfileForgotModel} closeProfileForgotModel={setProfileForgotModel}/>)}
+            {showChangePasswordModel && (<ChangePassword setChangePasswordModel={setChangePasswordModel} setProfileForgotModel={setProfileForgotModel} />)}
+            {showProfileForgotModel && (<Forgot showProfileForgotModel={setProfileForgotModel} closeProfileForgotModel={setProfileForgotModel} />)}
             <div className={styles.modal}>
                 {/* ── Sidebar ── */}
                 <div className={styles.modalSidebar}>

@@ -1,7 +1,9 @@
 import React from "react";
 import styles from "./loginsuccessmessage.module.css";
+import useLockScroll from "../../hooks/useLockScroll";
 
 const LoginSuccessMessage = ({ showLoginMessage, showResetMessage, showSuccessMessage }) => {
+    useLockScroll()
     return (
         <>
             {/* <style>{css}</style> */}

@@ -66,6 +66,7 @@ export default function ContentDashboard() {
     const [expanded, setExpanded] = useState(null);
     const [historyData, setHistory] = useState([]);
     const [showPlanPopUp, setPlanPopUp] = useState(false)
+    const [loading, setLoading] = useState(true);
     const { user } = authData();
 
     const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -74,11 +75,14 @@ export default function ContentDashboard() {
 
     async function fetchHistory() {
         try {
+            setLoading(true)
             let res = await fetch(`${BASE_URL}/api/dashboard`, { credentials: "include" });
             res = await res.json();
             if (res.success) setHistory(res.data);
         } catch (error) {
             console.log(error);
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -92,7 +96,6 @@ export default function ContentDashboard() {
     });
 
     const countByType = (type) => historyData.filter((g) => g.type?.toLowerCase() === type).length;
-
     return (
         <div className={styles.dbRoot}>
             <Sidebar />
@@ -104,7 +107,7 @@ export default function ContentDashboard() {
                     <div className={styles.headerLeft}>
                         <div className={styles.logoMark}>
                             <span className={styles.logoAnim}>
-                                <BoltSmIcon color="#F0A830" />
+                                <BoltSmIcon color="#a151f6ff" />
                             </span>
                         </div>
                         <div>
@@ -140,7 +143,7 @@ export default function ContentDashboard() {
                             icon: <CommunityIcon />
                         },
                         {
-                            value: historyData.reduce((acc, item) => acc + (item.creditsUsed || 0), 0),
+                            value: `${user?.totalLimit || 0} `,
                             sub: `${user?.remainingLimit || 0} left`,
                             accent: "#10B981",
                             bg: "linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%)",
@@ -194,118 +197,121 @@ export default function ContentDashboard() {
                 </div>
 
                 <div className={styles.list}>
-                    {filtered.length === 0 ? (
-                        <div className={styles.empty}>
-                            <div className={styles.emptyIcon}>
-                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <circle cx="11" cy="11" r="8" />
-                                    <path d="m21 21-4.35-4.35" />
-                                    <line x1="11" y1="8" x2="11" y2="14" />
-                                    <line x1="8" y1="11" x2="14" y2="11" />
-                                </svg>
-                            </div>
-                            <div className={styles.emptyText}>No generations found</div>
-                            <div className={styles.emptySub}>Try adjusting your search or filter</div>
+                    {loading ? (<div className={styles.loaderContainer}>
+                        <div className={styles.loader}></div>
+                        <p>Loading history...</p>
+                    </div>):filtered.length === 0 ? (
+                    <div className={styles.empty}>
+                        <div className={styles.emptyIcon}>
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="11" cy="11" r="8" />
+                                <path d="m21 21-4.35-4.35" />
+                                <line x1="11" y1="8" x2="11" y2="14" />
+                                <line x1="8" y1="11" x2="14" y2="11" />
+                            </svg>
                         </div>
+                        <div className={styles.emptyText}>No generations found</div>
+                        <div className={styles.emptySub}>Try adjusting your search or filter</div>
+                    </div>
                     ) : (
                         filtered.map((g) => {
                             const config = TYPE_CONFIG[g.type?.toLowerCase()] || TYPE_CONFIG.article;
-                            const tone = g.tone?.toLowerCase() || g.style?.toLowerCase();
-                            const tc = toneColors[tone] || { bg: "#F1F5F9", color: "#64748B" };
-                            const isOpen = expanded === g._id;
-                            const displayText = g.prompt || g.meta?.originalName || "N/A";
+                    const tone = g.tone?.toLowerCase() || g.style?.toLowerCase();
+                    const tc = toneColors[tone] || {bg: "#F1F5F9", color: "#64748B" };
+                    const isOpen = expanded === g._id;
+                    const displayText = g.prompt || g.meta?.originalName || "N/A";
 
-                            return (
-                                <div
-                                    key={g._id}
-                                    className={`${styles.card} ${isOpen ? styles.cardOpen : ""}`}
-                                    onClick={() => setExpanded(isOpen ? null : g._id)}
-                                >
-                                    <div className={styles.cardBody}>
-                                        <div className={styles.cardTop}>
-                                            <div className={styles.cardTitle}>{displayText}</div>
-                                            <div className={styles.cardMeta}>
-                                                <span className={styles.metaDate}>
-                                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 4 }}>
-                                                        <rect x="3" y="4" width="18" height="18" rx="2" />
-                                                        <line x1="16" y1="2" x2="16" y2="6" />
-                                                        <line x1="8" y1="2" x2="8" y2="6" />
-                                                        <line x1="3" y1="10" x2="21" y2="10" />
-                                                    </svg>
-                                                    {formatDate(g.createdAt)}
-                                                </span>
-                                                <span className={styles.metaDot}>·</span>
-                                                <span className={styles.metaTime}>{formatTime(g.createdAt)}</span>
-                                                {g.words && (
-                                                    <>
-                                                        <span className={styles.metaDot}>·</span>
-                                                        <span className={styles.metaWords}>{g.words} words</span>
-                                                    </>
-                                                )}
-                                            </div>
-                                        </div>
-
-                                        <div className={styles.promptPreview}>
-                                            <span className={styles.promptLabel}>
-                                                {g.prompt ? "Prompt: " : "File: "}
-                                            </span>
-                                            {isOpen
-                                                ? displayText
-                                                : displayText.slice(0, 80) + (displayText.length > 80 ? "…" : "")
-                                            }
-                                        </div>
-
-                                        <div className={styles.cardFooter}>
-                                            {g.tone && (
-                                                <span className={styles.toneBadge} style={{ background: tc.bg, color: tc.color }}>
-                                                    {g.tone}
-                                                </span>
-                                            )}
-                                            <span className={styles.creditBadge}>
-                                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style={{ marginRight: 3 }}>
-                                                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="#F59E0B" />
-                                                </svg>
-                                                {g.creditsUsed} credits
-                                            </span>
-                                            <span className={styles.typeBadge} style={{ background: config.badgeBg, color: config.badgeColor }}>
-                                                {config.label}
-                                            </span>
-                                            <span className={styles.expandHint} style={{ marginLeft: "auto" }}>
-                                                {isOpen ? "▲ Less" : "▼ More"}
-                                            </span>
-                                        </div>
-
-                                        {isOpen && (
-                                            <div className={styles.expandedContent}>
-                                                {g.type?.toLowerCase() === "image" || g.type?.toLowerCase() === "removebg" ? (
-                                                    g.meta?.imageUrl ? (
-                                                        <img
-                                                            src={g.meta.imageUrl}
-                                                            alt={g.prompt || "image"}
-                                                            style={{ width: "100%", borderRadius: 8, marginTop: 10 }}
-                                                        />
-                                                    ) : (
-                                                        <p style={{ color: "#94A3B8", fontSize: 13 }}>No preview available</p>
-                                                    )
-                                                ) : g.type?.toLowerCase() === "title" ? (
-                                                    <ul style={{ paddingLeft: 16, marginTop: 8 }}>
-                                                        {g.meta?.titles?.map((t, i) => (
-                                                            <li key={i} style={{ fontSize: 13, color: "#334155", marginBottom: 4 }}>{t}</li>
-                                                        ))}
-                                                    </ul>
-                                                ) : (
-                                                    <p style={{
-                                                        fontSize: 13, color: "#64748B", marginTop: 8, lineHeight: 1.6,
-                                                        whiteSpace: "pre-wrap", padding: "20px"
-                                                    }}>
-                                                        <ReactMarkdown>{g.content || g.prompt}</ReactMarkdown>
-                                                    </p>
-                                                )}
-                                            </div>
-                                        )}
-                                    </div>
+                    return (
+                    <div
+                        key={g._id}
+                        className={`${styles.card} ${isOpen ? styles.cardOpen : ""}`}
+                        onClick={() => setExpanded(isOpen ? null : g._id)}
+                    >
+                        <div className={styles.cardBody}>
+                            <div className={styles.cardTop}>
+                                <div className={styles.cardTitle}>{displayText}</div>
+                                <div className={styles.cardMeta}>
+                                    <span className={styles.metaDate}>
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 4 }}>
+                                            <rect x="3" y="4" width="18" height="18" rx="2" />
+                                            <line x1="16" y1="2" x2="16" y2="6" />
+                                            <line x1="8" y1="2" x2="8" y2="6" />
+                                            <line x1="3" y1="10" x2="21" y2="10" />
+                                        </svg>
+                                        {formatDate(g.createdAt)}
+                                    </span>
+                                    <span className={styles.metaDot}>·</span>
+                                    <span className={styles.metaTime}>{formatTime(g.createdAt)}</span>
+                                    {g.words && (
+                                        <>
+                                            <span className={styles.metaDot}>·</span>
+                                            <span className={styles.metaWords}>{g.words} words</span>
+                                        </>
+                                    )}
                                 </div>
-                            );
+                            </div>
+
+                            <div className={styles.promptPreview}>
+                                <span className={styles.promptLabel}>
+                                    {g.prompt ? "Prompt: " : "File: "}
+                                </span>
+                                {isOpen
+                                    ? displayText
+                                    : displayText.slice(0, 80) + (displayText.length > 80 ? "…" : "")
+                                }
+                            </div>
+
+                            <div className={styles.cardFooter}>
+                                {g.tone && (
+                                    <span className={styles.toneBadge} style={{ background: tc.bg, color: tc.color }}>
+                                        {g.tone}
+                                    </span>
+                                )}
+                                <span className={styles.creditBadge}>
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style={{ marginRight: 3 }}>
+                                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="#F59E0B" />
+                                    </svg>
+                                    {g.creditsUsed} credits
+                                </span>
+                                <span className={styles.typeBadge} style={{ background: config.badgeBg, color: config.badgeColor }}>
+                                    {config.label}
+                                </span>
+                                <span className={styles.expandHint} style={{ marginLeft: "auto" }}>
+                                    {isOpen ? "▲ Less" : "▼ More"}
+                                </span>
+                            </div>
+
+                            {isOpen && (
+                                <div className={styles.expandedContent}>
+                                    {g.type?.toLowerCase() === "image" || g.type?.toLowerCase() === "removebg" ? (
+                                        g.meta?.imageUrl ? (
+                                            <img
+                                                src={g.meta.imageUrl}
+                                                alt={g.prompt || "image"}
+                                                style={{ width: "100%", borderRadius: 8, marginTop: 10 }}
+                                            />
+                                        ) : (
+                                            <p style={{ color: "#94A3B8", fontSize: 13 }}>No preview available</p>
+                                        )
+                                    ) : g.type?.toLowerCase() === "title" ? (
+                                        <ul style={{ paddingLeft: 16, marginTop: 8 }}>
+                                            {g.meta?.titles?.map((t, i) => (
+                                                <li key={i} style={{ fontSize: 13, color: "#334155", marginBottom: 4 }}>{t}</li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <p style={{
+                                            fontSize: 14, color: "#64748B", marginTop: 8, lineHeight: 1.6,
+                                            whiteSpace: "pre-wrap", padding: "15px"
+                                        }}>
+                                            <ReactMarkdown>{g.content || g.prompt}</ReactMarkdown>
+                                        </p>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    );
                         })
                     )}
                 </div>

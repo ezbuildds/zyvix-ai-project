@@ -164,7 +164,23 @@ export default function Article() {
                 <Sidebar />
                 <div className={styles.awRoot}>
                     {planPopUp && <Plan closePlanPopUp={setPlan} />}
-                    <h1 className={styles.awPageTitle}><LogoIcon />AI Article Writer</h1>
+                    <h1 className={styles.awPageTitle}>
+                        <svg
+                            width="25"
+                            height="25"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#9381ff"
+                            strokeWidth="2.2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        >
+                            <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+                            <path d="M14 3v5h5" />
+                            <line x1="9" y1="13" x2="15" y2="13" />
+                            <line x1="9" y1="17" x2="13" y2="17" />
+                            <path d="M16.5 11.5l2 2" />
+                        </svg>AI Article Writer</h1>
                     <div className={styles.awGrid}>
                         {/* ── Config Card ── */}
                         <div className={styles.configCard}>

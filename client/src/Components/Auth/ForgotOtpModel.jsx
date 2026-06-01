@@ -2,12 +2,13 @@ import styles from "./forgotOtpModel.module.css";
 import React, { useState, useRef, useEffect } from "react";
 import ResetPassword from "./ResetPassword";
 import { toast } from "react-toastify";
+import useLockScroll from "../../hooks/useLockScroll";
 
 
 const MAX_ATTEMPTS = 3;
 
 
-export default function ForgotOtpModel({ email, setForgotModel,setLoginModel ,closeProfileForgotModel,showProfileForgotModel}) {
+export default function ForgotOtpModel({ email, setForgotModel, setLoginModel, closeProfileForgotModel, showProfileForgotModel }) {
   const [digits, setDigits] = useState(["", "", "", "", "", ""]);
   const [status, setStatus] = useState("idle"); // idle | loading | error | success
   const [feedback, setFeedback] = useState("");
@@ -149,7 +150,7 @@ export default function ForgotOtpModel({ email, setForgotModel,setLoginModel ,cl
       let res = await fetch(`${BASE_URL}/api/auth/signup/resend-otp`, {
         method: "POST",
         credentials: "include",
-        headers:{"Content-type":"application/json"},
+        headers: { "Content-type": "application/json" },
         body: JSON.stringify({ type: "forgot" })
       });
       res = await res.json();
@@ -177,10 +178,11 @@ export default function ForgotOtpModel({ email, setForgotModel,setLoginModel ,cl
     if (digits[i]) return `${styles.otpBox} ${styles.filled}`;
     return styles.otpBox;
   };
+  useLockScroll()
   return (
     <>
       {/* <style>{css}</style> */}
-      {showSuccessModel && <ResetPassword setForgotModel={setForgotModel} closeProfileForgotModel={closeProfileForgotModel} showProfileForgotModel={showProfileForgotModel}/>}
+      {showSuccessModel && <ResetPassword setForgotModel={setForgotModel} closeProfileForgotModel={closeProfileForgotModel} showProfileForgotModel={showProfileForgotModel} />}
       {/* <div className={styles.pageShell}> */}
       {!showSuccessModel && <div className={styles.otpCard}>
         {/* <div className={styles.cardStrip} /> */}
@@ -320,7 +322,7 @@ export default function ForgotOtpModel({ email, setForgotModel,setLoginModel ,cl
         </div>
 
         {/* Back */}
-        <button className={styles.backLink} onClick={()=>{setForgotModel(false);setLoginModel(true)}}>
+        <button className={styles.backLink} onClick={() => { setForgotModel(false); setLoginModel(true) }}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <line x1="19" y1="12" x2="5" y2="12" />
             <polyline points="12 19 5 12 12 5" />
