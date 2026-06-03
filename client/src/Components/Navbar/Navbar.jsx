@@ -20,8 +20,8 @@ function Navbar({ openSignupModel, scrolled }) {
 
     return (
         <>
-            <nav className={styles.navbar}>
-            {/* <nav className={`${styles.navbar} ${scrolled ? styles.glass : ""}`}> */}
+            {/* <nav className={styles.navbar}> */}
+            <nav className={`${styles.navbar} ${scrolled ? styles.glass : ""}`}>
                 <div className={styles.logo}>
                     {/* <LogoIcon/> */}
                     Zyvix.ai

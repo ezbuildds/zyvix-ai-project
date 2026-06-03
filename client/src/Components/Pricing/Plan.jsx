@@ -1,38 +1,8 @@
 import { useState } from "react";
 import styles from "./plan.module.css";
+import { plans } from "../../Data/plan";
+import useLockScroll from "../../hooks/useLockScroll";
 
-const plans = [
-    {
-        id: "lite",
-        name: "Lite",
-        icon: "⚡",
-        desc: "Most affordable plan to get started quickly.",
-        monthlyPrice: 29,
-        yearlyPrice: 22,
-        features: ["Unlimited sending", "Email marketing", "Send newsletters", "Up to 5 users"],
-        featured: false,
-    },
-    {
-        id: "plus",
-        name: "Plus",
-        icon: "🚀",
-        desc: "896 clients chose this. Best value for growing teams.",
-        monthlyPrice: 89,
-        yearlyPrice: 67,
-        features: ["Everything in Lite", "Email marketing", "Advanced analytics", "Up to 25 users", "Priority support"],
-        featured: true,
-    },
-    {
-        id: "enterprise",
-        name: "Enterprise",
-        icon: "🏢",
-        desc: "For larger businesses seeking advanced services.",
-        monthlyPrice: 159,
-        yearlyPrice: 119,
-        features: ["Everything in Plus", "Custom integrations", "Dedicated manager", "Up to 50 users", "SLA guarantee"],
-        featured: false,
-    },
-];
 
 function CheckIcon({ featured }) {
     return (
@@ -64,7 +34,7 @@ function PlanCard({ plan, billing, onSelect }) {
                     ${price}
                 </span>
                 <span className={`${styles.pricePer} ${f ? styles.featuredPer : ""}`}>
-                    /mo
+                    {billing === "monthly" ? "/month" : "/Year"}
                 </span>
             </div>
 
@@ -93,22 +63,20 @@ function PlanCard({ plan, billing, onSelect }) {
     );
 }
 
-export default function Plan({closePlanPopUp}) {
+export default function Plan({ closePlanPopUp }) {
     const [billing, setBilling] = useState("monthly");
+
+    
+    useLockScroll()
     return (
         <div className={styles.overlay}>
             <div className={styles.popup}>
-
-                <button className={styles.closeBtn} onClick={()=> closePlanPopUp(false)} aria-label="Close">
-                    ×
-                </button>
-
+                <button className={styles.closeBtn} onClick={() => closePlanPopUp(false)} aria-label="Close"> ×</button>
                 <div className={styles.header}>
                     <span className={styles.pricingBadge}>Pricing</span>
                     <h1>Choose your plan</h1>
                     <p>No contracts, no surprise fees. Cancel anytime.</p>
                 </div>
-
                 <div className={styles.toggleWrap}>
                     <div className={styles.toggleInner}>
                         {["monthly", "yearly"].map(b => (
