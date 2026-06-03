@@ -1,55 +1,66 @@
+// Data/plan.js
 export const plans = [
   {
-    id: "starter",
-    name: "Starter",
-    icon: "⚡",
-    desc: "Perfect for testing AI tools and small projects.",
-    monthlyPrice: 9,
-    yearlyPrice: 70,
+    id: "free",
+    name: "Free",
+    icon: "🆓",
+    desc: "Perfect for trying out our tools",
+    monthlyPrice: 0,
+    yearlyPrice: 0,
+    credits: 10,
+    stripePriceId: {
+      monthly: null,   // free plan — no stripe
+      yearly: null,
+    },
     features: [
-      "100 Credits / month",
-      "AI Article Generator",
-      "AI Title Generator",
-      "Background Remover",
-      "Standard Speed",
-      "Email Support"
+      "10 lifetime credits",
+      "Article generator",
+      "Title generator",
+      "Basic support",
     ],
     featured: false,
   },
-
   {
-    id: "pro",
-    name: "Pro",
-    icon: "🚀",
-    desc: "Best for creators, freelancers and daily AI users.",
-    monthlyPrice: 19,
-    yearlyPrice: 200,
+    id: "basic",
+    name: "Basic",
+    icon: "⚡",
+    desc: "Great for regular content creators",
+    monthlyPrice: 9,
+    yearlyPrice: 81,   // 25% off
+    credits: 50,
+    stripePriceId: {
+      monthly: "price_1TeCauIfIySYEIdXNcSJ00AL",
+      yearly: "price_1TeCoXIfIySYEIdXxv1NxeEm",
+    },
     features: [
-      "500 Credits / month",
-      "Everything in Starter",
-      "AI Image Generator",
-      "Priority Processing",
-      "Commercial Usage",
-      "Generation History"
+      "50 credits/month",
+      "Article generator",
+      "Title generator",
+      "Image generator",
+      "Priority support",
+    ],
+    featured: false,
+  },
+  {
+    id: "premium",
+    name: "Premium",
+    icon: "💎",
+    desc: "For power users and teams",
+    monthlyPrice: 19,
+    yearlyPrice: 171,  // 25% off
+    credits: 200,
+    stripePriceId: {
+      monthly: "price_1TeCrIIfIySYEIdXv8qEyks2",
+      yearly: "price_1TeCsDIfIySYEIdXao4kZzP6",
+    },
+    features: [
+      "200 credits/month",
+      "All generators",
+      "Background remover",
+      "Resume reviewer",
+      "Priority support",
+      "Early access to new features",
     ],
     featured: true,
-  },
-
-  {
-    id: "unlimited",
-    name: "Scale",
-    icon: "👑",
-    desc: "Built for agencies and businesses with heavy workloads.",
-    monthlyPrice: 49,
-    yearlyPrice: 300,
-    features: [
-      "2500 Credits / month",
-      "Everything in Pro",
-      "Fastest Queue",
-      "API Access (Soon)",
-      "Team Workspace",
-      "Priority Support"
-    ],
-    featured: false,
   },
 ];

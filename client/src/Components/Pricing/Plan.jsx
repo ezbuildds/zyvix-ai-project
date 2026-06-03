@@ -13,9 +13,44 @@ function CheckIcon({ featured }) {
     );
 }
 
-function PlanCard({ plan, billing, onSelect }) {
+function PlanCard({ plan, billing }) {
+    const [loading, setLoading] = useState(false)
     const price = billing === "monthly" ? plan.monthlyPrice : plan.yearlyPrice;
     const f = plan.featured;
+    const BASE_URL = import.meta.env.VITE_BASE_URL;
+    async function handleSelect() {
+        if (plan.id === "free") {
+            return
+        }
+        try {
+            setLoading(true)
+            const priceId = plan.stripePriceId[billing];
+            console.log(priceId)
+            const res = await fetch(`${BASE_URL}/api/payment/chekout`, {
+                method: "post",
+                credentials: "include",
+                headers: { "Content-type": "Application/json" },
+                body: JSON.stringify({
+                    plan: plan.name,
+                    billing: billing,
+                    priceId: priceId,
+                    credits: plan.credits
+                })
+            })
+            const data = await res.json()
+            console.log(data);
+            if (data.sessionUrl) {
+                setTimeout(() => {
+                    window.location.href = data.sessionUrl
+                }, 50)
+                return
+            }
+        } catch (error) {
+            console.log(error.message);
+        } finally {
+            setLoading(false)
+        }
+    }
 
     return (
         <div className={`${styles.card} ${f ? styles.featured : ""}`}>
@@ -53,20 +88,15 @@ function PlanCard({ plan, billing, onSelect }) {
                 ))}
             </ul>
 
-            <button
-                className={`${styles.ctaBtn} ${f ? styles.featuredBtn : ""}`}
-                onClick={() => onSelect(plan)}
-            >
-                Get started →
+            <button className={`${styles.ctaBtn} ${f ? styles.featuredBtn : ""}`} onClick={() => handleSelect()} disabled={loading}>
+                {loading ? "Loading..." : "Get started →"}
             </button>
         </div>
-    );
+    )
 }
 
 export default function Plan({ closePlanPopUp }) {
     const [billing, setBilling] = useState("monthly");
-
-    
     useLockScroll()
     return (
         <div className={styles.overlay}>
@@ -98,7 +128,6 @@ export default function Plan({ closePlanPopUp }) {
                             key={plan.id}
                             plan={plan}
                             billing={billing}
-                            onSelect={p => alert(`Selected: ${p.name}`)}
                         />
                     ))}
                 </div>

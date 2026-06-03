@@ -21,6 +21,8 @@ import title from "./services/aiService/title.js";
 import image from "./services/aiService/image.js";
 import removeBg from "./services/aiService/removeBg.js";
 import multer from "multer";
+import chekoutSession from "./services/payments/chekoutSession.js";
+import verifyPayment from "./services/payments/verifyPayment.js";
 const upload = multer({ storage: multer.memoryStorage() });
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -31,8 +33,12 @@ app.use(cors({
     credentials: true
 }))
 app.use(cookieParser())
-app.use(express.json())
+app.post("/api/payment/webhook",
+    express.raw({ type: "application/json" }),
+    verifyPayment,
+)
 app.use(morgan("dev"))
+app.use(express.json())
 app.get("/", async (req, res) => {
     const db = await dbConnection()
     const data = await db.collection("users").find().toArray()
@@ -57,7 +63,10 @@ app.get("/api/dashboard", dashboard)
 app.post("/api/generate-article", checkLimitMiddleware, article)
 app.post("/api/generate-title", checkLimitMiddleware, title)
 app.post("/api/generate-image", checkLimitMiddleware, image)
-app.post("/api/remove-image-bg", checkLimitMiddleware,upload.single("image_file"),removeBg)
+app.post("/api/remove-image-bg", checkLimitMiddleware, upload.single("image_file"), removeBg)
+
+// Payment Api
+app.post("/api/payment/chekout", chekoutSession)
 
 await dbConnection();
 app.listen(PORT, () => {
