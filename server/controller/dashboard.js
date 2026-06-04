@@ -4,8 +4,6 @@ import jwt from "jsonwebtoken";
 import { ObjectId } from "mongodb";
 export default async function dashboard(req, res) {
     const token = req.cookies.token
-    console.log(req.body);
-
     if (!token) {
         return res.status(401).send({
             success: false,
@@ -23,7 +21,7 @@ export default async function dashboard(req, res) {
             });
         }
         const history = await db.collection("generationHistory").find({ userId: user._id }).toArray()
-        console.log("history :", history)
+
         return res.status(200).send({
             success: true,
             message: "History fetched successfully",

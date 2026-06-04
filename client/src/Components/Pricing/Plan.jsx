@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./plan.module.css";
 import { plans } from "../../Data/plan";
 import useLockScroll from "../../hooks/useLockScroll";
+import LoginSuccessMessage from "../Auth/LoginSuccessMessage";
 
 
 function CheckIcon({ featured }) {
@@ -24,8 +25,6 @@ function PlanCard({ plan, billing }) {
         }
         try {
             setLoading(true)
-            const priceId = plan.stripePriceId[billing];
-            console.log(priceId)
             const res = await fetch(`${BASE_URL}/api/payment/chekout`, {
                 method: "post",
                 credentials: "include",
@@ -33,8 +32,6 @@ function PlanCard({ plan, billing }) {
                 body: JSON.stringify({
                     plan: plan.name,
                     billing: billing,
-                    priceId: priceId,
-                    credits: plan.credits
                 })
             })
             const data = await res.json()

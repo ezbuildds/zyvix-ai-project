@@ -1,20 +1,21 @@
+import { Link } from "react-router-dom";
 import styles from "./SuccessPayment.module.css";
 
 export default function SuccessPaymentPopup({
-  planName    = "Plus",
-  billing     = "monthly",
-  amount      = "$89",
-  email       = "user@example.com",
+  planName = "Plus",
+  billing = "monthly",
+  amount = "$89",
+  email = "user@example.com",
   renewalDate = "July 3, 2026",
-  onClose     = () => {},
-  onGoToDashboard = () => {},
+  onClose = () => { },
+  onGoToDashboard = () => { },
 }) {
   return (
     <div className={styles.overlay} onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
       <div className={styles.popup} role="dialog" aria-modal="true" aria-labelledby="success-title">
 
         {/* Close */}
-        <button className={styles.closeBtn} onClick={onClose} aria-label="Close">×</button>
+        {/* <button className={styles.closeBtn} onClick={onClose} aria-label="Close">×</button> */}
 
         {/* Success icon */}
         <div className={styles.iconCircle}>
@@ -54,12 +55,12 @@ export default function SuccessPaymentPopup({
         </div>
 
         {/* CTA buttons */}
-        <button className={styles.primaryBtn} onClick={onGoToDashboard}>
+        <Link to={"/dashboard"} ><button className={styles.primaryBtn} onClick={onGoToDashboard}>
           Go to dashboard →
-        </button>
-        <button className={styles.ghostBtn} onClick={onClose}>
+        </button></Link>
+        {/* <button className={styles.ghostBtn} onClick={onClose}>
           Maybe later
-        </button>
+        </button> */}
 
         {/* Footer */}
         <p className={styles.footerNote}>

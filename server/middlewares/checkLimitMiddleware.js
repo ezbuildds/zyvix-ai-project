@@ -19,7 +19,7 @@ export default async function checkLimitMiddleware(req, res, next) {
             return res.status(404).send({ success: false, message: "User not found." });
         }
 
-        const limit = PLAN_LIMITS[user.plan] || PLAN_LIMITS.free;
+        const limit = PLAN_LIMITS[user.plan].credits || PLAN_LIMITS.Free;
         const currentCount = user?.usedCredits || 0;
 
         if (currentCount >= limit) {

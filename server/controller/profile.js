@@ -11,7 +11,8 @@ export default async function profile(req, res) {
         }
         const dataBase = await dbConnection()
         const user = await dataBase.collection("users").findOne({ email: userFromToken.email }, { projection: { password: 0 } })
-        const limit = PLAN_LIMITS[user.plan] || PLAN_LIMITS.free;
+        const limit = PLAN_LIMITS[user.plan].credits || PLAN_LIMITS.Free;
+
         const currentCount = user?.usedCredits || 0;
         const remaining = Math.max(0, limit - currentCount)
         if (!user) {
@@ -23,7 +24,7 @@ export default async function profile(req, res) {
         return res.status(200).send({
             success: true,
             message: "Profile fetched successfully",
-            data: { ...user, remainingLimit: remaining, totalLimit: PLAN_LIMITS[user.plan] }
+            data: { ...user, remainingLimit: remaining, totalLimit: PLAN_LIMITS[user.plan].credits }
         })
     } catch (error) {
         console.error(error);

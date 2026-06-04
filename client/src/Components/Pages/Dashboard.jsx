@@ -68,6 +68,7 @@ export default function ContentDashboard() {
     const [showPlanPopUp, setPlanPopUp] = useState(false)
     const [loading, setLoading] = useState(true);
     const { user } = authData();
+    console.log(user);
 
     const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -196,10 +197,11 @@ export default function ContentDashboard() {
                 </div>
 
                 <div className={styles.list}>
-                    {loading ? (<div className={styles.loaderContainer}>
-                        <div className={styles.loader}></div>
-                        <p>Loading history...</p>
-                    </div>) : filtered.length === 0 ? (
+                    {loading ? (
+                        Array.from({ length: 5 }).map((_, i) => (
+                            <div key={i} className={styles.skeletonCard}></div>
+                        ))
+                    ) : filtered.length === 0 ? (
                         <div className={styles.empty}>
                             <div className={styles.emptyIcon}>
                                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">

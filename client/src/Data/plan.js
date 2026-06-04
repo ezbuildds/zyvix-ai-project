@@ -8,10 +8,10 @@ export const plans = [
     monthlyPrice: 0,
     yearlyPrice: 0,
     credits: 10,
-    stripePriceId: {
-      monthly: null,   // free plan — no stripe
-      yearly: null,
-    },
+    // stripePriceId: {
+    //   monthly: null,   // free plan — no stripe
+    //   yearly: null,
+    // },
     features: [
       "10 lifetime credits",
       "Article generator",
@@ -28,10 +28,10 @@ export const plans = [
     monthlyPrice: 9,
     yearlyPrice: 81,   // 25% off
     credits: 50,
-    stripePriceId: {
-      monthly: "price_1TeCauIfIySYEIdXNcSJ00AL",
-      yearly: "price_1TeCoXIfIySYEIdXxv1NxeEm",
-    },
+    // stripePriceId: {
+    //   monthly: "price_1TeCauIfIySYEIdXNcSJ00AL",
+    //   yearly: "price_1TeCoXIfIySYEIdXxv1NxeEm",
+    // },
     features: [
       "50 credits/month",
       "Article generator",
@@ -49,10 +49,10 @@ export const plans = [
     monthlyPrice: 19,
     yearlyPrice: 171,  // 25% off
     credits: 200,
-    stripePriceId: {
-      monthly: "price_1TeCrIIfIySYEIdXv8qEyks2",
-      yearly: "price_1TeCsDIfIySYEIdXao4kZzP6",
-    },
+    // stripePriceId: {
+    //   monthly: "price_1TeCrIIfIySYEIdXv8qEyks2",
+    //   yearly: "price_1TeCsDIfIySYEIdXao4kZzP6",
+    // },
     features: [
       "200 credits/month",
       "All generators",

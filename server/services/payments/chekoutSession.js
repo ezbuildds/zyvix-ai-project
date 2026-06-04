@@ -3,13 +3,14 @@ import jwt from "jsonwebtoken"
 import "dotenv/config"
 import { ObjectId } from "mongodb";
 import Stripe from "stripe";
+import { PLAN_LIMITS } from "../plan/planLimit.js";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default async function chekoutSession(req, res) {
     try {
-        const { plan, billing, priceId, credits } = req.body
+        const { plan, billing } = req.body
         const token = req.cookies.token
-        console.log(plan, billing, priceId, credits);
+        console.log(plan, billing);
         if (!token) {
             return res.status(401).send({
                 success: false,
@@ -32,6 +33,9 @@ export default async function chekoutSession(req, res) {
             })
         }
         // console.log("decoded user :", user)
+        const priceId = PLAN_LIMITS[user.plan].stripePriceId[billing]
+        const credits = PLAN_LIMITS[user.plan].credits
+
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
             mode: "subscription",

@@ -10,6 +10,7 @@ import ContextProvider from "./Context/ContextApi";
 import ProtectedRoutes from "./Components/ProtectRoutes/Protect";
 import DashboardLayout from "./Components/DashboardLayout";
 import PageNotFound from "./Components/Pages/PageNotFound";
+import SuccessPayment from "./Components/Pricing/SuccessPayment";
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="image-generator" element={<ImageGenerator />} />
             <Route path="remove-bg" element={<BackgroundRemoval />} />
           </Route>
+          <Route path="/payment/success" element={<SuccessPayment />} />
           <Route path="*" element={<PageNotFound/>} />
         </Routes>
         <ToastContainer
