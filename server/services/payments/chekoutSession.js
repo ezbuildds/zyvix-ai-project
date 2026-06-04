@@ -17,7 +17,7 @@ export default async function chekoutSession(req, res) {
                 message: "Unouthorize"
             })
         }
-        if (!plan || !billing || !priceId || !credits) {
+        if (!plan || !billing) {
             return res.status(400).send({
                 success: false,
                 message: "invalid plan data"
@@ -35,6 +35,10 @@ export default async function chekoutSession(req, res) {
         // console.log("decoded user :", user)
         const priceId = PLAN_LIMITS[user.plan].stripePriceId[billing]
         const credits = PLAN_LIMITS[user.plan].credits
+        console.log(credits);
+        console.log(priceId);
+        
+        
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],

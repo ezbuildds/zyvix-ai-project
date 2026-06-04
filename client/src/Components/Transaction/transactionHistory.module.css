@@ -1,0 +1,296 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── Wrap ── */
+.wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 32px 0;
+  font-family: 'Sora', sans-serif;
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.heading {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f0f10;
+  letter-spacing: -0.02em;
+}
+
+.subheading {
+  font-size: 13px;
+  color: #8a8a9a;
+  margin-top: 4px;
+}
+
+/* ── Summary strip ── */
+.summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 540px) {
+  .summary { grid-template-columns: repeat(2, 1fr); }
+}
+
+.sumCard {
+  background: #ffffff;
+  border: 1px solid #efefef;
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.sumLabel {
+  font-size: 11px;
+  font-weight: 500;
+  color: #9a9aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.sumVal {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f0f10;
+  letter-spacing: -0.02em;
+}
+
+.sumPlan {
+  color: #5b47e0;
+  font-size: 16px;
+}
+
+/* ── Filter chips ── */
+.filterRow {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1px solid #e8e8f0;
+  background: #ffffff;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b6b7a;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'Sora', sans-serif;
+}
+
+.chip:hover {
+  border-color: #c8c8e0;
+  background: #fafaff;
+  color: #3f3f55;
+}
+
+.chipActive {
+  background: #f0eefe;
+  border-color: #c5bff8;
+  color: #5b47e0;
+}
+
+.chipCount {
+  background: rgba(0,0,0,0.07);
+  border-radius: 100px;
+  padding: 1px 7px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.chipActive .chipCount {
+  background: #dbd6fc;
+  color: #5b47e0;
+}
+
+/* ── Card list ── */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Transaction card ── */
+.card {
+  background: #ffffff;
+  border: 1px solid #efefef;
+  border-radius: 16px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+  transition: box-shadow 0.18s, border-color 0.18s, transform 0.18s;
+}
+
+.card:hover {
+  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+  border-color: #dcdcec;
+  transform: translateY(-1px);
+}
+
+/* ── Icon ── */
+.cardIcon {
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.icon_plus { background: #f0eefe; }
+.icon_lite { background: #eaf7ee; }
+.icon_ent  { background: #e8f2fd; }
+
+/* ── Card body ── */
+.cardBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+  flex-wrap: wrap;
+}
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f0f10;
+}
+
+.planTag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 100px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tag_plus { background: #f0eefe; color: #5b47e0; }
+.tag_lite { background: #eaf7ee; color: #1e8a42; }
+.tag_ent  { background: #e8f2fd; color: #1a6ab5; }
+
+.cardMeta {
+  font-size: 12px;
+  color: #9a9aaa;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.metaDot {
+  color: #d0d0e0;
+}
+
+.creditsPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #f7f7fa;
+  border: 1px solid #ececf4;
+  border-radius: 100px;
+  padding: 3px 11px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #5b5b6e;
+}
+
+.creditsNote {
+  color: #b0b0be;
+  font-weight: 400;
+}
+
+/* ── Card right ── */
+.cardRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.amount {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f0f10;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  font-family: 'Sora', sans-serif;
+}
+
+.amountFailed {
+  color: #e03c3c;
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+/* ── Status badge ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.badge_success { background: #eaf7ee; color: #1e8a42; }
+.badge_failed  { background: #fdf0f0; color: #e03c3c; }
+.badge_pending { background: #fff8ec; color: #c47d0a; }
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot_success { background: #1e8a42; }
+.dot_failed  { background: #e03c3c; }
+.dot_pending { background: #c47d0a; }
+
+/* ── Empty state ── */
+.empty {
+  text-align: center;
+  padding: 48px 0;
+  font-size: 14px;
+  color: #9a9aaa;
+  background: #fafafc;
+  border: 1px dashed #e0e0ec;
+  border-radius: 16px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .card { flex-wrap: wrap; }
+  .cardRight { width: 100%; flex-direction: row; justify-content: space-between; align-items: center; }
+}

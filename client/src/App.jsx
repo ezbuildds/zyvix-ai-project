@@ -11,6 +11,7 @@ import ProtectedRoutes from "./Components/ProtectRoutes/Protect";
 import DashboardLayout from "./Components/DashboardLayout";
 import PageNotFound from "./Components/Pages/PageNotFound";
 import SuccessPayment from "./Components/Pricing/SuccessPayment";
+import TransactionHistory from "./Components/Transaction/TransactionHistory";
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="title-generator" element={<TitleGenerator />} />
             <Route path="image-generator" element={<ImageGenerator />} />
             <Route path="remove-bg" element={<BackgroundRemoval />} />
+            <Route path="transactions" element={<TransactionHistory />} />
           </Route>
           <Route path="/payment/success" element={<SuccessPayment />} />
           <Route path="*" element={<PageNotFound/>} />

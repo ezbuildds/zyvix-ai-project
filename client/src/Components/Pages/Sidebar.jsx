@@ -12,6 +12,7 @@ const navItems = [
     { label: "Generate Titles", icon: HashIcon, path: "/dashboard/title-generator" },
     { label: "Generate Images", icon: ImageIcon, path: "/dashboard/image-generator" },
     { label: "Remove Background", icon: EraserIcon, path: "/dashboard/remove-bg" },
+    { label: "Transactions", icon: EraserIcon, path: "/dashboard/transactions" },
     // { label: "Review Resume", icon: DocIcon, path: "/dashboard/resume" },
     { label: "Community", icon: UsersIcon, path: "/dashboard/community" },
 ];

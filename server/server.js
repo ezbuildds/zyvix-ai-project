@@ -32,6 +32,7 @@ app.use(cors({
     credentials: true
 }))
 app.use(cookieParser())
+// stripe webhook
 app.post("/api/payment/webhook",
     express.raw({ type: "application/json" }),
     verifyPayment,
@@ -66,6 +67,7 @@ app.post("/api/remove-image-bg", checkLimitMiddleware, upload.single("image_file
 
 // Payment Api
 app.post("/api/payment/chekout", chekoutSession)
+// app.get("/api/payment/transaction", authMiddleware, profile)
 
 await dbConnection();
 app.listen(PORT, () => {
