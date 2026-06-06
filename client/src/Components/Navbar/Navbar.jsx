@@ -6,7 +6,7 @@ import styles from "../Navbar/navbar.module.css"
 import { FaCoins } from "react-icons/fa";
 import { LogoutIcon } from "../Pages/icon/Icon";
 
-function Navbar({ openSignupModel, scrolled }) {
+function Navbar({ openSignupModel, scrolled,setPlanPopUp}) {
     const [showProfileModel, setProfileModel] = useState(false)
     const { user } = authData()
     const freeCredits = user?.remainingLimit
@@ -43,7 +43,7 @@ function Navbar({ openSignupModel, scrolled }) {
                         </div>
                     )}
                     {!showProfileModel && <button className={styles.navBtn} onClick={() => openSignupModel(true)}>Create Account →</button>}
-                    {showProfileModel && <Profile openProfileModel={setProfileModel} />}
+                    {showProfileModel && <Profile openProfileModel={setProfileModel} setPlanPopUp={setPlanPopUp}/>}
                 </div>
             </nav>
         </>

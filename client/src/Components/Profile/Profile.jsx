@@ -4,6 +4,7 @@ import { authData } from "../../Context/ContextApi";
 import { ArrowIcon, ChevronIcon } from "./Icons/Icon";
 import ManageAccount from "./ManageAccount";
 import Logout from "../Auth/Logout";
+import useLockScroll from "../../hooks/useLockScroll";
 const menuItems = [
     {
         icon: (
@@ -44,16 +45,17 @@ const menuItems = [
 
 
 
-export default function Profile({ openProfileModel }) {
+export default function Profile({ openProfileModel, setPlanPopUp }) {
     const [open, setOpen] = useState(false);
     const [showAccountModel, setAccountModel] = useState(false)
     const { user } = authData()
+    // useLockScroll()
     return (
         <>
             {showAccountModel && <div className={styles.modalOverlay}>
                 {/* <div className={styles.modalBox}> */}
                 {/* </div> */}
-                <ManageAccount openProfile={setAccountModel} />
+                <ManageAccount openProfile={setAccountModel} setPlanPopUp={setPlanPopUp} />
             </div>}
 
             {!showAccountModel && <div className="demo-page">

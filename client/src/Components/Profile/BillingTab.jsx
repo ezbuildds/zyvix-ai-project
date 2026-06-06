@@ -1,5 +1,8 @@
+import { useState } from "react";
+import { authData } from "../../Context/ContextApi";
 import styles from "../../css/ManageAccount.module.css"
-export default function BillingTab() { 
+export default function BillingTab({setPlanPopUp}) {
+  const { user } = authData()
   return (
     <>
       <div className={styles.sectionRow}>
@@ -8,12 +11,12 @@ export default function BillingTab() {
         <div className={styles.sectionValue}>
           <div className={styles.planCard}>
             <div className={styles.planName}>Current plan</div>
-            <div className={styles.planTier}>Free Tier</div>
+            <div className={styles.planTier}>{user.plan}</div>
             <div className={styles.planDesc}>
-              10 creations / month · Basic tools
+              {user.totalLimit} creations / month
             </div>
 
-            <button className={styles.upgradeBtn}>
+            <button className={styles.upgradeBtn} onClick={()=>{setPlanPopUp(true)}}>
               ✨ Upgrade to Pro
             </button>
           </div>

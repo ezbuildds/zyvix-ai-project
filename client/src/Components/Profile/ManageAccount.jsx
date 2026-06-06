@@ -39,7 +39,7 @@ const tabs = [
 
 const tabTitles = { profile: "Profile details", security: "Security settings", billing: "Billing & usage" };
 
-export default function ManageAccount({ openProfile }) {
+export default function ManageAccount({ openProfile,setPlanPopUp,openProfileModel }) {
     const [activeTab, setActiveTab] = useState("profile");
     const [showChangePasswordModel, setChangePasswordModel] = useState(false)
     const [showProfileForgotModel, setProfileForgotModel] = useState(false)
@@ -72,7 +72,7 @@ export default function ManageAccount({ openProfile }) {
 
                     <div className={styles.sidebarFooter}>
                         <div className={styles.sfLogo}>
-                            <LogoIcon /> Quick.ai
+                            Quick.ai
                         </div>
 
                         <div className={styles.sfSecure}>
@@ -122,7 +122,7 @@ export default function ManageAccount({ openProfile }) {
                     <div className={styles.contentBody}>
                         {activeTab === "profile" && <ProfileTab />}
                         {activeTab === "security" && <SecurityTab setChangePasswordModel={setChangePasswordModel} />}
-                        {activeTab === "billing" && <BillingTab />}
+                        {activeTab === "billing" && <BillingTab setPlanPopUp={setPlanPopUp} />}
                     </div>
                 </div>
 

@@ -4,6 +4,7 @@ import styles from "./resetPassword.module.css"
 import { toast } from "react-toastify";
 import LoginSuccessMessage from "./LoginSuccessMessage";
 import { useNavigate } from "react-router-dom";
+import useLockScroll from "../../hooks/useLockScroll";
 
 function getStrength(pwd) {
     if (!pwd) return 0;
@@ -120,7 +121,7 @@ export default function ResetPassword({ setForgotModel, closeProfileForgotModel,
             setLoading(false);
         }
     };
-
+    useLockScroll()
     return (
         <div className={styles.modalOverlay}>
             {showResetMessage && <LoginSuccessMessage showResetMessage={showResetMessage} />}

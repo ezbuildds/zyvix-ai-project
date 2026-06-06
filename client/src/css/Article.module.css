@@ -88,7 +88,7 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
-    margin-top: 15px;
+    /* margin-top: 15px; */
 }
 
 .cardHeader {
@@ -271,10 +271,9 @@
     padding: 30px 28px;
     border: 2px solid var(--border);
     min-height: 565px;
-    height: auto;
+    height: 55vh;
     display: flex;
     flex-direction: column;
-    /* margin-bottom: 50px; */
 }
 
 .outputHeader {
@@ -631,6 +630,7 @@
     .outputCard {
         padding: 14px;
         border-radius: 14px;
+        margin-top: 15px;
     }
 
     .cardTitle {

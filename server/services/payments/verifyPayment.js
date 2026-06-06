@@ -35,6 +35,7 @@ export default async function verifyPayment(req, res) {
                         $set: {
                             plan: plan,
                             billing: billing,
+                            usedCredits: 0,
                             planUpdatedAt: new Date(),
                         }
                     })

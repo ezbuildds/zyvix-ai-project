@@ -92,13 +92,15 @@ function PlanCard({ plan, billing }) {
     )
 }
 
-export default function Plan({ closePlanPopUp }) {
+export default function Plan({ closePlanPopUp,setPlanPopUp,planPopUp}) {
     const [billing, setBilling] = useState("monthly");
     useLockScroll()
     return (
         <div className={styles.overlay}>
             <div className={styles.popup}>
-                <button className={styles.closeBtn} onClick={() => closePlanPopUp(false)} aria-label="Close"> ×</button>
+                {planPopUp?<button className={styles.closeBtn} onClick={() => setPlanPopUp(false)} aria-label="Close"> ×</button>
+                :<button className={styles.closeBtn} onClick={() => closePlanPopUp(false)} aria-label="Close"> ×</button>}
+                
                 <div className={styles.header}>
                     <span className={styles.pricingBadge}>Pricing</span>
                     <h1>Choose your plan</h1>

@@ -8,6 +8,8 @@ import Signup from "./Auth/Signup.jsx";
 import Login from "./Auth/Login.jsx";
 import Forgot from "./Auth/Forgot.jsx";
 import { authData } from "../Context/ContextApi.jsx";
+import Plan from "./Pricing/Plan.jsx";
+import useLockScroll from "../hooks/useLockScroll.js";
 
 const brands = [
   { cls: "linkedin", content: <><span style={{ fontWeight: 900, fontSize: 15, background: "#0077b5", color: "#fff", padding: "2px 5px", borderRadius: 3 }}>in</span>LinkedIn</> },
@@ -37,6 +39,7 @@ export default function LandingPage() {
   const [openSignupModel, setSignupModel] = useState(false)
   const [showLoginModel, setLoginModel] = useState(false)
   const [showForgotModel, setForgotModel] = useState(false)
+  const [planPopUp, setPlanPopUp] = useState(false)
   const [scrolled, setScrolled] = useState(false);
 
   const { user } = authData()
@@ -75,17 +78,16 @@ export default function LandingPage() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-
   return (
     <>
       <div className="page">
         <div className="bg-gradient" />
 
-        <Navbar openSignupModel={setSignupModel} scrolled={scrolled} />
+        <Navbar openSignupModel={setSignupModel} scrolled={scrolled} setPlanPopUp={setPlanPopUp} />
         {openSignupModel && <Signup openSignupModel={setSignupModel} openLoginModel={setLoginModel} />}
         {showLoginModel && <Login openSignupModel={setSignupModel} openLoginModel={setLoginModel} openForgotModel={setForgotModel} />}
         {showForgotModel && <Forgot setForgotModel={setForgotModel} setLoginModel={setLoginModel} />}
+        {planPopUp && <Plan setPlanPopUp={setPlanPopUp} planPopUp={planPopUp} />}
 
         {/* Hero */}
         <section className="hero">

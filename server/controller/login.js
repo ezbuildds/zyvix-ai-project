@@ -35,13 +35,13 @@ export default async function login(req, res) {
             sameSite: "strict",
             maxAge: 24 * 60 * 60 * 1000
         })
-        const limit = PLAN_LIMITS[user.plan] || PLAN_LIMITS.free;
+        const limit = PLAN_LIMITS[user.plan].credits || PLAN_LIMITS.Free;
         const currentCount = user?.usedCredits || 0;
         const remaining = Math.max(0, limit - currentCount)
         return res.status(200).send({
             success: true,
             message: "Login success",
-            data: { ...user, remainingLimit: remaining ,totalLimit: PLAN_LIMITS[user.plan] }
+            data: { ...user, remainingLimit: remaining, totalLimit: PLAN_LIMITS[user.plan] }
         })
     } catch (error) {
         return res.status(500).send({

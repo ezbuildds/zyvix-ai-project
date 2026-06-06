@@ -105,11 +105,11 @@ export default function ContentDashboard() {
                 <div className={styles.grain} />
                 <header className={styles.header}>
                     <div className={styles.headerLeft}>
-                        <div className={styles.logoMark}>
+                        {/* <div className={styles.logoMark}>
                             <span className={styles.logoAnim}>
                                 <BoltSmIcon color="#a151f6ff" />
                             </span>
-                        </div>
+                        </div> */}
                         <div>
                             <div className={styles.appName}>Dashboard</div>
                             <div className={styles.appTagline}>Your generation history</div>
@@ -126,7 +126,7 @@ export default function ContentDashboard() {
                     </div>
                 </header>
 
-                <div className={styles.statsRow}>
+                {/* <div className={styles.statsRow}>
                     {[
                         {
                             sub: "Total Generated",
@@ -157,7 +157,7 @@ export default function ContentDashboard() {
                             <div className={styles.statSub}>{s.sub}</div>
                         </div>
                     ))}
-                </div>
+                </div> */}
 
                 <div className={styles.controls}>
                     <div className={styles.searchWrap}>

@@ -20,6 +20,7 @@ export default async function profile(req, res) {
         const limit = PLAN_LIMITS[user.plan].credits || PLAN_LIMITS.Free;
         const currentCount = user?.usedCredits || 0;
         const remaining = Math.max(0, limit - currentCount)
+        console.log("Remaining :", remaining);
 
         const payments = await dataBase.collection("payments").find({ userId: user._id }).sort({ createdAt: -1 }).toArray()
         return res.status(200).send({

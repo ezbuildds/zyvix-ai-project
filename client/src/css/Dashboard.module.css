@@ -1,19 +1,17 @@
 /* ── Styles ────────────────────────────────────────────────── */
 
 .dbRoot {
-  font-family: "Poppins", sans-serif;
   display: flex;
   min-height: 100vh;
   /* background-color: #f0f9f7; */
   /* overflow: hidden; */
-  /* padding-bottom: 45px; */
 }
 
 .root {
   /* min-height: 100vh; */
   /* background: #F8FAFF; */
   position: relative;
-  padding: 0 0 48px 0;
+  /* padding: 0 0 48px 0; */
   width: 1400px;
 }
 
@@ -100,14 +98,14 @@
 }
 
 .appName {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
   color: #0F172A;
   letter-spacing: -0.4px;
 }
 
 .appTagline {
-  font-size: 11px;
+  font-size: 13px;
   color: #94A3B8;
   margin-top: 1px;
   letter-spacing: 0.3px;
@@ -394,8 +392,8 @@
   z-index: 1;
   /* overflow: hidden; */
   /* padding-bottom: 20px; */
-  height: auto;
-  max-height: 55vh;
+  height: 76vh;
+  max-height: 76vh;
   overflow-y: auto;
 }
 
@@ -666,7 +664,7 @@
 
   .list {
     padding: 16px 22px 0;
-    max-height: unset;
+    /* max-height: unset; */
   }
 
   .footer {
@@ -687,9 +685,9 @@
     min-height: 100vh;
   }
 
-  .root {
+  /* .root {
     padding-bottom: 28px;
-  }
+  } */
 
   .header {
     flex-direction: column;
@@ -771,8 +769,10 @@
   .list {
     padding: 14px 16px 0;
     gap: 12px;
-    max-height: unset;
-    overflow: visible;
+    /* max-height: unset;
+    overflow: visible; */
+    height: 50vh;
+    max-height: 50vh;
   }
 
   .card {
@@ -924,6 +924,9 @@
   .list {
     padding: 12px;
     gap: 10px;
+    height: 55vh;
+  max-height: 55vh;
+
   }
 
   .card {

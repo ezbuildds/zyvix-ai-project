@@ -92,11 +92,11 @@ function Forgot({ setForgotModel, showProfileForgotModel, closeProfileForgotMode
                     </div>
 
                     {/* info strip */}
-                    <div style={{ display: "flex", alignItems: "center", gap: 10, backgroundColor: "#f5f3ff", border: "1px solid #e8e4ff", borderRadius: 12, padding: "11px 14px" }}>
+                    {/* <div style={{ display: "flex", alignItems: "center", gap: 10, backgroundColor: "#f5f3ff", border: "1px solid #e8e4ff", borderRadius: 12, padding: "11px 14px" }}>
                         <div style={{ fontSize: 11, fontWeight: 600, color: "#9381ff", lineHeight: 1.5, textAlign: "center" }}>
                             A 6-digit verification code will be sent to your email. Code expires in 10 minutes.
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className={styles.cardFooter}>

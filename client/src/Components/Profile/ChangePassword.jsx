@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { LockIcon } from "./Icons/Icon";
 import styles from "./changepassword.module.css"
+import useLockScroll from "../../hooks/useLockScroll";
 function getStrength(pwd) {
     if (!pwd) return 0;
     let s = 0;
@@ -36,7 +37,7 @@ function EyeIcon({ open }) {
 }
 
 
-export default function ChangePassword({ setChangePasswordModel ,setProfileForgotModel}) {
+export default function ChangePassword({ setChangePasswordModel, setProfileForgotModel }) {
     const [form, setForm] = useState({ current: "", newPwd: "", confirm: "" });
     const [show, setShow] = useState({ current: false, newPwd: false, confirm: false });
     const [errors, setErrors] = useState({});
@@ -67,7 +68,7 @@ export default function ChangePassword({ setChangePasswordModel ,setProfileForgo
         setLoading(true);
         setTimeout(() => { setLoading(false); setSuccess(true); }, 1800);
     };
-
+    // useLockScroll()
     return (
         <>
             <div className={styles.modalOverlay}>
@@ -75,10 +76,10 @@ export default function ChangePassword({ setChangePasswordModel ,setProfileForgo
                     {/* Header */}
                     <div className={styles.modalHeader}>
                         <div className={styles.headerLeft}>
-                            <div className={styles.headerIcon}>
+                            {/* <div className={styles.headerIcon}>
                                 <div className={styles.headerIconPulse} />
                                 <LockIcon />
-                            </div>
+                            </div> */}
 
                             <div className={styles.headerTitleWrap}>
                                 <div className={styles.modalTitle}>Change Password</div>
@@ -95,7 +96,7 @@ export default function ChangePassword({ setChangePasswordModel ,setProfileForgo
                         <div className={styles.fieldGroup}>
                             <label className={styles.fieldLabel}>
                                 Current Password
-                                <span className={styles.fieldHintLink} onClick={()=>{setProfileForgotModel(true);setChangePasswordModel(false)}}>Forgot password?</span>
+                                <span className={styles.fieldHintLink} onClick={() => { setProfileForgotModel(true); setChangePasswordModel(false) }}>Forgot password?</span>
                             </label>
 
                             <div className={styles.inputWrap}>
