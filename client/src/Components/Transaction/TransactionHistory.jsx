@@ -1,17 +1,18 @@
 import { useState } from "react";
 import styles from "./transactionHistory.module.css";
 import { authData } from "../../Context/ContextApi";
+import Sidebar from "../Pages/Sidebar";
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
 const PLAN_META = {
-  lite:       { label: "Lite",       icon: "⚡", colorClass: "lite" },
-  plus:       { label: "Plus",       icon: "🚀", colorClass: "plus" },
-  enterprise: { label: "Enterprise", icon: "🏢", colorClass: "ent"  },
+  lite: { label: "Lite", icon: "⚡", colorClass: "lite" },
+  plus: { label: "Plus", icon: "🚀", colorClass: "plus" },
+  enterprise: { label: "Enterprise", icon: "🏢", colorClass: "ent" },
 };
 
 const STATUS_META = {
   success: { label: "Success", colorClass: "success" },
-  failed:  { label: "Failed",  colorClass: "failed"  },
+  failed: { label: "Failed", colorClass: "failed" },
   pending: { label: "Pending", colorClass: "pending" },
 };
 
@@ -29,7 +30,7 @@ function formatAmount(amount, currency) {
 
 // ── Single transaction card ──────────────────────────────────────────────────
 function TxnCard({ txn }) {
-  const plan   = PLAN_META[txn.plan]   || { label: txn.plan,   icon: "💳", colorClass: "lite" };
+  const plan = PLAN_META[txn.plan] || { label: txn.plan, icon: "💳", colorClass: "lite" };
   const status = STATUS_META[txn.status] || { label: txn.status, colorClass: "pending" };
 
   return (
@@ -55,8 +56,8 @@ function TxnCard({ txn }) {
 
         <div className={styles.creditsPill}>
           ✦ {txn.credits.toLocaleString()} credits
-          {txn.status === "failed"   && <span className={styles.creditsNote}> — not issued</span>}
-          {txn.status === "pending"  && <span className={styles.creditsNote}> — processing</span>}
+          {txn.status === "failed" && <span className={styles.creditsNote}> — not issued</span>}
+          {txn.status === "pending" && <span className={styles.creditsNote}> — processing</span>}
         </div>
       </div>
 
@@ -76,25 +77,28 @@ function TxnCard({ txn }) {
 
 // ── Main component ───────────────────────────────────────────────────────────
 export default function TransactionHistory() {
-  const {user}=authData()
+  const { user } = authData()
   return (
-    <div className={styles.wrap}>
-      <div className={styles.header}>
-        <div>
-          <h2 className={styles.heading}>Transaction history</h2>
-          <p className={styles.subheading}>Your billing & payment records</p>
-        </div>
-      </div>
-
-      {/* Cards */}
-      <div className={styles.list}>
-        {user.transactions.length === 0 ? (
-          <div className={styles.empty}>
-            <span>No  transactions found.</span>
+    <div className={styles.dbRoot}>
+      <Sidebar />
+      <div className={styles.wrap}>
+        <div className={styles.header}>
+          <div>
+            <h2 className={styles.heading}>Transaction history</h2>
+            <p className={styles.subheading}>Your billing & payment records</p>
           </div>
-        ) : (
-          user.transactions.map(txn => <TxnCard key={txn._id} txn={txn} />)
-        )}
+        </div>
+
+        {/* Cards */}
+        <div className={styles.list}>
+          {user.transactions.length === 0 ? (
+            <div className={styles.empty}>
+              <span>No  transactions found.</span>
+            </div>
+          ) : (
+            user.transactions.map(txn => <TxnCard key={txn._id} txn={txn} />)
+          )}
+        </div>
       </div>
     </div>
   );
