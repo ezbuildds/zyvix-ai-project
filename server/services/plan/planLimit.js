@@ -1,6 +1,6 @@
 export const PLAN_LIMITS = {
     Free: {
-        credits: 50,
+        credits: 10,
     },
     Basic: {
         name: "Basic",

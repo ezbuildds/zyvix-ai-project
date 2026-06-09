@@ -41,7 +41,7 @@ export default async function login(req, res) {
         return res.status(200).send({
             success: true,
             message: "Login success",
-            data: { ...user, remainingLimit: remaining, totalLimit: PLAN_LIMITS[user.plan] }
+            data: { ...user, remainingLimit: remaining, totalLimit: PLAN_LIMITS[user.plan].credits }
         })
     } catch (error) {
         return res.status(500).send({

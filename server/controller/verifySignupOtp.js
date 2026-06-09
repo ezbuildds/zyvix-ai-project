@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken"
 import "dotenv/config"
 import crypto from "crypto"
 import { ObjectId } from "mongodb";
+import { PLAN_LIMITS } from "../services/plan/planLimit.js";
 
 export default async function verifySignupOtp(req, res) {
     try {
@@ -59,7 +60,7 @@ export default async function verifySignupOtp(req, res) {
             return res.status(200).send({
                 success: true,
                 message: "OTP verify success",
-                data: user
+                data: {...user,totalLimit: PLAN_LIMITS[user.plan].credits}
             })
         } catch (error) {
             return res.status(401).send({

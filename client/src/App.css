@@ -32,7 +32,11 @@
     font-family: 'Outfit', sans-serif;
      -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    
 }
+/* body{
+    background: linear-gradient(180deg, #f8fafc, #ffffff);
+} */
 
 .page {
     overflow: hidden;
@@ -63,7 +67,7 @@
     margin-bottom: 10px;
     border-radius: 100px;
     background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px dotted rgb(121, 121, 121);
     backdrop-filter: blur(30px);
     font-size: 13px;
     font-weight: 500;
